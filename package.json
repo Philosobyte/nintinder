@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/Philosobyte/nintinder/issues"
   },
-  "homepage": "https://github.com/Philosobyte/nintinder#readme"
+  "homepage": "https://github.com/Philosobyte/nintinder#readme",
+  "dependencies": {
+    "semantic-ui": "^2.2.14"
+  }
 }
