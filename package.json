@@ -1,0 +1,19 @@
+{
+  "name": "nintinder",
+  "version": "1.0.0",
+  "description": "when you wanna smash",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Philosobyte/nintinder.git"
+  },
+  "author": "tikkachu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Philosobyte/nintinder/issues"
+  },
+  "homepage": "https://github.com/Philosobyte/nintinder#readme"
+}
