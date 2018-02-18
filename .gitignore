@@ -1,1 +1,8 @@
+# ignores all node modules
 node_modules/
+
+# ignores visual studio user workspace preferences
+.vscode
+
+# ignore .DS_Store file from macOS
+.DS_Store
