@@ -1,7 +1,12 @@
+/*****************************************
+* Header Bar                             *
+*******************************************/
 #header{
   width: 100%;
+  height: 5%;
   display: table;
   background: coral;
+  margin-bottom: 0;
 }
 
 #header-logo, #header-search-bar, #header-user-info{
@@ -16,7 +21,40 @@
 #header-user-info{
   text-align: right;
 }
+
 #user-icon{
   width: 40px;
   display: inline-block;
+}
+
+/*****************************************
+* Nav Bar                                *
+*******************************************/
+
+#nav-bar{
+  background: #508cc8;
+  display: inline-block;
+  height: 92.4%;
+  margin-top: 0;
+  width: 200px;
+  text-align: center;
+}
+
+#nav-bar > ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  padding-top: 30px;
+  text-align: center;
+}
+
+#nav-bar > ul > li{
+  height: 60px;
+}
+
+#nav-bar > ul > li > a{
+  text-align: center;
+  color: white;
+  font-size: 1.3em;
+  text-decoration-style: none;
 }
