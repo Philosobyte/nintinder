@@ -1,0 +1,22 @@
+#header{
+  width: 100%;
+  display: table;
+  background: coral;
+}
+
+#header-logo, #header-search-bar, #header-user-info{
+  display: table-cell;
+  vertical-align: middle;
+}
+
+#header-logo, #header-user-info{
+  width: 200px;
+}
+
+#header-user-info{
+  text-align: right;
+}
+#user-icon{
+  width: 40px;
+  display: inline-block;
+}
