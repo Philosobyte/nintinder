@@ -15,54 +15,9 @@
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
     <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
     <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <link rel="stylesheet" type="text/css" href="css/profile-page.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
-
-    <style type="text/css">
-        .profile-content {
-            margin: 1rem;
-        }
-
-        .left-column {
-            margin: 1rem;
-        }
-
-        .profile-game-logo {
-            height: 10rem;
-            width: 10rem;
-            float: left;
-        }
-
-        .profile-game-card {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .profile-games {
-            display: flex;
-            flex-flow: row;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-
-        #profile-page-pic {
-            height: 100%;
-            width: 100%;
-        }
-
-        #profile-name-div {
-            padding: 1rem;
-        }
-
-        #profile-name {
-            font-size: 2rem;
-        }
-
-        #profile-age {
-            margin-top: 0px;
-        }
-    </style>
 
     <title>Nintinder</title>
 </head>
@@ -89,7 +44,7 @@
     </div>
 
     <div id="main-content" class="ui bottom attached segment pushable">
-        <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
+        <div id="sidebar-nav" class="ui visible inverted left vertical sidebar menu">
             <a href="" class="item">Home</a>
             <a href="" class="item">Feed</a>
             <a href="" class="item">Friends</a>
@@ -98,7 +53,7 @@
 
         <div id="content" class="pusher">
             <div class="profile-content">
-                <div class="ui grid">
+                <div id="profile-content-grid" class="ui grid">
                     <div class="row">
                         <div class="two wide column">
                             <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
@@ -144,7 +99,7 @@
                     </div>
                     <div class="row">
                         <div class="column left-column">
-                            <a href="#">
+                            <a href="achievements.html">
                                 <h1>See Achievements</h1>
                             </a>
                         </div>

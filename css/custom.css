@@ -115,4 +115,9 @@
 
 #main-content {
   margin-top: 4.5rem;
+  margin-bottom: 0;
+}
+
+#sidebar-nav {
+  height: 100%vh;
 }
