@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+    <script src="js/glide.js"></script>
+    <link rel="stylesheet" href="css/glide.core.css">
+    <link rel="stylesheet" href="css/glide.theme.css">
+    <link rel="stylesheet" href="css/index.css">
+    <title>Title</title>
+</head>
+<body>
+<div class="ui middle aligned center aligned grid">
+    <div class="ui row" style="margin-top: 16px">
+        <h1>Gaurab, 7 people would like to play you!</h1>
+    </div>
+    <div class="ui row">
+        <div id="Glide" class="glide">
+            <div class="glide__arrows">
+                <button class="glide__arrow prev" data-glide-dir="<">prev</button>
+                <button class="glide__arrow next" data-glide-dir=">">next</button>
+            </div>
+
+            <div class="glide__wrapper">
+                <div class="glide__track">
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/gaben.jpg">
+                        </div>
+                        <div class="content">
+                            <span class="header">GabeN</span>
+                            <div class="meta">
+                                Our Lord and Savior
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: Half-Life 3, CS:GO
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/success.png">
+                        </div>
+                        <div class="content">
+                            <span class="header">Success Baby</span>
+                            <div class="meta">
+                                Our Future Lord and Savior
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: Hide-and-Seek, Water Pong
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/point_of_view.jpg">
+                        </div>
+                        <div class="content">
+                            <span class="header">Point of View</span>
+                            <div class="meta">
+                                Our Dark Lord and Savior
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: Civilization VI, Russian Roulette
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/bill.jpg">
+                        </div>
+                        <div class="content">
+                            <span class="header">Bill</span>
+                            <div class="meta">
+                                Our Favorite Lord and Savior
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: Monopoly
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/pianist.jpg">
+                        </div>
+                        <div class="content">
+                            <span class="header">Pianist</span>
+                            <div class="meta">
+                                Someone else's Lord and Savior
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: GoldenEye 007, Injustice 2
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/potus.jpg">
+                        </div>
+                        <div class="content">
+                            <span class="header">POTUS</span>
+                            <div class="meta">
+                                50% of the U.S.'s Lord and Savior
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: Mario Golf
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui card glide__slide">
+                        <div class="image">
+                            <img src="images/nicki.jpg">
+                        </div>
+                        <div class="content">
+                            <span class="header">Nicki</span>
+                            <div class="meta">
+                                Music's Lord and S- wait a minute...
+                            </div>
+                            <div class="description">
+                                <strong>Games</strong>: Super Smash Bros. Melee, VR Chat, Dance Dance Revolution
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="glide__bullets"></div>
+        </div>
+    </div>
+</div>
+<script>
+    $("#Glide").glide({
+        type: "carousel",
+        paddings: "200px"
+    });
+</script>
+</body>
+</html>
