@@ -19,12 +19,48 @@
     <script src="semantic/dist/semantic.min.js"></script>
 
     <style type="text/css">
-        #profile-content {
-            margin: 1rem; 
+        .profile-content {
+            margin: 1rem;
         }
+
+        .left-column {
+            margin: 1rem;
+        }
+
+        .profile-game-logo {
+            height: 10rem;
+            width: 10rem;
+            float: left;
+        }
+
+        .profile-game-card {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .profile-games {
+            display: flex;
+            flex-flow: row;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
         #profile-page-pic {
             height: 100%;
             width: 100%;
+        }
+
+        #profile-name-div {
+            padding: 1rem;
+        }
+
+        #profile-name {
+            font-size: 2rem;
+        }
+
+        #profile-age {
+            margin-top: 0px;
         }
     </style>
 
@@ -77,20 +113,59 @@
     </div>
 
     <div id="main-content" class="ui right">
-        <div id="profile-content">
+        <div class="profile-content">
             <div class="ui grid">
                 <div class="row">
                     <div class="two wide column">
                         <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
                             alt="profile-image">
                     </div>
-                    <div class="three wide column">
-                        <h1 class="ui title padded">Gaurab Pant</h1>
-                        <h2 class="ui padded">Age 20</h2>
+                    <div id="profile-name-div" class="fourteen wide column">
+                        <div class="ui grid">
+                            <div class="row">
+                                <div class="six wide column">
+                                    <h1 id="profile-name" class="ui">Gaurab Pant</h1>
+                                    <h2 id="profile-age" class="ui">Age: 20</h2>
+                                    <h3>Location: Norwood, Massachusetts, USA</h3>
+                                    <h3>Looking for: Princess Peach</h3>
+                                </div>
+                                <div class="ten wide column">
+                                    <h1>Master Chief</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="column left-column">
+                            <h1>Games:</h1>
+                        </div>
+                        <div class="column left-column profile-games">
+                            <div class="ui centered cards">
+                                <div class="ui card profile-game-card">
+                                    <img class="profile-game-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/SmashBall.svg" alt="game-logo">
+                                    <h1>Super Smash Bros.</h1>
+                                </div>
+                                <div class="ui card profile-game-card">
+                                    <img class="profile-game-logo" src="https://upload.wikimedia.org/wikipedia/en/5/59/Hearts_Vista_Icon.png" alt="game-logo">
+                                    <h1>Microsoft Hearts</h1>
+                                </div>
+                                <div class="ui card profile-game-card">
+                                    <img class="profile-game-logo" src="https://is2-ssl.mzstatic.com/image/thumb/Purple118/v4/11/03/cc/1103cc8d-405c-f9f1-b5f2-da94a75c5de4/AppIcon-1x_U007emarketing-85-220-0-8.png/246x0w.jpg"
+                                        alt="game-logo">
+                                    <h1>Pokemon Go!</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="column left-column">
+                        <a href="#">
+                            <h1>See Achievements</h1>
+                        </a>
                     </div>
                 </div>
             </div>
-            
         </div>
     </div>
 </body>
