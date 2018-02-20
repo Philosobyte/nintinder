@@ -58,3 +58,14 @@
   font-size: 1.3em;
   text-decoration-style: none;
 }
+
+#navbar-logo {
+  padding-right: 0.25rem;
+}
+
+/*****************************************
+* Main Content Area                       *
+*******************************************/
+#main-content {
+  margin-top: 3.6rem;
+}

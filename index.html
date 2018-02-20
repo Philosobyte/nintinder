@@ -1,52 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <!-- meta data -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name "description" content="Find and play with your next perfect
-      gaming buddy. Nintinder is the one-stop solution for the optimal
-      gaming experience for you.">
-    <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang,
-        Bhishma Pant, Kush Patel, Oliver Pang">
+    <head>
+        <!-- meta data -->
+        <meta charset="UTF-8">
+        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+        <meta name "description" content="Find and play with your next perfect
+        gaming buddy. Nintinder is the one-stop solution for the optimal
+        gaming experience for you.">
+        <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang,
+            Bhishma Pant, Kush Patel, Oliver Pang">
 
-    <!-- external css and js files -->
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script src="semantic/dist/semantic.min.js"></script>
+        <!-- external css and js files -->
+        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
+        <link rel="stylesheet" type="text/css" href="css/custom.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+        <script src="semantic/dist/semantic.min.js"></script>
 
-    <title>Nintinder</title>
-  </head>
-  <body>
-    <div id="header" class="ui raised segment">
-      <div id="header-logo">
-        <h1><a href="#">NINTINDER</a></h1>
-      </div>
-      <div id="header-search-bar">
-        <div class="ui action left icon input" style="width: 100%;">
-          <i class="search icon"></i><input placeholder="Search..." type="text">
-          <div class="ui blue button">
-            Search
-          </div>
+        <title>Nintinder</title>
+    </head>
+
+    <body>
+        <div id="navbar" class="ui fixed main menu">
+            <a href="#" class="item">
+                <img id="navbar-logo" class="logo" src="images/square-image.png"> 
+                <p>Nintinder</p>
+            </a>
         </div>
-      </div>
-      <div id="header-user-info">
-        Gaurab Pant
-        <img id="user-icon" class="ui small circular image" src="images/square-image.png">
-      </div>
-    </div>
-    <div id="nav-bar">
-      <ul>
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Feed</a></li>
-        <li><a href="#">Friends</a></li>
-        <li><a href="#">Subs</a></li>
-        <li><a href="#">Achievements</a></li>
-        <li><a href="#"><i class="settings icon"></i>Settings</a></li>
-      </ul>
-    </div>
-    <div id="main-content"></div>
-  </body>
+
+        <div id="main-content" class="ui bottom attached segment pushable">
+            <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
+                <a href="" class="item">Home</a>
+                <a href="" class="item">Feed</a>
+                <a href="" class="item">Friends</a>
+                <a href="" class="item">Subs</a>
+            </div>
+
+            <div id="content" class="pusher">
+                <div class="ui basic segment">
+                    <h2>Hi Friends :D</h2>
+                </div>
+            </div>
+        </div>
+    </body>
 </html>
