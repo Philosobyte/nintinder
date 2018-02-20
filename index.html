@@ -1,46 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <!-- meta data -->
-        <meta charset="UTF-8">
-        <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
-        <meta name "description" content="Find and play with your next perfect
+
+<head>
+    <!-- meta data -->
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name "description" content="Find and play with your next perfect
         gaming buddy. Nintinder is the one-stop solution for the optimal
         gaming experience for you.">
-        <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang,
+    <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang,
             Bhishma Pant, Kush Patel, Oliver Pang">
 
-        <!-- external css and js files -->
-        <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-        <script src="semantic/dist/semantic.min.js"></script>
+    <!-- external css and js files -->
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
 
-        <title>Nintinder</title>
-    </head>
+    <title>Nintinder</title>
+</head>
 
-    <body>
-        <div id="navbar" class="ui fixed main menu">
-            <a href="#" class="item">
-                <img id="navbar-logo" class="logo" src="images/square-image.png"> 
+<body>
+    <div id="navbar" class="ui fixed main raised menu">
+        <div class="item left nospace" style="width: 18.5rem;">
+            <a href="#" class="item navbar-button">
+                <img id="navbar-logo" class="logo" src="images/square-image.png">
                 <p>Nintinder</p>
             </a>
         </div>
 
-        <div id="main-content" class="ui bottom attached segment pushable">
-            <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
-                <a href="" class="item">Home</a>
-                <a href="" class="item">Feed</a>
-                <a href="" class="item">Friends</a>
-                <a href="" class="item">Subs</a>
-            </div>
-
-            <div id="content" class="pusher">
-                <div class="ui basic segment">
-                    <h2>Hi Friends :D</h2>
+        <span class="ui" style="width: auto;">
+            <span class="ui action left icon input" style="width: 100%;">
+                <i class="search icon"></i>
+                <input placeholder="Search..." type="text">
+                <div class="ui blue button">
+                    Search
                 </div>
+            </span>
+        </span>
+
+        <div class="item right nospace content-center" style="width: 15%;">
+            <a href="#" class="item navbar-button">
+                <p id="navbar-username" class="nospace">Gaurab Pant</p>
+                <img class="circular logo" src="images/square-image.png">
+            </a>
+        </div>
+
+        <!-- <span class="ui" style="width:100%;">
+                
+            </span> -->
+    </div>
+
+    <div id="main-content" class="ui bottom attached segment pushable">
+        <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
+            <a href="" class="item">Home</a>
+            <a href="" class="item">Feed</a>
+            <a href="" class="item">Friends</a>
+            <a href="" class="item">Subs</a>
+        </div>
+
+        <div id="content" class="pusher">
+            <div class="ui basic segment">
+                <h2>Hi Friends :D</h2>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>
