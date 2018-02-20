@@ -115,9 +115,12 @@
 
 #main-content {
   margin-top: 4.5rem;
+<<<<<<< HEAD
   margin-bottom: 0;
 }
 
 #sidebar-nav {
   height: 100%vh;
+=======
+>>>>>>> mock/matches
 }
