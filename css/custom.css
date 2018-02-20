@@ -33,11 +33,12 @@
 
 #nav-bar{
   background: #508cc8;
-  display: inline-block;
+  display: block;
   height: 92.4%;
   margin-top: 0;
   width: 200px;
   text-align: center;
+  float: left;
 }
 
 #nav-bar > ul{

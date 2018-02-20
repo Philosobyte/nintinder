@@ -18,6 +18,16 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
 
+    <style type="text/css">
+        #profile-content {
+            margin: 1rem; 
+        }
+        #profile-page-pic {
+            height: 100%;
+            width: 100%;
+        }
+    </style>
+
     <title>Nintinder</title>
 </head>
 
@@ -42,7 +52,7 @@
             <img id="user-icon" class="ui small circular image" src="images/square-image.png">
         </div>
     </div>
-    <div id="nav-bar">
+    <div id="nav-bar" class="ui left">
         <ul>
             <li>
                 <a href="#">Home</a>
@@ -65,8 +75,23 @@
             </li>
         </ul>
     </div>
-    <div id="main-content">
-        Hello! This is the profile page.
+
+    <div id="main-content" class="ui right">
+        <div id="profile-content">
+            <div class="ui grid">
+                <div class="row">
+                    <div class="two wide column">
+                        <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
+                            alt="profile-image">
+                    </div>
+                    <div class="three wide column">
+                        <h1 class="ui title padded">Gaurab Pant</h1>
+                        <h2 class="ui padded">Age 20</h2>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     </div>
 </body>
 
