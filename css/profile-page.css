@@ -50,3 +50,11 @@
 #profile-age {
   margin-top: 0px;
 }
+
+#profile-title {
+  background-color: rgb(48, 216, 48);
+}
+
+#profile-title-label {
+  margin: 0;
+}
