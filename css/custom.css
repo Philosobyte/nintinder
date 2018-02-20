@@ -115,54 +115,9 @@
 
 #main-content {
   margin-top: 4.5rem;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
   margin-bottom: 0;
 }
 
 #sidebar-nav {
   height: 100%vh;
-=======
->>>>>>> mock/matches
 }
-=======
-}
-#nav-list-container{
-  height: 100%;
-}
-
-#achievement-header{
-  margin-bottom: 30px;
-  margin-top: 10px;
-  margin-left: 20px;
-}
-
-.achievement-list{
-  height: 300px;
-}
-
-h1{
-  font-size: 35px;
-}
-h2{
-  font-size: 20px;
-}
-.item{
-  width: 140px;
-}
-.image{
-  width: 140px;
-}
-.dark{
-  filter:brightness(50%);
-}
->>>>>>> achievement2
-=======
-}
-
-#content{
-  margin-top: 3rem;
-  margin-left: 3rem;
-}
->>>>>>> mock/settings2
