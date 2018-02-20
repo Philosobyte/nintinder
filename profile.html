@@ -4,12 +4,12 @@
 <head>
     <!-- meta data -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
     <meta name "description" content="Find and play with your next perfect
             gaming buddy. Nintinder is the one-stop solution for the optimal
             gaming experience for you.">
     <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang,
-            Bhishma Pant, Kush Patel, Oliver Pang">
+                Bhishma Pant, Kush Patel, Oliver Pang">
 
     <!-- external css and js files -->
     <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
@@ -18,151 +18,90 @@
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="semantic/dist/semantic.min.js"></script>
 
-    <style type="text/css">
-        .profile-content {
-            margin: 1rem;
-        }
-
-        .left-column {
-            margin: 1rem;
-        }
-
-        .profile-game-logo {
-            height: 10rem;
-            width: 10rem;
-            float: left;
-        }
-
-        .profile-game-card {
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .profile-games {
-            display: flex;
-            flex-flow: row;
-            flex-direction: row;
-            flex-wrap: wrap;
-        }
-
-        #profile-page-pic {
-            height: 100%;
-            width: 100%;
-        }
-
-        #profile-name-div {
-            padding: 1rem;
-        }
-
-        #profile-name {
-            font-size: 2rem;
-        }
-
-        #profile-age {
-            margin-top: 0px;
-        }
-    </style>
-
     <title>Nintinder</title>
 </head>
 
 <body>
-    <div id="header" class="ui raised segment">
-        <div id="header-logo">
-            <h1>
-                <a href="#">NINTINDER</a>
-            </h1>
-        </div>
-        <div id="header-search-bar">
-            <div class="ui action left icon input" style="width: 100%;">
-                <i class="search icon"></i>
-                <input placeholder="Search..." type="text">
-                <div class="ui blue button">
-                    Search
-                </div>
+    <div class="ui three item menu fixed">
+        <a id="navbar-nintinder" class="item left nospace" href="#" style="width: 18.5rem">
+            <img id="navbar-logo" class="logo" src="images/square-image.png">
+            <p>Nintinder</p>
+        </a>
+
+        <span class="ui item action left icon input">
+            <i class="search icon"></i>
+            <input placeholder="Search..." type="text">
+            <div class="ui blue button">
+                Search
             </div>
-        </div>
-        <div id="header-user-info">
-            Gaurab Pant
-            <img id="user-icon" class="ui small circular image" src="images/square-image.png">
-        </div>
-    </div>
-    <div id="nav-bar" class="ui left">
-        <ul>
-            <li>
-                <a href="#">Home</a>
-            </li>
-            <li>
-                <a href="#">Feed</a>
-            </li>
-            <li>
-                <a href="#">Friends</a>
-            </li>
-            <li>
-                <a href="#">Subs</a>
-            </li>
-            <li>
-                <a href="#">Achievements</a>
-            </li>
-            <li>
-                <a href="#">
-                    <i class="settings icon"></i>Settings</a>
-            </li>
-        </ul>
+        </span>
+
+        <a id="navbar-profile" class="item right nospace" href="#" style="max-width: 15%;">
+            <p id="navbar-username" class="nospace">Gaurab Pant</p>
+            <img class="circular logo" src="images/square-image.png">
+        </a>
     </div>
 
-    <div id="main-content" class="ui right">
-        <div class="profile-content">
-            <div class="ui grid">
-                <div class="row">
-                    <div class="two wide column">
-                        <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
-                            alt="profile-image">
-                    </div>
-                    <div id="profile-name-div" class="fourteen wide column">
-                        <div class="ui grid">
-                            <div class="row">
-                                <div class="six wide column">
-                                    <h1 id="profile-name" class="ui">Gaurab Pant</h1>
-                                    <h2 id="profile-age" class="ui">Age: 20</h2>
-                                    <h3>Location: Norwood, Massachusetts, USA</h3>
-                                    <h3>Looking for: Princess Peach</h3>
+    <div id="main-content" class="ui bottom attached segment pushable">
+        <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
+            <a href="" class="item">Home</a>
+            <a href="" class="item">Feed</a>
+            <a href="" class="item">Friends</a>
+            <a href="" class="item">Subs</a>
+        </div>
+
+        <div id="content" class="pusher">
+            <div class="profile-content">
+                <div class="ui grid">
+                    <div class="row">
+                        <div class="two wide column">
+                            <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
+                                alt="profile-image">
+                        </div>
+                        <div id="profile-name-div" class="fourteen wide column">
+                            <div class="ui grid">
+                                <div class="row">
+                                    <div class="six wide column">
+                                        <h1 id="profile-name" class="ui">Gaurab Pant</h1>
+                                        <h2 id="profile-age" class="ui">Age: 20</h2>
+                                        <h3>Location: Norwood, Massachusetts, USA</h3>
+                                        <h3>Looking for: Princess Peach</h3>
+                                    </div>
+                                    <div class="ten wide column">
+                                        <h1>Master Chief</h1>
+                                    </div>
                                 </div>
-                                <div class="ten wide column">
-                                    <h1>Master Chief</h1>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column left-column">
+                                <h1>Games:</h1>
+                            </div>
+                            <div class="column left-column profile-games">
+                                <div class="ui centered cards">
+                                    <div class="ui card profile-game-card">
+                                        <img class="profile-game-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/SmashBall.svg" alt="game-logo">
+                                        <h1>Super Smash Bros.</h1>
+                                    </div>
+                                    <div class="ui card profile-game-card">
+                                        <img class="profile-game-logo" src="https://upload.wikimedia.org/wikipedia/en/5/59/Hearts_Vista_Icon.png" alt="game-logo">
+                                        <h1>Microsoft Hearts</h1>
+                                    </div>
+                                    <div class="ui card profile-game-card">
+                                        <img class="profile-game-logo" src="https://is2-ssl.mzstatic.com/image/thumb/Purple118/v4/11/03/cc/1103cc8d-405c-f9f1-b5f2-da94a75c5de4/AppIcon-1x_U007emarketing-85-220-0-8.png/246x0w.jpg"
+                                            alt="game-logo">
+                                        <h1>Pokemon Go!</h1>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="column left-column">
-                            <h1>Games:</h1>
+                            <a href="#">
+                                <h1>See Achievements</h1>
+                            </a>
                         </div>
-                        <div class="column left-column profile-games">
-                            <div class="ui centered cards">
-                                <div class="ui card profile-game-card">
-                                    <img class="profile-game-logo" src="https://upload.wikimedia.org/wikipedia/commons/1/1b/SmashBall.svg" alt="game-logo">
-                                    <h1>Super Smash Bros.</h1>
-                                </div>
-                                <div class="ui card profile-game-card">
-                                    <img class="profile-game-logo" src="https://upload.wikimedia.org/wikipedia/en/5/59/Hearts_Vista_Icon.png" alt="game-logo">
-                                    <h1>Microsoft Hearts</h1>
-                                </div>
-                                <div class="ui card profile-game-card">
-                                    <img class="profile-game-logo" src="https://is2-ssl.mzstatic.com/image/thumb/Purple118/v4/11/03/cc/1103cc8d-405c-f9f1-b5f2-da94a75c5de4/AppIcon-1x_U007emarketing-85-220-0-8.png/246x0w.jpg"
-                                        alt="game-logo">
-                                    <h1>Pokemon Go!</h1>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="column left-column">
-                        <a href="#">
-                            <h1>See Achievements</h1>
-                        </a>
                     </div>
                 </div>
             </div>
