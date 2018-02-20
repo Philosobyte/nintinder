@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- meta data -->
+    <meta charset="UTF-8">
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+    <meta name "description" content="Find and play with your next perfect
+            gaming buddy. Nintinder is the one-stop solution for the optimal
+            gaming experience for you.">
+    <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang,
+                Bhishma Pant, Kush Patel, Oliver Pang">
+
+    <!-- external css and js files -->
+    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="semantic/dist/semantic.min.js"></script>
+
+    <title>Nintinder</title>
+</head>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();
+    });
+
+    $('.special.cards .image').dimmer({
+        on: 'hover'
+    });
+</script>
+
+<body>
+    <div class="ui three item menu fixed">
+        <a id="navbar-nintinder" class="item left nospace" href="#" style="width: 18.5rem">
+            <img id="navbar-logo" class="logo" src="images/square-image.png">
+            <p>Nintinder</p>
+        </a>
+
+        <span class="ui item action left icon input">
+            <i class="search icon"></i>
+            <input placeholder="Search..." type="text">
+            <div class="ui blue button">
+                Search
+            </div>
+        </span>
+
+        <a id="navbar-profile" class="item right nospace" href="#" style="max-width: 15%;">
+            <p id="navbar-username" class="nospace">Gaurab Pant</p>
+            <img class="circular logo" src="images/square-image.png">
+        </a>
+    </div>
+
+    <div id="main-content" class="ui bottom attached segment pushable">
+        <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
+            <a href="" class="item">Home</a>
+            <a href="" class="item">Feed</a>
+            <a href="" class="item">Friends</a>
+            <a href="" class="item">Subs</a>
+        </div>
+
+        <div id="content" class="pusher">
+            <div class="ui two column grid">
+                <div class="eight wide column">
+                    <h2 class="ui header">
+                        <div class="content">
+                            Your Profile
+                        </div>
+                    </h2>
+                    <div class="ui stackable two column divided grid container">
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        First Name
+                                    </div>
+                                    <input type="text" placeholder="Gaurab">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        Last Name
+                                    </div>
+                                    <input type="text" placeholder="Pant">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        Date of Birth
+                                    </div>
+                                    <input type="text" placeholder="04/20/1996">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        Email
+                                    </div>
+                                    <input type="text" placeholder="gpant1738@gmail.com">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        Password
+                                    </div>
+                                    <input type="text" placeholder="********">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="ui centered column">
+                                <button class="ui primary basic button">Change Password</button>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+                                <div class="field">
+                                    <div class="ui floating dropdown labeled search icon button">
+                                        <i class="world icon"></i>
+                                        <input type="hidden" name="timezone">
+                                        <i class="dropdown icon"></i>
+                                        <div class="default text">(GMT-05:00) Eastern Time (US &amp; Canada)</div>
+                                        <div class="menu">
+                                            <div class="item" timeZoneId="1" gmtAdjustment="GMT-12:00" useDaylightTime="0" value="-12">(GMT-12:00) International Date Line West</div>
+                                            <div class="item" timeZoneId="2" gmtAdjustment="GMT-11:00" useDaylightTime="0" value="-11">(GMT-11:00) Midway Island, Samoa</div>
+                                            <div class="item" timeZoneId="3" gmtAdjustment="GMT-10:00" useDaylightTime="0" value="-10">(GMT-10:00) Hawaii</div>
+                                            <div class="item" timeZoneId="4" gmtAdjustment="GMT-09:00" useDaylightTime="1" value="-9">(GMT-09:00) Alaska</div>
+                                            <div class="item" timeZoneId="5" gmtAdjustment="GMT-08:00" useDaylightTime="1" value="-8">(GMT-08:00) Pacific Time (US &amp; Canada)</div>
+                                            <div class="item" timeZoneId="6" gmtAdjustment="GMT-08:00" useDaylightTime="1" value="-8">(GMT-08:00) Tijuana, Baja California</div>
+                                            <div class="item" timeZoneId="7" gmtAdjustment="GMT-07:00" useDaylightTime="0" value="-7">(GMT-07:00) Arizona</div>
+                                            <div class="item" timeZoneId="8" gmtAdjustment="GMT-07:00" useDaylightTime="1" value="-7">(GMT-07:00) Chihuahua, La Paz, Mazatlan</div>
+                                            <div class="item" timeZoneId="9" gmtAdjustment="GMT-07:00" useDaylightTime="1" value="-7">(GMT-07:00) Mountain Time (US &amp; Canada)</div>
+                                            <div class="item" timeZoneId="10" gmtAdjustment="GMT-06:00" useDaylightTime="0" value="-6">(GMT-06:00) Central America</div>
+                                            <div class="item" timeZoneId="11" gmtAdjustment="GMT-06:00" useDaylightTime="1" value="-6">(GMT-06:00) Central Time (US &amp; Canada)</div>
+                                            <div class="item" timeZoneId="12" gmtAdjustment="GMT-06:00" useDaylightTime="1" value="-6">(GMT-06:00) Guadalajara, Mexico City, Monterrey</div>
+                                            <div class="item" timeZoneId="13" gmtAdjustment="GMT-06:00" useDaylightTime="0" value="-6">(GMT-06:00) Saskatchewan</div>
+                                            <div class="item" timeZoneId="14" gmtAdjustment="GMT-05:00" useDaylightTime="0" value="-5">(GMT-05:00) Bogota, Lima, Quito, Rio Branco</div>
+                                            <div class="item" timeZoneId="15" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5">(GMT-05:00) Eastern Time (US &amp; Canada)</div>
+                                            <div class="item" timeZoneId="16" gmtAdjustment="GMT-05:00" useDaylightTime="1" value="-5">(GMT-05:00) Indiana (East)</div>
+                                            <div class="item" timeZoneId="17" gmtAdjustment="GMT-04:00" useDaylightTime="1" value="-4">(GMT-04:00) Atlantic Time (Canada)</div>
+                                            <div class="item" timeZoneId="18" gmtAdjustment="GMT-04:00" useDaylightTime="0" value="-4">(GMT-04:00) Caracas, La Paz</div>
+                                            <div class="item" timeZoneId="19" gmtAdjustment="GMT-04:00" useDaylightTime="0" value="-4">(GMT-04:00) Manaus</div>
+                                            <div class="item" timeZoneId="20" gmtAdjustment="GMT-04:00" useDaylightTime="1" value="-4">(GMT-04:00) Santiago</div>
+                                            <div class="item" timeZoneId="21" gmtAdjustment="GMT-03:30" useDaylightTime="1" value="-3.5">(GMT-03:30) Newfoundland</div>
+                                            <div class="item" timeZoneId="22" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3">(GMT-03:00) Brasilia</div>
+                                            <div class="item" timeZoneId="23" gmtAdjustment="GMT-03:00" useDaylightTime="0" value="-3">(GMT-03:00) Buenos Aires, Georgetown</div>
+                                            <div class="item" timeZoneId="24" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3">(GMT-03:00) Greenland</div>
+                                            <div class="item" timeZoneId="25" gmtAdjustment="GMT-03:00" useDaylightTime="1" value="-3">(GMT-03:00) Montevideo</div>
+                                            <div class="item" timeZoneId="26" gmtAdjustment="GMT-02:00" useDaylightTime="1" value="-2">(GMT-02:00) Mid-Atlantic</div>
+                                            <div class="item" timeZoneId="27" gmtAdjustment="GMT-01:00" useDaylightTime="0" value="-1">(GMT-01:00) Cape Verde Is.</div>
+                                            <div class="item" timeZoneId="28" gmtAdjustment="GMT-01:00" useDaylightTime="1" value="-1">(GMT-01:00) Azores</div>
+                                            <div class="item" timeZoneId="29" gmtAdjustment="GMT+00:00" useDaylightTime="0" value="0">(GMT+00:00) Casablanca, Monrovia, Reykjavik</div>
+                                            <div class="item" timeZoneId="30" gmtAdjustment="GMT+00:00" useDaylightTime="1" value="0">(GMT+00:00) Greenwich Mean Time : Dublin, Edinburgh, Lisbon, London</div>
+                                            <div class="item" timeZoneId="31" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Amsterdam, Berlin, Bern, Rome, Stockholm, Vienna</div>
+                                            <div class="item" timeZoneId="32" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Belgrade, Bratislava, Budapest, Ljubljana, Prague</div>
+                                            <div class="item" timeZoneId="33" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Brussels, Copenhagen, Madrid, Paris</div>
+                                            <div class="item" timeZoneId="34" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) Sarajevo, Skopje, Warsaw, Zagreb</div>
+                                            <div class="item" timeZoneId="35" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1">(GMT+01:00) West Central Africa</div>
+                                            <div class="item" timeZoneId="36" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Amman</div>
+                                            <div class="item" timeZoneId="37" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Athens, Bucharest, Istanbul</div>
+                                            <div class="item" timeZoneId="38" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Beirut</div>
+                                            <div class="item" timeZoneId="39" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Cairo</div>
+                                            <div class="item" timeZoneId="40" gmtAdjustment="GMT+02:00" useDaylightTime="0" value="2">(GMT+02:00) Harare, Pretoria</div>
+                                            <div class="item" timeZoneId="41" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Helsinki, Kyiv, Riga, Sofia, Tallinn, Vilnius</div>
+                                            <div class="item" timeZoneId="42" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Jerusalem</div>
+                                            <div class="item" timeZoneId="43" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Minsk</div>
+                                            <div class="item" timeZoneId="44" gmtAdjustment="GMT+02:00" useDaylightTime="1" value="2">(GMT+02:00) Windhoek</div>
+                                            <div class="item" timeZoneId="45" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3">(GMT+03:00) Kuwait, Riyadh, Baghdad</div>
+                                            <div class="item" timeZoneId="46" gmtAdjustment="GMT+03:00" useDaylightTime="1" value="3">(GMT+03:00) Moscow, St. Petersburg, Volgograd</div>
+                                            <div class="item" timeZoneId="47" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3">(GMT+03:00) Nairobi</div>
+                                            <div class="item" timeZoneId="48" gmtAdjustment="GMT+03:00" useDaylightTime="0" value="3">(GMT+03:00) Tbilisi</div>
+                                            <div class="item" timeZoneId="49" gmtAdjustment="GMT+03:30" useDaylightTime="1" value="3.5">(GMT+03:30) Tehran</div>
+                                            <div class="item" timeZoneId="50" gmtAdjustment="GMT+04:00" useDaylightTime="0" value="4">(GMT+04:00) Abu Dhabi, Muscat</div>
+                                            <div class="item" timeZoneId="51" gmtAdjustment="GMT+04:00" useDaylightTime="1" value="4">(GMT+04:00) Baku</div>
+                                            <div class="item" timeZoneId="52" gmtAdjustment="GMT+04:00" useDaylightTime="1" value="4">(GMT+04:00) Yerevan</div>
+                                            <div class="item" timeZoneId="53" gmtAdjustment="GMT+04:30" useDaylightTime="0" value="4.5">(GMT+04:30) Kabul</div>
+                                            <div class="item" timeZoneId="54" gmtAdjustment="GMT+05:00" useDaylightTime="1" value="5">(GMT+05:00) Yekaterinburg</div>
+                                            <div class="item" timeZoneId="55" gmtAdjustment="GMT+05:00" useDaylightTime="0" value="5">(GMT+05:00) Islamabad, Karachi, Tashkent</div>
+                                            <div class="item" timeZoneId="56" gmtAdjustment="GMT+05:30" useDaylightTime="0" value="5.5">(GMT+05:30) Sri Jayawardenapura</div>
+                                            <div class="item" timeZoneId="57" gmtAdjustment="GMT+05:30" useDaylightTime="0" value="5.5">(GMT+05:30) Chennai, Kolkata, Mumbai, New Delhi</div>
+                                            <div class="item" timeZoneId="58" gmtAdjustment="GMT+05:45" useDaylightTime="0" value="5.75">(GMT+05:45) Kathmandu</div>
+                                            <div class="item" timeZoneId="59" gmtAdjustment="GMT+06:00" useDaylightTime="1" value="6">(GMT+06:00) Almaty, Novosibirsk</div>
+                                            <div class="item" timeZoneId="60" gmtAdjustment="GMT+06:00" useDaylightTime="0" value="6">(GMT+06:00) Astana, Dhaka</div>
+                                            <div class="item" timeZoneId="61" gmtAdjustment="GMT+06:30" useDaylightTime="0" value="6.5">(GMT+06:30) Yangon (Rangoon)</div>
+                                            <div class="item" timeZoneId="62" gmtAdjustment="GMT+07:00" useDaylightTime="0" value="7">(GMT+07:00) Bangkok, Hanoi, Jakarta</div>
+                                            <div class="item" timeZoneId="63" gmtAdjustment="GMT+07:00" useDaylightTime="1" value="7">(GMT+07:00) Krasnoyarsk</div>
+                                            <div class="item" timeZoneId="64" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Beijing, Chongqing, Hong Kong, Urumqi</div>
+                                            <div class="item" timeZoneId="65" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Kuala Lumpur, Singapore</div>
+                                            <div class="item" timeZoneId="66" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Irkutsk, Ulaan Bataar</div>
+                                            <div class="item" timeZoneId="67" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Perth</div>
+                                            <div class="item" timeZoneId="68" gmtAdjustment="GMT+08:00" useDaylightTime="0" value="8">(GMT+08:00) Taipei</div>
+                                            <div class="item" timeZoneId="69" gmtAdjustment="GMT+09:00" useDaylightTime="0" value="9">(GMT+09:00) Osaka, Sapporo, Tokyo</div>
+                                            <div class="item" timeZoneId="70" gmtAdjustment="GMT+09:00" useDaylightTime="0" value="9">(GMT+09:00) Seoul</div>
+                                            <div class="item" timeZoneId="71" gmtAdjustment="GMT+09:00" useDaylightTime="1" value="9">(GMT+09:00) Yakutsk</div>
+                                            <div class="item" timeZoneId="72" gmtAdjustment="GMT+09:30" useDaylightTime="0" value="9.5">(GMT+09:30) Adelaide</div>
+                                            <div class="item" timeZoneId="73" gmtAdjustment="GMT+09:30" useDaylightTime="0" value="9.5">(GMT+09:30) Darwin</div>
+                                            <div class="item" timeZoneId="74" gmtAdjustment="GMT+10:00" useDaylightTime="0" value="10">(GMT+10:00) Brisbane</div>
+                                            <div class="item" timeZoneId="75" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10">(GMT+10:00) Canberra, Melbourne, Sydney</div>
+                                            <div class="item" timeZoneId="76" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10">(GMT+10:00) Hobart</div>
+                                            <div class="item" timeZoneId="77" gmtAdjustment="GMT+10:00" useDaylightTime="0" value="10">(GMT+10:00) Guam, Port Moresby</div>
+                                            <div class="item" timeZoneId="78" gmtAdjustment="GMT+10:00" useDaylightTime="1" value="10">(GMT+10:00) Vladivostok</div>
+                                            <div class="item" timeZoneId="79" gmtAdjustment="GMT+11:00" useDaylightTime="1" value="11">(GMT+11:00) Magadan, Solomon Is., New Caledonia</div>
+                                            <div class="item" timeZoneId="80" gmtAdjustment="GMT+12:00" useDaylightTime="1" value="12">(GMT+12:00) Auckland, Wellington</div>
+                                            <div class="item" timeZoneId="81" gmtAdjustment="GMT+12:00" useDaylightTime="0" value="12">(GMT+12:00) Fiji, Kamchatka, Marshall Is.</div>
+                                            <div class="item" timeZoneId="82" gmtAdjustment="GMT+13:00" useDaylightTime="0" value="13">(GMT+13:00) Nuku'alofa</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="column">
+
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui primary button">
+                        Save
+                    </button>
+                    <button class="ui button">
+                        Discard
+                    </button>
+
+                    <div class="ui divider"></div>
+                    <h2 class="ui header">
+                        <i class="settings icon"></i>
+                        <div class="content">
+                            Application Settings
+                            <div class="sub header">Manage your preferences</div>
+                        </div>
+                    </h2>
+                    <div class="ui stackable two column divided grid container">
+                        <div class="row">
+                            <div class="column">
+                                <h3>Theme</h3>
+                                <label> &emsp; Light &emsp;</label>
+                                <div class="ui slider checkbox">
+                                    <input type="checkbox" tabindex="0" class="hidden">
+                                    <label>Dark</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="eight wide column">
+
+                    <div class="ui stackable two column divided grid container">
+                        <div class="row">
+                            <div class="ui special cards">
+                                <div class="card">
+                                    <div class="blurring dimmable image">
+                                        <div class="ui dimmer">
+                                            <div class="content">
+                                                <div class="center">
+                                                    <div class="ui inverted button">Change Photo</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <img src="images/matthew.png">
+                                    </div>
+                                    <div class="content">
+                                        <a class="header">Gaurab Pant</a>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <button class="ui primary basic button">
+                                <i class="icon user"></i>
+                                Change Photo
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button class="ui facebook button">
+                                <i class="facebook icon"></i>
+                                Connect to Facebook
+                            </button>
+                        </div>
+                        <div class="row">
+                            <button class="ui twitter button">
+                                <i class="twitter icon"></i>
+                                Connect to Twitter
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</body>
+
+</html>

@@ -117,6 +117,7 @@
   margin-top: 4.5rem;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   margin-bottom: 0;
 }
 
@@ -157,3 +158,11 @@ h2{
   filter:brightness(50%);
 }
 >>>>>>> achievement2
+=======
+}
+
+#content{
+  margin-top: 3rem;
+  margin-left: 3rem;
+}
+>>>>>>> mock/settings2
