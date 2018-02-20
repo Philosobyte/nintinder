@@ -67,20 +67,6 @@
   padding-right: 0.25rem;
 }
 
-#navbar span {
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-/* #navbar .item a {
-  padding: 0;
-  margin: 0;
-} */
-
 .nospace {
   padding: 0!important;
   margin: 0!important;
@@ -106,10 +92,27 @@
   margin-right: 0.5rem;
 }
 
+#navbar-nintinder {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  padding-left: 100;
+}
+
+#navbar-profile {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
 /*****************************************
 * Main Content Area                       *
 *******************************************/
 
 #main-content {
-  margin-top: 3.6rem;
+  margin-top: 4.5rem;
 }
