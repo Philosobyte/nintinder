@@ -4,7 +4,7 @@
 <head>
   <!-- meta data -->
   <meta charset="UTF-8">
-  <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0"> -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name "description" content="Find and play with your next perfect
             gaming buddy. Nintinder is the one-stop solution for the optimal
             gaming experience for you.">
@@ -22,34 +22,41 @@
 </head>
 
 <body>
-  <div class="ui three item menu fixed">
-    <a id="navbar-nintinder" class="item left nospace" href="#" style="width: 18.5rem">
-      <img id="navbar-logo" class="logo" src="images/square-image.png">
-      <p>Nintinder</p>
-    </a>
+  <div id="header" class="ui three item menu fixed">
 
-    <span class="ui item action left icon input">
+    <div id="header-col-1">
+      <button type="button"><i class="content icon"></i></button>
+    </div>
+
+    <div id="header-col-2">
+      <a href="index.html"><h1>NINTINDER</h1></a>
+    </div>
+
+    <div id="header-col-3" class="ui action left icon input">
       <i class="search icon"></i>
       <input placeholder="Search..." type="text">
-      <div class="ui blue button">
-        Search
-      </div>
-    </span>
+        <div class="ui blue button"> Search </div>
+    </div>
 
-    <a id="navbar-profile" class="item right nospace" href="profile.html" style="max-width: 15%;">
-      <p id="navbar-username" class="nospace">Gaurab Pant</p>
-      <img class="circular logo" src="images/square-image.png">
-    </a>
+    <div id="header-col-4">
+      <a href="profile.html">
+        <span id="navbar-username" class="nospace">Gaurab Pant &MediumSpace;</span>
+        <img class="ui avatar image" src="images/square-image.png">
+      </a>
+    </div>
+    
   </div>
-
+  
   <div id="main-content" class="ui bottom attached segment pushable">
+
     <div id="sidebar" class="ui visible inverted left vertical sidebar menu">
-      <a href="feed.html" class="item">Home</a>
+      <a href="index.html" class="item">Home</a>
       <a href="matches.html" class="item">Friends</a>
       <a href="achievements.html" class="item">My Achievements</a>
       <a href="settings.html" class="item">Settings</a>
     </div>
-
+  
+    <!--
     <div id="content" class="pusher">
       <div class="ui basic segment">
         <center>
@@ -216,6 +223,7 @@
     </div>
   </div>
   </div>
-</div> 
+  -->
+  </div> 
 </body>
 </html>
