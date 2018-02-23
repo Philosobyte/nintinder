@@ -1,13 +1,14 @@
 /*****************************************
- * Header Bar                            *
+ * Header Bar CSS                        *
  *****************************************/
 
- #header {
+#header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: white;
+  color: white; 
+  height: 64px ;
 }
 
 #header-col-1 {
@@ -17,14 +18,22 @@
 
 #header-col-1 > button {
   padding: 0;
-  text-align: left;
   border: none;
-  background-color: rgb(233, 84, 33);
-  color: white;
+  text-align: left;
+  background-color: inherit;
+  color: inherit;
 }
 
 #header-col-1 > button:hover {
   cursor: pointer;
+}
+
+#header-col-2 {
+  margin-right: auto;
+}
+
+#header-col-2 > a {
+  color: inherit;
 }
 
 #header-col-1 > button:active, 
@@ -32,48 +41,44 @@
   color:rgb(245, 245, 245)
 }
 
-#header-col-1 > button > i {
-  font-size: 1.6em;
-} 
-
-#header-col-2 {
-  margin-right: auto;
-}
-
-#header-col-2 > a {
-  color: white;
-}
-
 #header-col-3{
   width: 50%;
 }
 
+#header-col-4 {
+  margin-left: auto;
+  margin-right: 2%;
+  height: inherit;
+}
+
+#header-col-4 > a{
+  display: flex;
+  align-items: center;
+  height: inherit;
+  color: inherit;
+}
+
+/* 
+All CSS below is part of the responsive design for the header bar 
+--------------------------------------------------------------------------------
+Any screen that has a pixel width from 0-768 will not show the search bar
+(a.k.a header-col-3)
+*/
+@media (max-width: 768px){
+  #header-col-3{
+    display: none;
+  }
+}
+/* 
+Any screen that has a pixel width from 768-900 will cause the search bar's 
+length to shrink from 50% of the total screen width down to only 45% of the 
+total screen width. 
+*/
 @media (max-width: 900px){
   #header-col-3{
     width: 45%;
   }
 }
-
-@media (max-width: 767px){
-  #header-col-3{
-    display: none;
-  }
-}
-
-
-#header-col-4 {
-  margin-left: auto;
-  margin-right: 2%;
-  height: 64px;
-}
-
-#header-col-4 > a{
-  height: 100%;
-  color: white;
-  display: flex;
-  align-items: center;
-}
-
 
 /*****************************************
 * Nav Bar                                *
