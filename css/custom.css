@@ -7,6 +7,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  background-color: #ff4554;
   color: white; 
   height: 64px ;
 }
@@ -81,11 +82,11 @@ total screen width.
 }
 
 /*****************************************
-* Nav Bar                                *
+* Side Bar                               *
 *******************************************/
-
+/*
 #nav-bar {
-  background: #508cc8;
+  background: #00c3e3;
   display: inline-block;
   height: 92.4%;
   margin-top: 0;
@@ -156,7 +157,7 @@ total screen width.
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-end;
-}
+}*/
 
 /*****************************************
 * Main Content Area                       *
