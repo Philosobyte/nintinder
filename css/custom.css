@@ -59,6 +59,10 @@
   color: inherit;
 }
 
+#sidebar {
+  background-color: #b21c2c
+}
+
 /* 
 All CSS below is part of the responsive design for the header bar 
 --------------------------------------------------------------------------------
