@@ -59,10 +59,6 @@
   color: inherit;
 }
 
-#sidebar {
-  background-color: #b21c2c
-}
-
 /* 
 All CSS below is part of the responsive design for the header bar 
 --------------------------------------------------------------------------------
@@ -70,8 +66,19 @@ Any screen that has a pixel width from 0-768 will not show the search bar
 (a.k.a header-col-3)
 */
 @media (max-width: 768px){
+  #header-col-2{
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   #header-col-3{
     display: none;
+  }
+
+  #header-col-4{
+    visibility: hidden;
+    margin-left: 0px;
+    width: 64px;
   }
 }
 /* 
@@ -88,6 +95,11 @@ total screen width.
 /*****************************************
 * Side Bar                               *
 *******************************************/
+
+#sidebar {
+  background-color: #b21c2c
+}
+
 /*
 #nav-bar {
   background: #00c3e3;
