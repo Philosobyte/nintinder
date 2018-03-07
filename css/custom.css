@@ -2,7 +2,7 @@
  * Header Bar CSS                        *
  *****************************************/
 
-#header {
+ #header {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -12,21 +12,31 @@
   height: 64px ;
 }
 
+#header-col-1 > button:active, 
+#header-col-2 > button:active {
+  color:rgb(245, 245, 245)
+}
+
+#header-col-1 > button,
+#header-col-4 > button {
+  padding: 0;
+  border: none;
+  background-color: inherit;
+  color: inherit;
+}
+
+#header-col-1 > button:hover,
+#header-col-4 > button:hover{
+  cursor: pointer;
+}
+
 #header-col-1 {
   margin-right: 30px;
   margin-left: 2%;
 }
 
-#header-col-1 > button {
-  padding: 0;
-  border: none;
+#header-col-1 > button{
   text-align: left;
-  background-color: inherit;
-  color: inherit;
-}
-
-#header-col-1 > button:hover {
-  cursor: pointer;
 }
 
 #header-col-2 {
@@ -35,11 +45,6 @@
 
 #header-col-2 > a {
   color: inherit;
-}
-
-#header-col-1 > button:active, 
-#header-col-2 > a:active {
-  color:rgb(245, 245, 245)
 }
 
 #header-col-3{
@@ -52,7 +57,7 @@
   height: inherit;
 }
 
-#header-col-4 > a{
+#header-col-4 > button{
   display: flex;
   align-items: center;
   height: inherit;
@@ -75,10 +80,12 @@ Any screen that has a pixel width from 0-768 will not show the search bar
     display: none;
   }
 
-  #header-col-4{
-    visibility: hidden;
-    margin-left: 0px;
-    width: 64px;
+  #header-col-4 {
+    margin-left: 35px;
+  }
+
+  #header-col-4 > button > span{
+    display: none;
   }
 }
 /* 
@@ -97,7 +104,15 @@ total screen width.
 *******************************************/
 
 #sidebar {
-  background-color: #b21c2c
+  background-color: #b21c2c;
+}
+
+#sidebar > span {
+  font-size: 1.5em;
+  height: 70px;
+  text-align: center;
+  display: flex;
+  align-items: center
 }
 
 /*
