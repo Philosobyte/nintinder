@@ -107,14 +107,6 @@ total screen width.
   background-color: #b21c2c;
 }
 
-#sidebar > span {
-  font-size: 1.5em;
-  height: 70px;
-  text-align: center;
-  display: flex;
-  align-items: center
-}
-
 /*
 #nav-bar {
   background: #00c3e3;
