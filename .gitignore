@@ -6,3 +6,10 @@ node_modules/
 
 # ignore .DS_Store file from macOS
 .DS_Store
+
+# ignore some python/django jazz
+__pycache__
+*.pyc
+
+# ignoring databases for now
+*.sqlite3
