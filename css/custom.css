@@ -102,7 +102,7 @@ total screen width.
 /*****************************************
 * Main-Section                           *
 *******************************************/
-#main{
+#main-content{
   /* If the height of the header-bar changes, then change the margin-top to match the header-bars height */
   margin-top: 64px;  
 }
@@ -113,6 +113,7 @@ total screen width.
 
 #sidebar {
   background-color: #b21c2c;
+  top: 64px;
 }
 
 @media (max-width: 768px) {

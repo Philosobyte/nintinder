@@ -23,22 +23,47 @@
 </head>
 
 <body>
+  <!-- The html code below pretains to the header bar. When I was writing the 
+    html for this section, I broke the header section down to four columns. 
+    Each column has it own id with the naming syntax of. Each column is as 
+    follows:
+    
+    Column 1: The id for this column is 'header-col-1'. Column one contains the
+    sidebar button. Clicking this button will cause the sidebar to appear and 
+    disappear. The entirety functionality of this button can found in the 
+    'custom.js' file.
+
+    Column 2: 
+    Column 3:
+    Column 4:
+
+    The first column contains the sidebar button. Clicking this button will cause 
+    the sidebar to appear and disappear. The entirety of the onClick function
+    can found in the custom.js file. 
+    The second section contains currently
+    the name of our application 'Nintinder' but will later be replaced with the
+    logo. The third column contains the search bar for the website.  Column four contains the user
+    information. -->
   <div id="header" class="ui fixed menu">
 
+    <!-- Sidebar Button -->
     <div id="header-col-1">
       <button type="button"><i class="large content icon"></i></button>
     </div>
 
+    <!-- Logo -->
     <div id="header-col-2">
       <a href="index.html"><h1>NINTINDER</h1></a>
     </div>
 
+    <!-- Search Bar -->
     <div id="header-col-3" class="ui action left icon input">
       <i class="search icon"></i> 
       <input placeholder="Search..." type="text">
         <div class="ui blue button"> Search </div>
     </div>
 
+    <!-- User Info -->
     <div id="header-col-4">
       <button type="button">
         <span>Gaurab Pant &MediumSpace;</span>
@@ -47,30 +72,27 @@
     </div>
 
   </div>
-    
-  <div id="main">
+  
+  <div id="sidebar" class="ui simple sidebar vertical menu left">
+    <a href="index.html" class="item"><i class="home icon"></i>&MediumSpace; Home</a>
+    <a href="matches.html" class="item"><i class="users icon"></i>&MediumSpace; Friends</a>
+    <a href="achievements.html" class="item"><i class="trophy icon"></i>&MediumSpace; My Achievements</a>
+    <a href="settings.html" class="item"><i class="settings icon"></i>&MediumSpace; Settings</a>
+  </div>
 
-    <div id="sidebar" class="ui vertical sidebar menu">
-      <a href="index.html" class="item"><i class="home icon"></i>&MediumSpace; Home</a>
-      <a href="matches.html" class="item"><i class="users icon"></i>&MediumSpace; Friends</a>
-      <a href="achievements.html" class="item"><i class="trophy icon"></i>&MediumSpace; My Achievements</a>
-      <a href="settings.html" class="item"><i class="settings icon"></i>&MediumSpace; Settings</a>
-    </div>
-
-    <div id="content" class="pusher">
-      <div class="ui basic segment">
-        <center>
-          <div class="ui message main"> 
-            <h2 class="ui icon header">
-              <i class="gamepad icon"></i>
-              <div class="content">
-                The Latest Plug
-                <div class="sub header">See all the activities from your friends partaking in the gaming world.</div>
-              </div>
-            </h2>
-          </div>
-        </center>
-      </div>
+  <div id="main-content" class="pusher">
+    <div class="ui basic segment">
+      <center>
+        <div class="ui message main"> 
+          <h2 class="ui icon header">
+            <i class="gamepad icon"></i>
+            <div class="content">
+              The Latest Plug
+              <div class="sub header">See all the activities from your friends partaking in the gaming world.</div>
+            </div>
+          </h2>
+        </div>
+      </center>
     </div>
   </div>
     <!--
