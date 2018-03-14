@@ -116,9 +116,17 @@ total screen width.
   top: 64px;
 }
 
+#sidebar-row-0{
+  display: none;
+}
+
 @media (max-width: 768px) {
   #sidebar{
     width: 100%;
+  }
+
+  #sidebar-row-0{
+    display: inherit;
   }
 }
 
