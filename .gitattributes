@@ -1,0 +1,2 @@
+# use git lfs for db file
+*.sqlite3

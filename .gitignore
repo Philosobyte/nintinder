@@ -8,8 +8,9 @@ node_modules/
 .DS_Store
 
 # ignore some python/django jazz
-__pycache__
-*.pyc
+tikkachu/**/__pycache__/
+*.py[cod]
+*$py.class
 
-# ignoring databases for now
-*.sqlite3
+*.log
+local_settings.py
