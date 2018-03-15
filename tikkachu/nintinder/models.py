@@ -11,10 +11,10 @@ class User(models.Model):
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     username = models.CharField(max_length=64, help_text="Enter a username")
-    firstname = models.CharField(max_length=64, help_text="Enter the user's first name")
-    lastname = models.CharField(max_length=64, help_text="Enter the user's last name")
+    first_name = models.CharField(max_length=64, help_text="Enter the user's first name")
+    last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
     location = models.CharField(max_length=256, help_text="Enter the user's location")
-    dateOfBirth = models.DateField(auto_now_add=True, help_text="Enter the user's date of birth")
+    date_of_birth = models.DateField(auto_now_add=True, help_text="Enter the user's date of birth")
     gender = models.SmallIntegerField(help_text="Enter the user's gender")
     email = models.CharField(max_length=256, help_text="Enter the user's email address")
 
@@ -27,7 +27,7 @@ class Game(models.Model):
     name = models.CharField(max_length=128, help_text="Enter the name of the game")
     platform = models.CharField(max_length=32, help_text="Enter the game's platform")
     publisher = models.CharField(max_length=32, help_text="Enter the game's publisher")
-    releaseDate = models.DateField(auto_now_add=False, help_text="Enter the game's release date")
+    release_date = models.DateField(auto_now_add=False, help_text="Enter the game's release date")
     description = models.CharField(max_length=1024, help_text="Enter a description of the game")
 
 
@@ -49,19 +49,19 @@ class Achievement(models.Model):
 class EarnedAchievement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
-    achieve = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
+    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
 
 
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the name of the event")
-    startTime = models.DateTimeField(auto_now_add=True, help_text="Enter the start time of the event")
-    endTime = models.DateTimeField(blank=True, help_text="Enter the end time of the event (blank if still ongoing")
+    start_time = models.DateTimeField(auto_now_add=True, help_text="Enter the start time of the event")
+    end_time = models.DateTimeField(blank=True, help_text="Enter the end time of the event (blank if still ongoing")
 
 
 class Participant(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, help_text="Enter the id of the event")
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
-    startTime = models.DateTimeField(auto_now_add=True, help_text="Enter when the user started participating in the event")
-    endTime = models.DateTimeField(blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
+    start_time = models.DateTimeField(auto_now_add=True, help_text="Enter when the user started participating in the event")
+    end_time = models.DateTimeField(blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
