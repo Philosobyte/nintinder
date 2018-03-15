@@ -14,8 +14,8 @@ class User(models.Model):
     first_name = models.CharField(max_length=64, help_text="Enter the user's first name")
     last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
     location = models.CharField(max_length=256, help_text="Enter the user's location")
-    date_of_birth = models.DateField(auto_now_add=True, help_text="Enter the user's date of birth")
-    gender = models.SmallIntegerField(help_text="Enter the user's gender")
+    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
+    gender = models.SmallIntegerField(null=True, blank=True, help_text="Enter the user's gender")
     email = models.CharField(max_length=256, help_text="Enter the user's email address")
 
     def __str__(self):
@@ -55,13 +55,13 @@ class EarnedAchievement(models.Model):
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the name of the event")
-    start_time = models.DateTimeField(auto_now_add=True, help_text="Enter the start time of the event")
-    end_time = models.DateTimeField(blank=True, help_text="Enter the end time of the event (blank if still ongoing")
+    start_time = models.DateTimeField(null=True, blank=True, help_text="Enter the start time of the event")
+    end_time = models.DateTimeField(null=True, blank=True, help_text="Enter the end time of the event (blank if still ongoing")
 
 
 class Participant(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, help_text="Enter the id of the event")
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
-    start_time = models.DateTimeField(auto_now_add=True, help_text="Enter when the user started participating in the event")
-    end_time = models.DateTimeField(blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
+    start_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user started participating in the event")
+    end_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
