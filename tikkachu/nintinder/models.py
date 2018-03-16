@@ -27,7 +27,7 @@ class Game(models.Model):
     name = models.CharField(max_length=128, help_text="Enter the name of the game")
     platform = models.CharField(max_length=32, help_text="Enter the game's platform")
     publisher = models.CharField(max_length=32, help_text="Enter the game's publisher")
-    release_date = models.DateField(auto_now_add=False, help_text="Enter the game's release date")
+    release_date = models.DateField(null=True, blank=True, help_text="Enter the game's release date")
     description = models.CharField(max_length=1024, help_text="Enter a description of the game")
 
 
