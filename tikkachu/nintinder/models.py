@@ -30,6 +30,9 @@ class Game(models.Model):
     release_date = models.DateField(null=True, blank=True, help_text="Enter the game's release date")
     description = models.CharField(max_length=1024, help_text="Enter a description of the game")
 
+    def __str__(self):
+        return "%s for %s" % (self.name, self.platform)
+
 
 class Interest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
