@@ -5,9 +5,9 @@ from .models import User, Game, Interest, Achievement, EarnedAchievement, Event,
 
 @admin.register(User)
 class UserAdmin(admin.ModelAdmin):
-    list_display = ('username', 'email', 'last_name', 'first_name')
+    list_display = ('user_name', 'email', 'last_name', 'first_name')
     fields = ['id', ('last_name', 'first_name'), 'email',
-              'username', 'date_of_birth', 'gender', 'location']
+              'user_name', 'date_of_birth', 'gender', 'location']
 
 
 @admin.register(Game)

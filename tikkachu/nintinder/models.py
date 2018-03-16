@@ -10,7 +10,7 @@ class User(models.Model):
     Model representing a user of the service
     """
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    username = models.CharField(max_length=64, help_text="Enter a username")
+    user_name = models.CharField(max_length=64, help_text="Enter a username")
     first_name = models.CharField(max_length=64, help_text="Enter the user's first name")
     last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
     location = models.CharField(max_length=256, help_text="Enter the user's location")
@@ -19,7 +19,7 @@ class User(models.Model):
     email = models.CharField(max_length=256, help_text="Enter the user's email address")
 
     def __str__(self):
-        return self.username
+        return self.user_name
 
 
 class Game(models.Model):
