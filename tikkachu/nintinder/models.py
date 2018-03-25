@@ -71,10 +71,5 @@ class Participant(models.Model):
 
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
-
-class BlackList(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user1 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user to whom this blacklist belongs")
-    user2 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user who is on the blacklist")
+    friend1 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
+    friend2 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
