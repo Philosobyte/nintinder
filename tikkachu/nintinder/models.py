@@ -15,7 +15,6 @@ class User(models.Model):
     last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
     location = models.CharField(max_length=256, help_text="Enter the user's location")
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-    gender = models.SmallIntegerField(null=True, blank=True, help_text="Enter the user's gender")
     email = models.CharField(max_length=256, help_text="Enter the user's email address")
 
     def __str__(self):

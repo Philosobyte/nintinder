@@ -7,7 +7,7 @@ from .models import User, Game, Interest, Achievement, EarnedAchievement, Event,
 class UserAdmin(admin.ModelAdmin):
     list_display = ('user_name', 'email', 'last_name', 'first_name')
     fields = ['id', ('last_name', 'first_name'), 'email',
-              'user_name', 'date_of_birth', 'gender', 'location']
+              'user_name', 'date_of_birth', 'location']
 
 
 @admin.register(Game)
