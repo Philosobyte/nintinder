@@ -68,3 +68,13 @@ class Participant(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
     start_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user started participating in the event")
     end_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
+
+class Friend(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+
+class BlackList(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    user1 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user to whom this blacklist belongs")
+    user2 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user who is on the blacklist")

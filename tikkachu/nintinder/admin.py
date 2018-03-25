@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant
+from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend, BlackList
 
 # Register your models here.
 
@@ -38,3 +38,13 @@ class EventAdmin(admin.ModelAdmin):
 @admin.register(Participant)
 class ParticipantAdmin(admin.ModelAdmin):
     list_display = ('id', 'event', 'user')
+
+
+@admin.register(Friend)
+class FriendAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user1', 'user2')
+
+
+@admin.register(BlackList)
+class BlackListAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user1', 'user2')
