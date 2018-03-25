@@ -69,7 +69,18 @@ class Participant(models.Model):
     start_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user started participating in the event")
     end_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
 
+
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     friend1 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
     friend2 = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+
+    STATUSES = (
+        (u'0', u'friends'),
+        (u'1', u'pending'),
+        (u'2', u'blacklistAB'),
+        (u'3', u'blacklistBA'),
+        (u'0', u'blacklist'),
+    )
+
+    status = models.CharField(max_length=1, choices=STATUSES)
