@@ -11,8 +11,6 @@ INSERT INTO nintinder_earnedachievement VALUES ('26edda37-bbed-4c97-bd90-1f5b4e4
 INSERT INTO nintinder_earnedachievement VALUES ('661533c0-4012-466e-99c4-2473844d402e', '36d16720-81b7-43c6-9573-d4b8a1d215f3', '465246d7-8e64-454c-a0b5-13c5c8bdb037');
 INSERT INTO nintinder_earnedachievement VALUES ('1a6fdab5-8163-4199-bb2a-58c13db5d107', '36d16720-81b7-43c6-9573-d4b8a1d215f3', 'c00f89bb-305a-4955-895e-de319a8912fa');
 
-INSERT INTO nintinder_earnedachievement VALUES ('983e7f82-a994-4829-a0e3-751cbc004f5a', '36d16720-81b7-43c6-9573-d4b8a1d215f3', 'c00f89bb-305a-4955-895e-de319a8912fa');
-
 INSERT INTO nintinder_earnedachievement VALUES ('5dc019c7-2455-4731-8a53-4e860d1d2600', 'd533e1a3-9376-486d-8d42-b34025e31b47', '34f7e14b-5e76-4994-b4cc-e6bdcf419cad');
 INSERT INTO nintinder_earnedachievement VALUES ('705687a3-ff6f-476f-b5cc-b2f4403bd562', 'd533e1a3-9376-486d-8d42-b34025e31b47', '3eb8b2c6-1839-4453-a474-960f57cf5a39');
 
