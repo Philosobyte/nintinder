@@ -13,7 +13,7 @@
 }
 
 #header-col-1 > button,
-#header-col-2 > button,
+#header-col-2 > a,
 #header-col-4 > button {
   padding: 0;
   border: none;
@@ -22,7 +22,7 @@
 }
 
 #header-col-1 > button:hover,
-#header-col-2 > button:hover,
+#header-col-2 > a:hover,
 #header-col-4 > button:hover{
   cursor: pointer;
 }
@@ -40,14 +40,14 @@
   margin-right: auto;
 }
 
-#header-col-2 > button {
+#header-col-2 > a {
   display: block;
   width: 190px;
   height: inherit;
   padding-top: 4px;
 }
 
-#header-col-2 > button > img {
+#header-col-2 > a > img {
   max-width: 100%;
   max-height: 100%;
 }
