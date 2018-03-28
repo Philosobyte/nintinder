@@ -8,8 +8,10 @@ node_modules/
 .DS_Store
 
 # ignore some python/django jazz
-tikkachu/**/__pycache__/
 *.py[cod]
 *$py.class
 *.log
 local_settings.py
+
+# ignore the python cache files
+__pycache__
