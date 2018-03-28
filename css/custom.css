@@ -1,39 +1,4 @@
 /*****************************************
- * Reponsive Design CSS                  *
- *****************************************/
- @media (max-width: 768px){
-  #header-col-2{
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  #header-col-3{
-    display: none;
-  }
-
-  #header-col-4 {
-    margin-left: 35px;
-  }
-
-  #header-col-4 > button > span{
-    display: none;
-  }
-
-  #sidebar{
-    width: 100%;
-  }
-
-  #sidebar-row-0{
-    display: inherit;
-  }
-}
-
-@media (max-width: 900px){
-  #header-col-3{
-    width: 45%;
-  }
-}
-/*****************************************
  * Header Bar CSS                        *
  *****************************************/
 
@@ -47,12 +12,8 @@
   height: 64px ;
 }
 
-#header-col-1 > button:active, 
-#header-col-2 > button:active {
-  color:rgb(245, 245, 245)
-}
-
 #header-col-1 > button,
+#header-col-2 > button,
 #header-col-4 > button {
   padding: 0;
   border: none;
@@ -61,42 +22,47 @@
 }
 
 #header-col-1 > button:hover,
+#header-col-2 > button:hover,
 #header-col-4 > button:hover{
   cursor: pointer;
 }
 
-#header-col-1 {
-  margin-right: 30px;
-  margin-left: 2%;
+#header-col-1 > button:active {
+  color:rgb(245, 245, 245)
 }
 
-#header-col-1 > button{
-  text-align: left;
+#header-col-1 {
+  margin-right: 35px;
+  margin-left: 15px;
 }
 
 #header-col-2 {
   margin-right: auto;
 }
 
-#header-col-2 > a {
-  color: inherit;
+#header-col-2 > button {
+  display: block;
+  width: 190px;
+  height: inherit;
+  padding-top: 4px;
+}
+
+#header-col-2 > button > img {
+  max-width: 100%;
+  max-height: 100%;
 }
 
 #header-col-3{
-  width: 50%;
+  width: 55%;
 }
 
 #header-col-4 {
   margin-left: auto;
-  margin-right: 2%;
-  height: inherit;
+  margin-right: 15px;
 }
 
 #header-col-4 > button{
-  display: flex;
-  align-items: center;
-  height: inherit;
-  color: inherit;
+  height: 40px;
 }
 
 /*****************************************
@@ -118,4 +84,54 @@
 
 #sidebar-row-0{
   display: none;
+}
+
+/*****************************************
+ * Reponsive Design CSS                  *
+ *****************************************/
+
+@media (max-width: 1024px){
+
+  #header-col-3{
+    width: 47.5%;
+  }
+
+}
+
+@media (max-width: 900px){
+  #header-col-2{
+    width: 100px;
+  }
+  #header-col-3{
+    width: 30%;
+  }
+  
+}
+
+@media (max-width: 800px){
+  #header-col-1{
+    margin-right: auto;
+  }
+
+  #header-col-2{
+    width: initial;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  #header-col-3{
+    display: none;
+  }
+
+  #header-col-4 > button > span{
+    display: none;
+  }
+
+  #sidebar{
+    width: 100%;
+  }
+
+  #sidebar-row-0{
+    display: inherit;
+  }
 }
