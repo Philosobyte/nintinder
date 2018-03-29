@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from collections import defaultdict
 import random
 
 
@@ -105,12 +106,17 @@ def matches(request):
     for x in friendsArray:
         if ((x.friendA == usr) or (x.friendB == usr)) and x.status == '0':
            outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
-        # if ((x.friendA == usr) or (x.friendB == usr)):
-        #     outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
-        #outputArray.append(x.friendA)
+
+    interestsArray = list(Interest.objects.all())
+    outputDict2 = defaultdict(list)
+    for x in interestsArray:
+        outputDict2[x.user].append(x.game)
+
     # picsArray = []
     # for x in outputArray:
     friend_usernames = [x.user_name for x in outputArray]
+
+
     return render(
         request,
         'matches.html',
@@ -118,5 +124,6 @@ def matches(request):
             'full_name': currName,
             'friends': outputArray,
             'people': len(outputArray),
+            'interests': outputDict2,
         },
     )

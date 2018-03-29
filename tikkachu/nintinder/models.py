@@ -1,4 +1,5 @@
 from django.db import models
+from django.template.defaulttags import register
 import datetime
 import uuid
 
@@ -99,6 +100,10 @@ class Friend(models.Model):
     )
 
     status = models.CharField(max_length=1, choices=STATUSES)
+
+    @register.filter
+    def get_item(dictionary, key):
+        return dictionary.get(key)
 
     def __str__(self):
         if self.status == '0':

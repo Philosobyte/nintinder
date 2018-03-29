@@ -44,7 +44,10 @@
                                             {{e.user_name}}
                                         </div>
                                         <div class="description">
-                                            <strong>Games</strong>: Half-Life 3, CS:GO
+                                            <strong>Games</strong>: | 
+                                            {% for game in interests|get_item:e %}
+                                                {{game}} | 
+                                            {% endfor %}
                                         </div>
                                     </div>
                                 </div>
