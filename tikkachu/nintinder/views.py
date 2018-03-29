@@ -16,7 +16,7 @@ def index(request):
     games = Game.objects.all()
     rand = random.randint(0, games.count() - 1)
     gCurr = games[rand].name
-    gNext = games[(rand+3) % rand].name
+    gNext = games[(rand+3) % (games.count() - 1)].name
     return render(
         request,
         'index.html',
