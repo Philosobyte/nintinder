@@ -1,0 +1,72 @@
+{% include "base_generic.html" %}
+{% block content %}
+{% load static%}
+<div id="content" class="pusher">
+        <div id="main-content" class="pusher">
+                <div class="ui basic segment">
+                    <center>
+                        <div class="ui message main">
+                            <h1 class="ui icon header">
+                                <i class="fire icon"></i>
+                                <div class="content">
+                                    Make Your Match
+                                    <div class="sub header">
+                                        Pick the gamers you want to make your friends! Don't be mean.
+                                    </div>
+                                </div>
+                            </h1>
+                        </div>
+                    </center>
+        <div class="ui basic segment">
+            <div class="ui grid">
+                <div class="ui row margin-20" style="margin-top: 16px">
+                    <h1>{{full_name}}, {{ people }} people would like to play you!</h1>
+                </div>
+                <div class="ui row margin-20">
+                    <div id="Glide" class="glide">
+                        <div class="glide__arrows">
+                            <button class="glide__arrow prev" data-glide-dir="<">prev</button>
+                            <button class="glide__arrow next" data-glide-dir=">">next</button>
+                        </div>
+
+                        <div class="glide__wrapper">
+                            <div class="glide__track">
+                            {% for e in friends %}
+                                <div class="ui card glide__slide">
+                                    <div class="image">
+                                        {% with "images/"|add:e.user_name|add:".jpg" as propic %}
+                                        <img src="{% static propic %}">
+                                        {% endwith %}
+                                    </div>
+                                    <div class="content">
+                                        <span class="header">{{e.first_name}} {{e.last_name}}</span>
+                                        <div class="meta">
+                                            {{e.user_name}}
+                                        </div>
+                                        <div class="description">
+                                            <strong>Games</strong>: | 
+                                            {% for game in interests|get_item:e %}
+                                                {{game}} | 
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            </div>
+                        </div>
+                        <div class="glide__bullets"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $("#Glide").glide({
+        type: "carousel",
+        paddings: "200px"
+    });
+</script>
+</body>
+{% endblock %}

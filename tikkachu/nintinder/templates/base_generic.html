@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <!-- meta data -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name "description" content="Find and play with your next perfect gaming buddy. Nintinder 
+        is the one-stop solution for the optimal gaming experience for you.">
+    <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang, Bhishma Pant, Kush Patel, 
+        Oliver Pang">
+
+
+    <!-- external css and js files -->
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'semantic/dist/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/semantic.united.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile-page.css' %}">
+  
+
+    {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/glide.js' %}"></script>
+    <script src="{% static 'semantic/dist/semantic.min.js'%}"></script>
+    <script src="{% static 'js/custom.js'%}"></script>
+    {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/glide.core.css' %}">
+    <link rel="stylesheet" href="{% static 'css/glide.theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">  
+
+    <title>Nintinder</title>
+  </head>
+  <body>
+    <div id="header" class="ui fixed menu">
+
+      <!-- Sidebar Button -->
+      <div id="header-col-1">
+        <button type="button"><i class="large content icon"></i></button>
+      </div>
+
+      <!-- Logo -->
+      <div id="header-col-2">
+        <a href="{% url 'index' %}"><img src= "{% static 'images/nintinder.png' %}"></a>
+      </div>
+
+      <!-- Search Bar -->
+      <div id="header-col-3" class="ui action left icon input">
+        <i class="search icon"></i> 
+        <input placeholder="Search..." type="text">
+          <div class="ui blue button"> Search </div>
+      </div>
+
+      <!-- User Info -->
+      <div id="header-col-4">
+        <a href = "{% url 'profile' %}">
+          <span>{{full_name}} &MediumSpace;</span>
+          <img class="ui avatar image" src="{% static 'images/square-image.png' %}">
+        </a>
+      </div>
+
+    </div>
+
+    <div id="sidebar" class="ui simple sidebar vertical menu left">
+      <div id="sidebar-row-0" class="item"> 
+        <div class="ui action left icon input">
+          <i class="search icon"></i> 
+          <input placeholder="Search..." type="text">
+          <div class="ui blue button"> Search </div>
+        </div>
+      </div>
+      <a href="{% url 'index' %}" class="item">
+        <i class="home icon"></i>&MediumSpace; Home
+      </a>
+      <a href="{% url 'matches' %}" class="item">
+        <i class="users icon"></i>&MediumSpace; Friends
+      </a>
+      <a href="{% url 'achievements' %}" class="item">
+        <i class="trophy icon"></i>&MediumSpace; My Achievements
+      </a>
+      <a href="{% url 'settings' %}" class="item">
+        <i class="settings icon"></i>&MediumSpace; Settings
+      </a>
+    </div>
+    
+  </body>
+</html>

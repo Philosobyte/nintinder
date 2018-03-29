@@ -1,0 +1,151 @@
+{% include "base_generic.html" %}
+{% block content %}
+{% load static%}
+<div id="main-content" class="pusher">
+  <div class="ui basic segment">
+    <center>
+      <div class="ui message main">
+        <h1 class="ui icon header">
+          <i class="gamepad icon"></i>
+          <div class="content">
+            The Latest Plug
+            <div class="sub header">
+              See all the activities from your friends partaking in the gaming world.
+            </div>
+          </div>
+        </h1>
+      </div>
+    </center>
+
+    <div align="right">
+      <div class="ui multiple dropdown">
+        <i class="filter icon"></i>
+        <span class="text">Filter Posts</span>
+      </div>
+    </div>
+
+    <h2>Chronological Timeline View (Togglable Option 1)</h2>
+        <div class="ui feed"> 
+
+          <div class="event">
+            <div class="label">
+              <i class="handshake icon"></i>
+            </div>
+            <div class="content">
+              <div class="summary">
+                <a class="user">{{full_name}}</a> beat <a class="user">
+                Raymond Liu</a> in <a class="game">Chess</a>.
+                <div class="date"> 1 Hour Ago </div>
+              </div>
+              <div class="meta">
+                <a class="like"><i class="like icon"></i> 69 Likes</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="label">
+              <i class="money icon"></i>
+            </div>
+            <div class="content">
+              <div class="summary">
+                <a class="user"> Kush Patel </a> bought <a class="game">
+                {{game1}}</a>.
+                <div class="date"> 3 Hours Ago </div>
+              </div>
+              <div class="meta">
+                <a class="like"><i class="like icon"></i> 31 Likes</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="event">
+            <div class="label">
+              <i class="calendar icon"></i>
+            </div>
+            <div class="content">
+              <div class="summary">
+                <a class="user"> Johan Pereira </a> + <a class="user">
+                3 more . . . </a> are playing <a class="game">{{game2}}</a> tomorrow.
+                <div class="date"> 6 Hours Ago </div>
+              </div>
+              <div class="meta">
+                <a class="like"><i class="like icon"></i> 42 Likes</a>
+              </div>
+            </div>
+          </div> 
+        </div> 
+
+    <h2>Relevance Card View (Togglable Option 2)</h2>
+    <div class="ui cards">
+      <div class="card">
+        <div class="content">
+          <img class="right floated mini ui image" src="{% static 'images/square-image.png' %}">
+          <div class="header"> Face-Off </div>
+          <div class="meta"> Game History </div>
+          <div class="description">
+            <a href="">{{full_name}}</a> beat
+            <a href=""> Raymond Liu</a> 12 points to 4 in
+            <a class="game">Chess</a>.
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui basic green button">
+            <i class="empty heart icon"></i> Like
+          </div>
+          <div class="ui basic red button">
+            <i class="handshake icon"></i> Challenge Dan
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="content">
+          <img class="right floated mini ui image" src="{% static 'images/game-history.png' %}">
+          <div class="header"> New Game </div>
+          <div class="meta"> Friend Activity </div>
+          <div class="description">
+            <a href="">Kush Patel</a> just bought
+            <a href="">{{game1}}</a>.
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui basic green button">
+            <i class="empty heart icon"></i> Like
+          </div>
+          <div class="ui basic red button">
+            <i class="handshake icon"></i> Join Kush
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="content">
+          <img class="right floated mini ui image" src="{% static 'images/game-history.png' %}">
+          <div class="header"> Upcoming Event </div>
+          <div class="meta"> Game Activity </div>
+          <div class="description">
+            <a class="user">Johan Pereira</a> and
+            <a class="user">three others
+            </a> are playing a game of
+            <a class="game">{{game2}}
+            </a> tomorrow.
+          </div>
+        </div>
+        <div class="extra content">
+          <div class="ui basic green button">
+            <i class="empty heart icon"></i> Like
+          </div>
+          <div class="ui basic red button">
+            <i class="handshake icon"></i> Request to Join
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+</body>
+{% endblock %}
