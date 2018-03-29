@@ -13,11 +13,17 @@ def index(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
+    games = Game.objects.all()
+    rand = random.randint(0, games.count())
+    gCurr = games[rand].name
+    gNext = games[(rand+3) % rand].name
     return render(
         request,
         'index.html',
         context={
-            'full_name': currName
+            'full_name': currName,
+            'game1' : gCurr, 
+            'game2' : gNext,
         },
     )
 
