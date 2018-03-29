@@ -99,10 +99,20 @@ def matches(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
+
+    friendsArray = list(Friend.objects.all())
+    outputArray = []
+    for x in friendsArray:
+        if ((x.friendA == usr) or (x.friendB == usr)) and x.status == '0':
+           outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
+        # if ((x.friendA == usr) or (x.friendB == usr)):
+        #     outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
+        #outputArray.append(x.friendA)
     return render(
         request,
         'matches.html',
         context={
-            'full_name': currName
+            'full_name': currName,
+            'friends': outputArray,
         },
     )
