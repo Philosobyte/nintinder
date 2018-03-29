@@ -78,11 +78,19 @@ def settings(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
+    firstName = usr.first_name
+    lastName = usr.last_name
+    date_of_birth = usr.date_of_birth
+    email = usr.email
     return render(
         request,
         'settings.html',
         context={
-            'full_name': currName
+            'full_name': currName,
+            'first_name': firstName,
+            'last_name' : lastName,
+            'DOB': date_of_birth,
+            'email': email
         },
     )
     

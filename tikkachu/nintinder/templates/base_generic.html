@@ -17,11 +17,16 @@
     <link rel="stylesheet" href="{% static 'css/semantic.united.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
     <link rel="stylesheet" href="{% static 'css/profile-page.css' %}">
-    
+  
+
     {% block scripts %}
+    <script src="{% static 'js/glide.js' %}"></script>
     <script src="{% static 'semantic/dist/semantic.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
     {% endblock %}
+
+    <link rel="stylesheet" href="{% static 'css/glide.core.css' %}">
+    <link rel="stylesheet" href="{% static 'css/glide.theme.css' %}">
 
     <title>Nintinder</title>
   </head>
