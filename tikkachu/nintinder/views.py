@@ -62,12 +62,13 @@ def achievements(request):
         for i in outputArray:
             if i.achievement == z:
                 outArray.remove(z)
-                
+    fullName = usr.first_name + ' ' + usr.last_name
     currName = usr.first_name
     return render(
         request,
         'achievements.html',
         context={
+            'full_name': fullName,
             'name': currName.upper(),
             'complete': outputArray,
             'incomplete': outArray

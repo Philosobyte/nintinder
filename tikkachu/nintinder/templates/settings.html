@@ -2,7 +2,7 @@
 {% block content %}
 {% load static%}
 
-<div id="content" class="pusher" style= "margin-top: 80px;">
+<div id="main-content" class="pusher" >
         <div id="content-grid" class="ui two column grid">
             <div class="eight wide column">
                 <h2 class="ui header">
@@ -210,7 +210,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="images/matthew.png">
+                                    <img src="{% static 'images/matthew.png' %}">
                                 </div>
                                 <div class="content">
                                     <a class="header">{{full_name}}</a>

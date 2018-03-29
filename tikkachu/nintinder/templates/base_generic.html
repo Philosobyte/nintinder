@@ -9,7 +9,7 @@
         is the one-stop solution for the optimal gaming experience for you.">
     <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang, Bhishma Pant, Kush Patel, 
         Oliver Pang">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+
 
     <!-- external css and js files -->
     {% load static %}
@@ -20,6 +20,7 @@
   
 
     {% block scripts %}
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="{% static 'js/glide.js' %}"></script>
     <script src="{% static 'semantic/dist/semantic.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
@@ -27,6 +28,7 @@
 
     <link rel="stylesheet" href="{% static 'css/glide.core.css' %}">
     <link rel="stylesheet" href="{% static 'css/glide.theme.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">  
 
     <title>Nintinder</title>
   </head>
