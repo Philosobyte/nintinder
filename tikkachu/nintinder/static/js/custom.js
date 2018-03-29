@@ -1,4 +1,3 @@
-alert("Fuck")
 $(document).ready(function() {
     
     $('#header-col-1 > button').click(function() {
