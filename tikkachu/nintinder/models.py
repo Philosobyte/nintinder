@@ -65,7 +65,7 @@ class EarnedAchievement(models.Model):
 
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the name of the event")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the name of the game")
     start_time = models.DateTimeField(null=True, blank=True, help_text="Enter the start time of the event")
     end_time = models.DateTimeField(null=True, blank=True, help_text="Enter the end time of the event (blank if still ongoing")
 
