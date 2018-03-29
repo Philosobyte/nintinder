@@ -9,14 +9,18 @@
         is the one-stop solution for the optimal gaming experience for you.">
     <meta name="author" content="Raymond Liu, Johan Pereira, Daniel Zhang, Bhishma Pant, Kush Patel, 
         Oliver Pang">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
 
     <!-- external css and js files -->
-    <link rel="stylesheet" type="text/css" href="semantic/dist/semantic.min.css">
-    <link rel="stylesheet" type="text/css" href="css/semantic.united.min.css">
-    <link rel="stylesheet" type="text/css" href="css/custom.css">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
-    <script src="semantic/dist/semantic.min.js"></script>
-    <script src="js/custom.js"></script>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'semantic/dist/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/semantic.united.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    
+    {% block scripts %}
+    <script src="{% static 'semantic/dist/semantic.min.js'%}"></script>
+    <script src="{% static 'js/custom.js'%}"></script>
+    {% endblock %}
 
     <title>Nintinder</title>
   </head>
@@ -30,7 +34,7 @@
 
       <!-- Logo -->
       <div id="header-col-2">
-        <a href="index.html"><img src="images/nintinder.png"></a>
+        <a href="{% url 'index' %}"><img src= "{% static 'images/nintinder.png' %}"></a>
       </div>
 
       <!-- Search Bar -->
@@ -43,8 +47,8 @@
       <!-- User Info -->
       <div id="header-col-4">
         <button type="button">
-          <span>Gaurab Pant &MediumSpace;</span>
-          <img class="ui avatar image" src="images/square-image.png">
+          <span>{{currName}} &MediumSpace;</span>
+          <img class="ui avatar image" src="{% static 'images/square-image.png' %}">
         </button>
       </div>
 
@@ -58,7 +62,7 @@
           <div class="ui blue button"> Search </div>
         </div>
       </div>
-      <a href="index.html" class="item">
+      <a href="{% url 'index' %}" class="item">
         <i class="home icon"></i>&MediumSpace; Home
       </a>
       <a href="matches.html" class="item">
