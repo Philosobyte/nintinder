@@ -1,0 +1,74 @@
+{% include "base_generic.html" %} {% block content %} {% load static%}
+<div id="main-content" class="ui bottom attached segment  ">
+
+    <div id="content" class="pusher">
+        <div class="ui basic segment">
+            <div id="achievement-header">
+                <h1 style="text-align:center">{{name}}'S ACHIEVEMENTS</h1>
+            </div>
+
+            <div class="ui horizontal divider">
+                <i class="star outline icon"></i>
+            </div>
+
+            <div class="ui horizontal list" style="margin-bottom:50px">
+                <h2 style="margin-left:20px;">Completed</h2>
+                {% if complete %}
+                    {% for e in complete %}
+                        <div class="item">
+                            <div class="ui card">
+                                <div class="image">
+                                    <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{e.achievement.name}}</a>
+                                    <div class="description">
+                                        You rock that {{e.achievement.game.platform}}!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h3>Complete more achievements!</h3>
+                {% endif %}
+
+                
+            </div>
+
+
+            <div class="ui horizontal divider">
+                <i class="star outline icon"></i>
+            </div>
+
+            <div class="ui horizontal list" style="margin-bottom:50px">
+                <h2 style="margin-left:20px;">To Finish</h2>
+
+                {% if incomplete %}
+                    {% for e in incomplete %}
+                        <div class="item">
+                            <div class="ui card">
+                                <div class="image">
+                                    <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
+                                </div>
+                                <div class="content">
+                                    <a class="header">{{e.name}}</a>
+                                    <div class="description">
+                                        What? Is a game from {{e.game.release_date.year}} by {{e.game.publisher}} too good for you?
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                        <h3>You've done it all!</h3>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+</body>
+
+{% endblock %}
