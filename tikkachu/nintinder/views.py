@@ -108,11 +108,15 @@ def matches(request):
         # if ((x.friendA == usr) or (x.friendB == usr)):
         #     outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
         #outputArray.append(x.friendA)
+    # picsArray = []
+    # for x in outputArray:
+    friend_usernames = [x.user_name for x in outputArray]
     return render(
         request,
         'matches.html',
         context={
             'full_name': currName,
             'friends': outputArray,
+            'people': len(outputArray),
         },
     )

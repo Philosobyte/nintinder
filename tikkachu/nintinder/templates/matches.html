@@ -20,7 +20,7 @@
         <div class="ui basic segment">
             <div class="ui grid">
                 <div class="ui row margin-20" style="margin-top: 16px">
-                    <h1>{{full_name}}, 7 people would like to play you!</h1>
+                    <h1>{{full_name}}, {{ people }} people would like to play you!</h1>
                 </div>
                 <div class="ui row margin-20">
                     <div id="Glide" class="glide">
@@ -34,7 +34,9 @@
                             {% for e in friends %}
                                 <div class="ui card glide__slide">
                                     <div class="image">
-                                        <img src="{% static 'images/gaben.jpg' %} ">
+                                        {% with "images/"|add:e.user_name|add:".jpg" as propic %}
+                                        <img src="{% static propic %}">
+                                        {% endwith %}
                                     </div>
                                     <div class="content">
                                         <span class="header">{{e.first_name}} {{e.last_name}}</span>
