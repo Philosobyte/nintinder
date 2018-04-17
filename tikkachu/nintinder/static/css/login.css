@@ -1,5 +1,5 @@
 
-body > form, body > form > .grid {
+body > .grid, body > form, body > form > .grid {
   height: 100%;
 }
 

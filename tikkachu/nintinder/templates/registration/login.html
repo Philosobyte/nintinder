@@ -14,11 +14,12 @@
 
 {% if user.is_authenticated %}
 <div class="ui middle aligned center aligned grid">
-        <div class="column">
-          <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
-          <div id="login-message">
-                You are already logged in. 
-          </div>
+    <div class="column">
+      <div class="ui image header ">
+        <a href={% url 'index' %}>You are already logged in.</a> 
+      </div>
+    </div>
+</div>
 
 {% else %}
 <form class="ui large form middle aligned center aligned grid" method = "post" action = "{% url 'login' %}">
