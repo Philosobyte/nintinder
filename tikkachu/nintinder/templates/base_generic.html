@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="{% static 'css/glide.theme.css' %}">
     <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <link rel="stylesheet" href="{% static 'css/base_generic.css' %}">
-    <link rel="stylesheet" href="{% static 'css/profile-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/index.css' %}">  
 
     {% block scripts %}
@@ -59,11 +58,13 @@
             <div id="header-col-4" class="ui dropdown">
               <button>
                 <span>{{user.first_name}} {{user.last_name}} &MediumSpace;</span>
-                <img class="ui avatar image" src="{% static 'images/square-image.png' %}">
+                {% with "images/"|add:user.username|add:".jpg" as propic %}
+                  <img class="ui avatar image" src="{% static propic %}" alt="profile-image">
+                {% endwith %}
               </button>
               <div class="menu">
                 <div class="item"><a href="{% url 'profile' %}">Profile</a></div>
-                <div class="item"><a href="{% url 'logout'%}?next={{request.path}}">Log Out</div></a>
+                <div class="item"><a href="{% url 'logout'%}">Log Out</div></a>
               </div>
             </div>
     

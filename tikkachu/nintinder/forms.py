@@ -1,7 +1,9 @@
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
+from django.forms.widgets import PasswordInput, TextInput
+
 from .models import Profile
-from django.forms.widgets import TextInput
 
 
 class UserForm(forms.ModelForm):
@@ -32,3 +34,8 @@ class ProfileForm(forms.ModelForm):
     def clean_date_of_birth(self):
         data = self.cleaned_data['date_of_birth']
         return data
+
+
+class CustomAuthForm(AuthenticationForm):
+    username = forms.CharField(widget=TextInput(attrs={'class':'validate','placeholder': 'Username'}))
+    password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
