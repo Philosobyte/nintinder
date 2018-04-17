@@ -14,15 +14,11 @@ class Profile(models.Model):
     Model representing a user of the service
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    user_name = models.CharField(max_length=64, help_text="Enter a username")
-    first_name = models.CharField(max_length=64, help_text="Enter the user's first name")
-    last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
     location = models.CharField(max_length=256, help_text="Enter the user's location")
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-    email = models.CharField(max_length=256, help_text="Enter the user's email address")
 
     def __str__(self):
-        return self.user_name
+        return self.user.username
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):
