@@ -22,6 +22,10 @@ body > form > .grid > .column > .form{
   margin-bottom: 20px;
 }
 
+#login-message > b {
+  color: #ff4554;
+}
+
 @media (min-width: 1080px){
   body > form > .grid > .column > a > img {
     width: 500px;
