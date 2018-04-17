@@ -1,25 +1,22 @@
-from django.db.models import Q
-from django.shortcuts import render
+import random
 from collections import defaultdict
 
-from django.http import HttpResponseRedirect
-from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
-from .forms import UserForm, ProfileForm
-import random
-
-
-# Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
-# For the actual website, obviously we would be getting a static user and their static friends 
-
+from .forms import ProfileForm, UserForm
 # Create your views here.
-from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend, Profile
+from .models import (Achievement, EarnedAchievement, Event, Friend, Game,
+                     Interest, Participant, Profile, User)
+
 
 @login_required
 def index(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    usr = User.objects.all()[random.randint(0, size - 1)]
     currName = usr.first_name + ' ' + usr.last_name
     games = Game.objects.all()
     rand = random.randint(0, games.count() - 1)
@@ -30,16 +27,16 @@ def index(request):
         'index.html',
         context={
             'full_name': currName,
-            'game1' : gCurr, 
-            'game2' : gNext,
+            'game1': gCurr,
+            'game2': gNext,
         },
     )
+
 
 @login_required
 def profile(request):
     size = User.objects.all().count()
-    currUser = request.user.first_name 
-    #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    currUser = request.user.first_name
     usr = request.user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
@@ -56,7 +53,6 @@ def profile(request):
     gameArray = Game.objects.all()
     gameTuple = (gameArray[seed].name, gameArray[(seed + 1) % size].name, gameArray[(seed - 1) % size].name)
 
-
     return render(
         request,
         'profile.html',
@@ -65,19 +61,15 @@ def profile(request):
             'full_name': currName,
             'location': currLoc,
             'age': age,
-            'email' : currEmail,
+            'email': currEmail,
             'gTuple': gameTuple
         },
     )
 
+
 @login_required
 def achievements(request):
-    size = User.objects.all().count()
-    #usr = User.objects.all()[random.randint(0, size - 1)]
-
     usr = request.user
-     #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
-    # completedArray = list(EarnedAchievement.objects.all())
     outputArray = EarnedAchievement.objects.filter(user=usr)
 
     incompleteArray = list(Achievement.objects.all())
@@ -99,10 +91,9 @@ def achievements(request):
         },
     )
 
+
 @login_required
 def settings(request):
-    # size = User.objects.all().count()
-    # usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     usr = request.user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
@@ -131,12 +122,10 @@ def settings(request):
             },
         )
 
+
 @login_required
 def matches(request):
-    size = User.objects.all().count()
     usr = request.user
-
-    #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
 
     friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
@@ -162,10 +151,9 @@ def matches(request):
             'interests': interests,
         },
     )
-    
+
 
 def login(request):
-  
     return render(
         request,
         'login.html',
