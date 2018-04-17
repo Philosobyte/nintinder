@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from collections import defaultdict
 import random
@@ -7,11 +8,11 @@ import random
 # For the actual website, obviously we would be getting a static user and their static friends 
 
 # Create your views here.
-from .models import Profile, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
+from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend, Profile
 
 def index(request):
-    size = Profile.objects.all().count()
-    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = User.objects.all().count()
+    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
     games = Game.objects.all()
     rand = random.randint(0, games.count() - 1)
@@ -28,11 +29,12 @@ def index(request):
     )
 
 def profile(request):
-    size = Profile.objects.all().count()
-    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = User.objects.all().count()
+    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
-    currLoc = usr.location
-    currBD = usr.date_of_birth
+    currLoc = profile.location
+    currBD = profile.date_of_birth
     age = 2018 - currBD.year
     currEmail = usr.email
 
@@ -55,14 +57,12 @@ def profile(request):
     )
 
 def achievements(request):
-    size = Profile.objects.all().count()
-    usr = Profile.objects.all()[random.randint(0, size - 1)]
+    size = User.objects.all().count()
+    usr = User.objects.all()[random.randint(0, size - 1)]
      #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
-    completedArray = list(EarnedAchievement.objects.all())
-    outputArray = completedArray[:]
-    for x in completedArray:
-        if x.user != usr:
-            outputArray.remove(x)
+    # completedArray = list(EarnedAchievement.objects.all())
+    outputArray = EarnedAchievement.objects.filter(user=usr)
+
     incompleteArray = list(Achievement.objects.all())
     outArray = incompleteArray[:]
     for z in incompleteArray:
@@ -83,12 +83,13 @@ def achievements(request):
     )
     
 def settings(request):
-    size = Profile.objects.all().count()
-    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = User.objects.all().count()
+    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
     firstName = usr.first_name
     lastName = usr.last_name
-    date_of_birth = usr.date_of_birth
+    date_of_birth = profile.date_of_birth
     email = usr.email
     return render(
         request,
@@ -103,25 +104,22 @@ def settings(request):
     )
     
 def matches(request):
-    size = Profile.objects.all().count()
-    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = User.objects.all().count()
+    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
 
-    friendsArray = list(Friend.objects.all())
-    outputArray = []
-    for x in friendsArray:
-        if ((x.friendA == usr) or (x.friendB == usr)) and x.status == '0':
-           outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
+    friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
 
-    interestsArray = list(Interest.objects.all())
-    outputDict2 = defaultdict(list)
+    outputArray = [(x.friendA if (x.friendB == usr) else x.friendB) for x in friendsArray]
+
+    friends_qs = Q( user=None )
+    for friend in outputArray:
+        friends_qs = friends_qs | Q(user=friend)
+    interestsArray = Interest.objects.filter(friends_qs)
+
+    interests = defaultdict(list)
     for x in interestsArray:
-        outputDict2[x.user].append(x.game)
-
-    # picsArray = []
-    # for x in outputArray:
-    friend_usernames = [x.user_name for x in outputArray]
-
+        interests[x.user].append(x.game)
 
     return render(
         request,
@@ -130,6 +128,6 @@ def matches(request):
             'full_name': currName,
             'friends': outputArray,
             'people': len(outputArray),
-            'interests': outputDict2,
+            'interests': interests,
         },
     )
