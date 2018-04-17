@@ -1,7 +1,7 @@
 from django.db.models import Q
 from django.shortcuts import render
 from collections import defaultdict
-
+from django.views.generic.edit import CreateView
 from django.views.generic import FormView
 from django.contrib.auth.decorators import login_required
 import random
@@ -12,6 +12,10 @@ import random
 
 # Create your views here.
 from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend, Profile
+
+class AchievementCreate(CreateView):
+    model = Achievement
+    fields = '__all__'
 
 @login_required
 def index(request):
@@ -51,6 +55,11 @@ def profile(request):
     size = Game.objects.all().count()
     seed = random.randint(0, size - 1)
     gameArray = Game.objects.all()
+    list_of_games = []
+
+    for x in gameArray:
+        list_of_games.append(x.name)
+    unique_games = set(list_of_games)
     gameTuple = (gameArray[seed].name, gameArray[(seed + 1) % size].name, gameArray[(seed - 1) % size].name)
 
 
@@ -63,7 +72,8 @@ def profile(request):
             'location': currLoc,
             'age': age,
             'email' : currEmail,
-            'gTuple': gameTuple
+            'gTuple': gameTuple,
+            'gameDrop': unique_games,
         },
     )
 
