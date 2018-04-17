@@ -44,7 +44,7 @@ class Game(models.Model):
 
 class Interest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, help_text="Enter the username of the user who is interested in a game")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who is interested in a game")
     game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the game the user is interested in")
 
     def __str__(self):
@@ -65,7 +65,7 @@ class Achievement(models.Model):
 
 class EarnedAchievement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
 
     def __str__(self):
@@ -86,7 +86,7 @@ class Event(models.Model):
 class Participant(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, help_text="Enter the id of the event")
-    user = models.ForeignKey(Profile, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
     start_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user started participating in the event")
     end_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
 
@@ -96,8 +96,8 @@ class Participant(models.Model):
 
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    friendA = models.ForeignKey(Profile, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
-    friendB = models.ForeignKey(Profile, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+    friendA = models.ForeignKey(User, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
+    friendB = models.ForeignKey(User, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
 
     STATUSES = (
         (u'0', u'friends'),
