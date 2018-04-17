@@ -1,25 +1,26 @@
 {% include "base_generic.html" %}
 {% block content %}
 {% load static%}
+
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
+    <div id="login-message">
+          Wrong password and login.
+    </div>
 {% endif %}
 
-{% if next %}
-    {% if user.is_authenticated %}
-    <div class="ui middle aligned center aligned grid">
-            <div class="column">
-              <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
-              <div id="login-message">
-                    <p>Your account doesn't have access to this page. To proceed,
-                            please login with an account that has access.</p>
-                            {% else %}
-                            <p>Please login to see this page.</p> 
-              </div>
-    
-    {% endif %}
-{% endif %}
 
+{% if user.is_authenticated %}
+<div class="ui middle aligned center aligned grid">
+        <div class="column">
+          <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
+          <div id="login-message">
+                You are already logged in. 
+          </div>
+
+{% else %}
 <form method = "post" action = "{% url 'login' %}">
   {% csrf_token %}
   <div class="ui middle aligned center aligned grid">
@@ -50,5 +51,6 @@
     </div>
   </div>
 </form>
+{% endif %}
 
 {% endblock %}

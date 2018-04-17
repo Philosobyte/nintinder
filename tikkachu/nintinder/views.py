@@ -34,7 +34,9 @@ def index(request):
 @login_required
 def profile(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    currUser = request.user.first_name 
+    #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    usr = request.user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
     currLoc = profile.location
@@ -55,6 +57,7 @@ def profile(request):
         request,
         'profile.html',
         context={
+            'curr': currUser,
             'full_name': currName,
             'location': currLoc,
             'age': age,
@@ -66,7 +69,9 @@ def profile(request):
 @login_required
 def achievements(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)]
+    #usr = User.objects.all()[random.randint(0, size - 1)]
+
+    usr = request.user
      #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     # completedArray = list(EarnedAchievement.objects.all())
     outputArray = EarnedAchievement.objects.filter(user=usr)
@@ -93,7 +98,8 @@ def achievements(request):
 @login_required
 def settings(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    usr = request.user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
     firstName = usr.first_name
@@ -115,7 +121,9 @@ def settings(request):
 @login_required
 def matches(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    usr = request.user
+    
+    #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
 
     friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
@@ -143,14 +151,10 @@ def matches(request):
     )
     
 def login(request):
-    size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)]
-    auth = False
     return render(
     request,
     'login.html',
     context={
             'user' : usr,
-            'authenticated': auth,
         },
   )
