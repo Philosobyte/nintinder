@@ -1,13 +1,14 @@
-body > .grid {
+
+body > form, body > form > .grid {
   height: 100%;
 }
 
-body > .grid > .column > a > img {
+body > form > .grid > .column > a > img {
   width: 400px;
   margin-bottom: 20px;
 }
 
-body > .grid > .column > .form{
+body > form > .grid > .column > .form{
   width: 500px;
   margin-left: auto;
   margin-right: auto;
@@ -22,21 +23,21 @@ body > .grid > .column > .form{
 }
 
 @media (min-width: 1080px){
-  body > .grid > .column > a > img {
+  body > form > .grid > .column > a > img {
     width: 500px;
   }
 
-  body > .grid > .column > .form{
+  body > form > .grid > .column > .form{
     width: 750px;
   }
 }
 
 @media (max-width: 768px){
-  body > .grid > .column > a > img {
+  body > form > .grid > .column > a > img {
     width: 300px;
   }
 
-  body > .grid > .column > .form{
+  body > form > .grid > .column > .form{
     width: 350px;
   }
 }
