@@ -3,6 +3,8 @@ from django.shortcuts import render
 from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
+
+from .forms import UserForm, ProfileForm
 import random
 
 
@@ -97,8 +99,8 @@ def achievements(request):
 
 @login_required
 def settings(request):
-    size = User.objects.all().count()
-    #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    # size = User.objects.all().count()
+    # usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     usr = request.user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
@@ -106,6 +108,9 @@ def settings(request):
     lastName = usr.last_name
     date_of_birth = profile.date_of_birth
     email = usr.email
+
+    uform = UserForm(instance=usr)
+    pform = ProfileForm(instance=profile)
     return render(
         request,
         'settings.html',
@@ -114,7 +119,9 @@ def settings(request):
             'first_name': firstName,
             'last_name' : lastName,
             'DOB': date_of_birth,
-            'email': email
+            'email': email,
+            'uform': uform,
+            'pform': pform
         },
     )
 
