@@ -1,9 +1,9 @@
 from django.contrib import admin
-from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
+from .models import Profile, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
 
 # Register your models here.
 
-@admin.register(User)
+@admin.register(Profile)
 class UserAdmin(admin.ModelAdmin):
     list_display = ('user_name', 'email', 'last_name', 'first_name')
     fields = ['id', ('last_name', 'first_name'), 'email',
