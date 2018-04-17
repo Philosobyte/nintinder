@@ -1,0 +1,10 @@
+{% include "base_generic.html" %}
+{% block content %}
+{% load static%}
+
+<div class="ui middle aligned center aligned grid">
+  <div class="column">
+    <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
+    <div id="login-message">
+          Logged out!
+    </div>
