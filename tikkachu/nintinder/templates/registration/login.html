@@ -20,7 +20,7 @@
         <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
         <div id="login-message">
           {% if form.errors %}
-            <div class="ui negative message">Wrong password and login.</div>
+            <div class="ui negative message">Wrong password or login.</div>
           {% else %}
             For when you wanna <b>Smash</b>. &trade; &#x1F60F;  
           {% endif %}
