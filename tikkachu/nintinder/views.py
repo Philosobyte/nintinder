@@ -1,6 +1,8 @@
 from django.db.models import Q
 from django.shortcuts import render
 from collections import defaultdict
+
+from django.contrib.auth.decorators import login_required
 import random
 
 
@@ -10,6 +12,7 @@ import random
 # Create your views here.
 from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend, Profile
 
+@login_required
 def index(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
@@ -28,6 +31,7 @@ def index(request):
         },
     )
 
+@login_required
 def profile(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
@@ -35,7 +39,10 @@ def profile(request):
     currName = usr.first_name + ' ' + usr.last_name
     currLoc = profile.location
     currBD = profile.date_of_birth
-    age = 2018 - currBD.year
+    if not currBD:
+        age = 0
+    else:
+        age = 2018 - currBD.year
     currEmail = usr.email
 
     size = Game.objects.all().count()
@@ -56,6 +63,7 @@ def profile(request):
         },
     )
 
+@login_required
 def achievements(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)]
@@ -81,7 +89,8 @@ def achievements(request):
             'incomplete': outArray
         },
     )
-    
+
+@login_required
 def settings(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
@@ -102,7 +111,8 @@ def settings(request):
             'email': email
         },
     )
-    
+
+@login_required
 def matches(request):
     size = User.objects.all().count()
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
@@ -131,3 +141,16 @@ def matches(request):
             'interests': interests,
         },
     )
+    
+def login(request):
+    size = User.objects.all().count()
+    usr = User.objects.all()[random.randint(0, size - 1)]
+    auth = False
+    return render(
+    request,
+    'login.html',
+    context={
+            'user' : usr,
+            'authenticated': auth,
+        },
+  )
