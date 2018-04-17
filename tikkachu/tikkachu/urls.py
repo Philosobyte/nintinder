@@ -24,21 +24,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-# Add URL maps to redirect the base URL to our application 
-
-    
+# Add URL maps to redirect the base URL to our application     
 urlpatterns += {
         url(r'^$', RedirectView.as_view(url= '/nintinder/', permanent=True))
     }
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-#Use include() to add URLS from the catalog application
-
-
 urlpatterns += [
     url(r'^nintinder/', include('nintinder.urls')),
-]
-
-urlpatterns += [
-    path('nintinder/accounts/', include('django.contrib.auth.urls')),
 ]
