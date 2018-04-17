@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from collections import defaultdict
 
+from django.views.generic import FormView
 from django.contrib.auth.decorators import login_required
 import random
 
@@ -156,7 +157,4 @@ def login(request):
     return render(
         request,
         'login.html',
-        context={
-            'user': usr,
-        },
     )
