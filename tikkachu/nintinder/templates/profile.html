@@ -1,13 +1,15 @@
 {% include "base_generic.html" %}
 {% block content %}
 {% load static%}
+
 <div id="main-content" class="pusher">
   <div class="profile-content">
     <div id="profile-content-grid" class="ui grid">
       <div class="row">
         <div class="two wide column">
-          <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
-            alt="profile-image">
+          {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui massive avatar image" src="{% static propic %}" alt="profile-image">
+          {% endwith %}
         </div>
         <div id="profile-name-div" class="fourteen wide column">
           <div class="ui grid">
