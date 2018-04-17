@@ -2,6 +2,8 @@ from django.db.models import Q
 from django.shortcuts import render
 from collections import defaultdict
 
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
 from .forms import UserForm, ProfileForm
@@ -105,23 +107,35 @@ def settings(request):
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
 
-    uform = UserForm(instance=usr)
-    pform = ProfileForm(instance=profile)
-    return render(
-        request,
-        'settings.html',
-        context={
-            'full_name': currName,
-            'uform': uform,
-            'pform': pform
-        },
-    )
+    if request.method == 'POST':
+        uform = UserForm(request.POST)
+        pform = ProfileForm(request.POST)
+        if uform.is_valid() and pform.is_valid():
+            usr.email = uform.clean_email()
+            usr.first_name = uform.clean_first_name()
+            usr.last_name = uform.clean_last_name()
+            profile.date_of_birth = pform.clean_date_of_birth()
+            usr.save()
+            profile.save()
+        return HttpResponseRedirect(reverse('settings'))
+    else:
+        uform = UserForm(instance=usr)
+        pform = ProfileForm(instance=profile)
+        return render(
+            request,
+            'settings.html',
+            context={
+                'full_name': currName,
+                'uform': uform,
+                'pform': pform
+            },
+        )
 
 @login_required
 def matches(request):
     size = User.objects.all().count()
     usr = request.user
-    
+
     #usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
 
