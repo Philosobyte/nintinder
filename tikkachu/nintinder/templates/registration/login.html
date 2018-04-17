@@ -2,16 +2,6 @@
 {% block content %}
 {% load static%}
 
-{% if form.errors %}
-<div class="ui middle aligned center aligned grid">
-  <div class="column">
-    <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
-    <div id="login-message">
-          Wrong password and login.
-    </div>
-{% endif %}
-
-
 {% if user.is_authenticated %}
 <div class="ui middle aligned center aligned grid">
     <div class="column">
@@ -28,7 +18,11 @@
     <div class="column">
       <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
       <div id="login-message">
-        For when you wanna <b>Smash</b>. &#x1F60F; &trade; 
+        {% if form.errors %}
+          <div class="ui negative message">Wrong password and login.</div>
+        {% else %}
+          For when you wanna <b>Smash</b>. &#x1F60F; &trade; 
+        {% endif %}
       </div>
       <div class="ui stacked segment">
         <div class="field">
