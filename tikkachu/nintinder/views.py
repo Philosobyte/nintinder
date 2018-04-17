@@ -61,10 +61,8 @@ def achievements(request):
     usr = User.objects.all()[random.randint(0, size - 1)]
      #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     # completedArray = list(EarnedAchievement.objects.all())
-    outputArray = EarnedAchievement.objects.filter( user=usr )
-    # for x in completedArray:
-    #     if x.user != usr:
-    #         outputArray.remove(x)
+    outputArray = EarnedAchievement.objects.filter(user=usr)
+
     incompleteArray = list(Achievement.objects.all())
     outArray = incompleteArray[:]
     for z in incompleteArray:
@@ -110,29 +108,18 @@ def matches(request):
     usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
 
-    # friendsArray = list(Friend.objects.all())
     friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
-    # friendsArray = list(friendsArray)
 
     outputArray = [(x.friendA if (x.friendB == usr) else x.friendB) for x in friendsArray]
-    # outputArray = list(outputArray)
-    # outputArray = []
-    # for x in friendsArray:
-    #     if ((x.friendA == usr) or (x.friendB == usr)) and x.status == '0':
-    #        outputArray.append(x.friendA if (x.friendB == usr) else x.friendB)
 
-    # interestsArray = list(Interest.objects.all())
     friends_qs = Q( user=None )
     for friend in outputArray:
         friends_qs = friends_qs | Q(user=friend)
     interestsArray = Interest.objects.filter(friends_qs)
-    # interestsArray = list(interestsArray)
 
-    outputDict2 = defaultdict(list)
+    interests = defaultdict(list)
     for x in interestsArray:
-        outputDict2[x.user].append(x.game)
-
-    # outputDict2 = { x.user:  }
+        interests[x.user].append(x.game)
 
     return render(
         request,
@@ -141,6 +128,6 @@ def matches(request):
             'full_name': currName,
             'friends': outputArray,
             'people': len(outputArray),
-            'interests': outputDict2,
+            'interests': interests,
         },
     )
