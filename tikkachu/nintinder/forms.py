@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
+from django.forms.widgets import TextInput
 
 
 class UserForm(forms.ModelForm):
@@ -8,6 +9,7 @@ class UserForm(forms.ModelForm):
         model = User
         fields = ['email', 'first_name', 'last_name']
         labels = {'email': 'Email', 'first_name': 'First Name', 'last_name': 'Last Name'}
+        #widgets = {'email': TextInput(attrs={'placeholder': 'name', 'class': 'ui'})}
 
     def clean_email(self):
         data = self.cleaned_data['email']

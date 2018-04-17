@@ -104,10 +104,6 @@ def settings(request):
     usr = request.user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
-    firstName = usr.first_name
-    lastName = usr.last_name
-    date_of_birth = profile.date_of_birth
-    email = usr.email
 
     uform = UserForm(instance=usr)
     pform = ProfileForm(instance=profile)
@@ -116,10 +112,6 @@ def settings(request):
         'settings.html',
         context={
             'full_name': currName,
-            'first_name': firstName,
-            'last_name' : lastName,
-            'DOB': date_of_birth,
-            'email': email,
             'uform': uform,
             'pform': pform
         },
