@@ -1,16 +1,19 @@
 from django.db import models
 from django.template.defaulttags import register
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import datetime
 import uuid
 
 # Create your models here.
 
 
-class User(models.Model):
+class Profile(models.Model):
     """
     Model representing a user of the service
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     user_name = models.CharField(max_length=64, help_text="Enter a username")
     first_name = models.CharField(max_length=64, help_text="Enter the user's first name")
     last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
@@ -20,6 +23,15 @@ class User(models.Model):
 
     def __str__(self):
         return self.user_name
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 
 class Game(models.Model):
@@ -36,7 +48,7 @@ class Game(models.Model):
 
 class Interest(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who is interested in a game")
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, help_text="Enter the username of the user who is interested in a game")
     game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the game the user is interested in")
 
     def __str__(self):
@@ -57,7 +69,7 @@ class Achievement(models.Model):
 
 class EarnedAchievement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
     achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
 
     def __str__(self):
@@ -78,7 +90,7 @@ class Event(models.Model):
 class Participant(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     event = models.ForeignKey(Event, on_delete=models.CASCADE, help_text="Enter the id of the event")
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
+    user = models.ForeignKey(Profile, on_delete=models.CASCADE, help_text="Enter the id of user participating in the event")
     start_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user started participating in the event")
     end_time = models.DateTimeField(null=True, blank=True, help_text="Enter when the user finished participating in the event (blank if ongoing)")
 
@@ -88,8 +100,8 @@ class Participant(models.Model):
 
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    friendA = models.ForeignKey(User, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
-    friendB = models.ForeignKey(User, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+    friendA = models.ForeignKey(Profile, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
+    friendB = models.ForeignKey(Profile, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
 
     STATUSES = (
         (u'0', u'friends'),

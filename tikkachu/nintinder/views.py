@@ -7,11 +7,11 @@ import random
 # For the actual website, obviously we would be getting a static user and their static friends 
 
 # Create your views here.
-from .models import User, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
+from .models import Profile, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
 
 def index(request):
-    size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = Profile.objects.all().count()
+    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
     games = Game.objects.all()
     rand = random.randint(0, games.count() - 1)
@@ -28,8 +28,8 @@ def index(request):
     )
 
 def profile(request):
-    size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = Profile.objects.all().count()
+    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
     currLoc = usr.location
     currBD = usr.date_of_birth
@@ -55,8 +55,8 @@ def profile(request):
     )
 
 def achievements(request):
-    size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)]
+    size = Profile.objects.all().count()
+    usr = Profile.objects.all()[random.randint(0, size - 1)]
      #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     completedArray = list(EarnedAchievement.objects.all())
     outputArray = completedArray[:]
@@ -83,8 +83,8 @@ def achievements(request):
     )
     
 def settings(request):
-    size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = Profile.objects.all().count()
+    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
     firstName = usr.first_name
     lastName = usr.last_name
@@ -103,8 +103,8 @@ def settings(request):
     )
     
 def matches(request):
-    size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
+    size = Profile.objects.all().count()
+    usr = Profile.objects.all()[random.randint(0, size - 1)] #For testing/database purposes, just picking the first User object made and taking their first/last name to use for the Profile right now
     currName = usr.first_name + ' ' + usr.last_name
 
     friendsArray = list(Friend.objects.all())
