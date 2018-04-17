@@ -2,17 +2,16 @@
 {% block content %}
 {% load static %}
 
-<div class="ui middle aligned center aligned grid">
+<body id="logout">
+  <div class="ui middle aligned center aligned grid">
     <div class="column">
-
-    	<div id="login-message">
-            You have successfully logged out
-    	</div>
-      	<a href={% url 'login' %}>
-      	<div>
-      		Log back in
-    	</div></a>
-	</div>
-</div>
+      <a href={% url 'login' %}><img src= "{% static 'images/nintinder_white_on_transparent.png' %}"></a>
+      <div>
+        <div>You have successfully log out. Thanks for <b>Smashing</b> with us.</div>
+        <a class="ui fluid large submit button" href={% url 'login' %}><div>Log back in</div></a>
+      </div>
+    </div>
+  </div>
+</body>
 
 {% endblock %}

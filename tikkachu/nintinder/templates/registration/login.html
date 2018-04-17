@@ -2,47 +2,48 @@
 {% block content %}
 {% load static%}
 
-{% if user.is_authenticated %}
-<div class="ui middle aligned center aligned grid">
-    <div class="column">
-      <div class="ui image header ">
-        <a href={% url 'index' %}>You are already logged in.</a> 
-      </div>
-    </div>
-</div>
-
-{% else %}
-<form class="ui large form middle aligned center aligned grid" method = "post" action = "{% url 'login' %}">
-  {% csrf_token %}
+<body>
+  {% if user.is_authenticated %}
   <div class="ui middle aligned center aligned grid">
-    <div class="column">
-      <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
-      <div id="login-message">
-        {% if form.errors %}
-          <div class="ui negative message">Wrong password and login.</div>
-        {% else %}
-          For when you wanna <b>Smash</b>. &#x1F60F; &trade; 
-        {% endif %}
+      <div class="column">
+        <div class="ui image header ">
+          <a href={% url 'index' %}>You are already logged in.</a> 
+        </div>
       </div>
-      <div class="ui stacked segment">
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="user icon"></i>
-            {{form.username}}
-          </div>
+  </div>
+  
+  {% else %}
+  <form class="ui large form middle aligned center aligned grid" method = "post" action = "{% url 'login' %}">
+    {% csrf_token %}
+    <div class="ui middle aligned center aligned grid">
+      <div class="column">
+        <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
+        <div id="login-message">
+          {% if form.errors %}
+            <div class="ui negative message">Wrong password and login.</div>
+          {% else %}
+            For when you wanna <b>Smash</b>. &trade; &#x1F60F;  
+          {% endif %}
         </div>
-        <div class="field">
-          <div class="ui left icon input">
-            <i class="lock icon"></i>
-            {{form.password }}
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              {{form.username}}
+            </div>
           </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              {{form.password }}
+            </div>
+          </div>
+          <button id="login-button" input type = "submit" value = "login" class="ui fluid large submit button">Login</button>
+          <input type="hidden" name="next" value="{{ next }}" />
         </div>
-        <button id="login-button" input type = "submit" value = "login" class="ui fluid large submit button">Login</button>
-        <input type="hidden" name="next" value="{{ next }}" />
       </div>
     </div>
-  </div>
-</form>
-{% endif %}
-
+  </form>
+  {% endif %}
+</body>
 {% endblock %}
