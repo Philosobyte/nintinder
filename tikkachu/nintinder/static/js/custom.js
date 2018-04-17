@@ -1,15 +1,15 @@
 $(document).ready(function() {
-    
+
+    $('#header-col-4 > button').click(function(){
+      $('#header-col-4')
+        .dropdown();
+    });
+
     $('#header-col-1 > button').click(function() {
         $('#sidebar')
           .sidebar('setting', 'transition', 'overlay')
           .sidebar('toggle')
-        scrollLock();
-    })
-    
-    $('#main-content').click(function(){
-      scrollLock();
-    })
+    });
     
 });
 

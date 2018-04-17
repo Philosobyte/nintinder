@@ -21,7 +21,7 @@
           </div>
 
 {% else %}
-<form method = "post" action = "{% url 'login' %}">
+<form class="ui large form middle aligned center aligned grid" method = "post" action = "{% url 'login' %}">
   {% csrf_token %}
   <div class="ui middle aligned center aligned grid">
     <div class="column">
@@ -29,25 +29,22 @@
       <div id="login-message">
         For when you wanna smash. &#x1F60F; &trade; 
       </div>
-      <form class="ui large form">
-        <div class="ui stacked segment">
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="user icon"></i>
-              {{form.username}}
-            </div>
+      <div class="ui stacked segment">
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="user icon"></i>
+            {{form.username}}
           </div>
-          <div class="field">
-            <div class="ui left icon input">
-              <i class="lock icon"></i>
-              {{form.password}}
-            </div>
-          </div>
-          <button id="login-button" input type = "submit" value = "login" class="ui fluid large submit button">Login</button>
-          <input type="hidden" name="next" value="{{ next }}" />
         </div>
-        <div class="ui error message"></div>
-      </form>
+        <div class="field">
+          <div class="ui left icon input">
+            <i class="lock icon"></i>
+            {{form.password }}
+          </div>
+        </div>
+        <button id="login-button" input type = "submit" value = "login" class="ui fluid large submit button">Login</button>
+        <input type="hidden" name="next" value="{{ next }}" />
+      </div>
     </div>
   </div>
 </form>
