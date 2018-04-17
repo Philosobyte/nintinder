@@ -1,0 +1,42 @@
+body > .grid {
+    height: 100%;
+  }
+  
+  body > .grid > .column > a > img {
+    width: 400px;
+    margin-bottom: 20px;
+  }
+  
+  body > .grid > .column > .form{
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #login-button{
+    background-color: #ff4554;
+  }
+  
+  #login-message{
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 1080px){
+    body > .grid > .column > a > img {
+      width: 500px;
+    }
+  
+    body > .grid > .column > .form{
+      width: 750px;
+    }
+  }
+  
+  @media (max-width: 768px){
+    body > .grid > .column > a > img {
+      width: 300px;
+    }
+  
+    body > .grid > .column > .form{
+      width: 350px;
+    }
+  }

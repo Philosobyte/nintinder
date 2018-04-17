@@ -1,0 +1,54 @@
+{% include "base_generic.html" %}
+{% block content %}
+{% load static%}
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <div class="ui middle aligned center aligned grid">
+            <div class="column">
+              <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
+              <div id="login-message">
+                    <p>Your account doesn't have access to this page. To proceed,
+                            please login with an account that has access.</p>
+                            {% else %}
+                            <p>Please login to see this page.</p> 
+              </div>
+    
+    {% endif %}
+{% endif %}
+
+<form method = "post" action = "{% url 'login' %}">
+  {% csrf_token %}
+  <div class="ui middle aligned center aligned grid">
+    <div class="column">
+      <a href={% url 'login' %}><img src= "{% static 'images/nintinder_red_on_transparent.png' %}"></a>
+      <div id="login-message">
+        For when you wanna smash. &#x1F60F; &trade; 
+      </div>
+      <form class="ui large form">
+        <div class="ui stacked segment">
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="user icon"></i>
+              {{form.username}}
+            </div>
+          </div>
+          <div class="field">
+            <div class="ui left icon input">
+              <i class="lock icon"></i>
+              {{form.password}}
+            </div>
+          </div>
+          <button id="login-button" input type = "submit" value = "login" class="ui fluid large submit button">Login</button>
+          <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+        <div class="ui error message"></div>
+      </form>
+    </div>
+  </div>
+</form>
+
+{% endblock %}

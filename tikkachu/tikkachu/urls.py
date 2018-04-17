@@ -38,3 +38,7 @@ urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += [
     url(r'^nintinder/', include('nintinder.urls')),
 ]
+
+urlpatterns += [
+    path('nintinder/accounts/', include('django.contrib.auth.urls')),
+]
