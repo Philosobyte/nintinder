@@ -1,25 +1,33 @@
 from django.db import models
 from django.template.defaulttags import register
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 import datetime
 import uuid
 
 # Create your models here.
 
 
-class User(models.Model):
+class Profile(models.Model):
     """
     Model representing a user of the service
     """
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user_name = models.CharField(max_length=64, help_text="Enter a username")
-    first_name = models.CharField(max_length=64, help_text="Enter the user's first name")
-    last_name = models.CharField(max_length=64, help_text="Enter the user's last name")
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     location = models.CharField(max_length=256, help_text="Enter the user's location")
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-    email = models.CharField(max_length=256, help_text="Enter the user's email address")
 
     def __str__(self):
-        return self.user_name
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 
 class Game(models.Model):

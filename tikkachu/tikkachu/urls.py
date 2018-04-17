@@ -19,22 +19,24 @@ from django.conf.urls import url, include
 from django.views.generic import RedirectView
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth import views as auth_views
+from nintinder.forms import CustomAuthForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-# Add URL maps to redirect the base URL to our application 
-
-    
+# Add URL maps to redirect the base URL to our application     
 urlpatterns += {
         url(r'^$', RedirectView.as_view(url= '/nintinder/', permanent=True))
     }
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
-#Use include() to add URLS from the catalog application
-
-
 urlpatterns += [
+    url(r'nintinder/login/$', auth_views.login, name='login', kwargs={"authentication_form":CustomAuthForm}),
     url(r'^nintinder/', include('nintinder.urls')),
+    
 ]
+
+
+

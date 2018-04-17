@@ -10,47 +10,32 @@
                         Your Profile
                     </div>
                 </h2>
-                <div class="ui stackable two column divided grid container">
-                    <div class="row">
-                        <div class="column">
-                            <div class="ui fluid labeled input">
-                                <div class="ui label">
-                                    First Name
+                <form action="" method="post" class="ui stackable two column divided grid container">
+                    {% csrf_token %}
+                    {% for field in uform %}
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        {{ field.label }}
+                                    </div>
+                                    {{ field }}
                                 </div>
-                                <input type="text" placeholder="{{first_name}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="ui fluid labeled input">
-                                <div class="ui label">
-                                    Last Name
+                    {% endfor %}
+                    {% for field in pform %}
+                        <div class="row">
+                            <div class="column">
+                                <div class="ui fluid labeled input">
+                                    <div class="ui label">
+                                        {{ field.label }}
+                                    </div>
+                                    {{ field }}
                                 </div>
-                                <input type="text" placeholder="{{last_name}}">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="ui fluid labeled input">
-                                <div class="ui label">
-                                    Date of Birth
-                                </div>
-                                <input type="text" placeholder="{{DOB}}">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="column">
-                            <div class="ui fluid labeled input">
-                                <div class="ui label">
-                                    Email
-                                </div>
-                                <input type="text" placeholder="{{email}}">
-                            </div>
-                        </div>
-                    </div>
+                    {% endfor %}
                     <div class="row">
                         <div class="column">
                             <div class="ui fluid labeled input">
@@ -164,16 +149,16 @@
                     </div>
                     <div class="row">
                         <div class="column">
-
+                            <button type="submit" class="ui primary button">
+                                Save
+                            </button>
+                            <button class="ui button">
+                                Discard
+                            </button>
                         </div>
                     </div>
-                </div>
-                <button class="ui primary button">
-                    Save
-                </button>
-                <button class="ui button">
-                    Discard
-                </button>
+                </form>
+
 
                 <div class="ui divider"></div>
                 <h2 class="ui header">

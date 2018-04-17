@@ -1,0 +1,80 @@
+#logout > .grid, body > form, 
+body > form > .grid {
+  height: 100%;
+}
+
+#logout > .grid > .column > a > img, 
+body > form > .grid > .column > a > img,
+#logout > .grid > .column > div {
+  width: 400px;
+  margin-bottom: 20px;
+}
+ 
+body > form > .grid > .column > .form{
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logout > .grid > .column > div{
+  width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logout > .grid > .column > div > a {
+  margin-top: 15px;
+  background-color: white;
+  color: #ff4554;
+}
+
+#logout > .grid > .column > div > a:hover{
+  background-color: whitesmoke;
+}
+
+#logout > .grid > .column > div, 
+#logout > .grid > .column > a {
+  color: white;
+  margin-bottom: 10px;
+}
+
+#logout, #login-button{
+  background-color: #ff4554;
+}
+
+#login-message{
+  margin-bottom: 20px;
+}
+
+#login-message > b {
+  color: #ff4554;
+}
+
+
+@media (min-width: 1080px){
+
+  #logout > .grid > .column > div,
+  #logout > .grid > .column > a > img, 
+  body > form > .grid > .column > a > img,
+  #logout > .grid > .column > div {
+    width: 500px;
+  }
+
+  body > form > .grid > .column > .form{
+    width: 750px;
+  }
+}
+
+@media (max-width: 768px){
+
+  #logout > .grid > .column > div,
+  #logout > .grid > .column > a > img, 
+  body > form > .grid > .column > a > img,
+  #logout > .grid > .column > div {
+    width: 300px;
+  }
+ 
+  body > form > .grid > .column > .form{
+    width: 350px;
+  }
+}

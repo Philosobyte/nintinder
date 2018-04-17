@@ -1,13 +1,15 @@
 {% include "base_generic.html" %}
 {% block content %}
 {% load static%}
+
 <div id="main-content" class="pusher">
   <div class="profile-content">
     <div id="profile-content-grid" class="ui grid">
       <div class="row">
         <div class="two wide column">
-          <img id="profile-page-pic" src="https://storage.googleapis.com/material-icons/external-assets/v4/icons/svg/ic_face_black_24px.svg"
-            alt="profile-image">
+          {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui massive avatar image" src="{% static propic %}" alt="profile-image">
+          {% endwith %}
         </div>
         <div id="profile-name-div" class="fourteen wide column">
           <div class="ui grid">
@@ -33,7 +35,24 @@
         <div class="row">
           <div class="column left-column">
             <h1>Games:</h1>
+            <button class="ui inverted red button">Bought something new? Add a game!</button>
           </div>
+          <div class="column left-column profile-games">
+            <div class="ui centered cards">
+              <div class="card">
+                <div class="content">
+                  <img class="right floated mini ui image" src="https://images.vexels.com/media/users/3/127665/isolated/preview/004abf8b7946c4ed5605806fa445c476-flat-desktop-monitor-by-vexels.png" alt="game-logo">
+                  <div class="ui action input">
+                    <input type="text" placeholder="Enter game title">
+                  </div>
+                  <div class="ui action input">
+                    <input type = "text" placeholder = "Add the description">
+                  </div>
+                  <div class="ui bottom attached button">
+                    <i class="add icon"></i>
+                    Add Game
+                  </div>
+              </div>
           <div class="column left-column profile-games">
             <div class="ui centered cards">
               <div class="card">

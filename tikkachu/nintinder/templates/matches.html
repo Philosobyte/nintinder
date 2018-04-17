@@ -34,7 +34,7 @@
                             {% for e in friends %}
                                 <div class="ui card glide__slide">
                                     <div class="image">
-                                        {% with "images/"|add:e.user_name|add:".jpg" as propic %}
+                                        {% with "images/"|add:e.username|add:".jpg" as propic %}
                                         <img src="{% static propic %}">
                                         {% endwith %}
                                     </div>
