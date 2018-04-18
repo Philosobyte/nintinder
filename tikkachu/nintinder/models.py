@@ -64,7 +64,7 @@ class Achievement(models.Model):
     def __str__(self):
         return "{} in {}".format(self.name, self.game)
     def get_absolute_url(self):
-        return HttpResponseRedirect(reverse('achievements'))
+        return u'/nintinder/achievements/'
 
 
 class EarnedAchievement(models.Model):

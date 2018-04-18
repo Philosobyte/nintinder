@@ -7,6 +7,7 @@ from django.contrib.auth.decorators import login_required
 import random
 
 
+
 # Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
 # For the actual website, obviously we would be getting a static user and their static friends 
 
