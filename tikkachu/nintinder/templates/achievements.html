@@ -7,6 +7,10 @@
                 <h1 style="text-align:center">{{name}}'S ACHIEVEMENTS</h1>
             </div>
 
+            <form method="link" action="{% url 'achievements_create' %}">
+                <a href="{% url 'achievements_create' %}">Create Achievement</a>
+                </form>
+
             <div class="ui horizontal divider">
                 <i class="star outline icon"></i>
             </div>
@@ -64,7 +68,7 @@
                         <h3>You've done it all!</h3>
                 {% endif %}
             </div>
-
+            
         </div>
     </div>
 </div>

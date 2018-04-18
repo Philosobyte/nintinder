@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('settings/', views.settings, name = 'settings'),
     path('achievements/', views.achievements, name = 'achievements'),
+    path('achievements/create/', views.AchievementCreate.as_view(), name='achievements_create'),
     path('matches/', views.matches, name = 'matches'),
 ]

@@ -1,0 +1,28 @@
+{% include "base_generic.html" %}
+
+{% block content %}
+
+<div id="content" class="pusher">
+    <div id="main-content" class="pusher">
+            <div class="ui basic segment">
+                <center>
+                    <div class="ui message main">
+                        <h1 class="ui icon header">
+                            <i class="fire icon"></i>
+                            <div class="content">
+                                Create Your Achievement
+                                <div class="sub header">
+                                    Make your own Achievements.
+                                </div>
+                            </div>
+                        </h1>
+                    </div>
+                </center>
+<form action="" method="post" style="margin-top:64px;">
+{% csrf_token %}
+<table>
+{{ form.as_table }}
+</table>
+<input type="submit" a href="{% url 'achievements' %}" value="Submit" />
+</body>
+{% endblock %}

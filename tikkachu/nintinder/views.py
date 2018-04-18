@@ -6,12 +6,21 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.generic import FormView
+from django.views.generic.edit import CreateView
 
 from .forms import ProfileForm, UserForm
 # Create your views here.
 from .models import (Achievement, EarnedAchievement, Event, Friend, Game,
                      Interest, Participant, Profile, User)
 
+# Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
+# For the actual website, obviously we would be getting a static user and their static friends 
+
+
+class AchievementCreate(CreateView):
+    model = Achievement
+    fields = '__all__'
 
 @login_required
 def index(request):
@@ -51,6 +60,11 @@ def profile(request):
     size = Game.objects.all().count()
     seed = random.randint(0, size - 1)
     gameArray = Game.objects.all()
+    list_of_games = []
+
+    for x in gameArray:
+        list_of_games.append(x.name)
+    unique_games = set(list_of_games)
     gameTuple = (gameArray[seed].name, gameArray[(seed + 1) % size].name, gameArray[(seed - 1) % size].name)
 
     return render(
@@ -61,8 +75,9 @@ def profile(request):
             'full_name': currName,
             'location': currLoc,
             'age': age,
-            'email': currEmail,
-            'gTuple': gameTuple
+            'email' : currEmail,
+            'gTuple': gameTuple,
+            'gameDrop': unique_games,
         },
     )
 
@@ -157,7 +172,4 @@ def login(request):
     return render(
         request,
         'login.html',
-        context={
-            'user': usr,
-        },
     )
