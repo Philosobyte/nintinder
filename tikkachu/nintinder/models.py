@@ -3,9 +3,11 @@ from django.template.defaulttags import register
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.http import HttpResponseRedirect
 import datetime
 import uuid
 
+from django.urls import reverse
 # Create your models here.
 
 
@@ -61,6 +63,8 @@ class Achievement(models.Model):
 
     def __str__(self):
         return "{} in {}".format(self.name, self.game)
+    def get_absolute_url(self):
+        return HttpResponseRedirect(reverse('achievements'))
 
 
 class EarnedAchievement(models.Model):
