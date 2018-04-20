@@ -52,8 +52,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     location = models.CharField(max_length=256, help_text="Enter the user's location")
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-    interests = models.ManyToManyField(Game)
-    achievements = models.ManyToManyField(Achievement)
+    interests = models.ManyToManyField(Game, blank=True)
+    achievements = models.ManyToManyField(Achievement, blank=True)
 
     def __str__(self):
         return self.user.username
