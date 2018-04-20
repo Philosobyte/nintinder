@@ -4,9 +4,9 @@ from .models import Profile, Game, Interest, Achievement, EarnedAchievement, Eve
 # Register your models here.
 
 @admin.register(Profile)
-class UserAdmin(admin.ModelAdmin):
+class ProfileAdmin(admin.ModelAdmin):
     list_display = ('user', 'date_of_birth', 'location')
-    fields = ['user', 'date_of_birth', 'location']
+    fields = ['user', 'date_of_birth', 'location', 'interests', 'achievements']
 
 
 @admin.register(Game)
