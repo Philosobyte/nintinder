@@ -10,28 +10,6 @@ import uuid
 from django.urls import reverse
 # Create your models here.
 
-
-class Profile(models.Model):
-    """
-    Model representing a user of the service
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    location = models.CharField(max_length=256, help_text="Enter the user's location")
-    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-
-    def __str__(self):
-        return self.user.username
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
-
-
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=128, help_text="Enter the name of the game")
@@ -65,6 +43,29 @@ class Achievement(models.Model):
         return "{} in {}".format(self.name, self.game)
     def get_absolute_url(self):
         return u'/nintinder/achievements/'
+
+
+class Profile(models.Model):
+    """
+    Model representing a user of the service
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    location = models.CharField(max_length=256, help_text="Enter the user's location")
+    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
+    interests = models.ManyToManyField(Game)
+    achievements = models.ManyToManyField(Achievement)
+
+    def __str__(self):
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 
 class EarnedAchievement(models.Model):
