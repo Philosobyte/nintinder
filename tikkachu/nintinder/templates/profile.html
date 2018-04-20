@@ -4,17 +4,33 @@
 
 <div id="main-content" class="pusher">
   <div class="container">
-    <div id="profile-row-0" class="row">
+    <div id="profile-info" class="row">
       {% with "images/"|add:user.username|add:".jpg" as propic %}
         <img class="ui avatar image" src="{% static propic %}" alt="profile-image">
       {% endwith %}
-      <p>{{user.first_name}} {{user.last_name}}</p>
+      <div>
+        <p id="profile-name">{{user.first_name}} {{user.last_name}}</p>
+        <p>@{{user.username}}</p>
+      </div>
     </div> 
-    <div id="profile-row-1" class="row">
+    <div id="profile-cover-photo" class="row">
       
     </div> 
-    <div id="profile-row-2" class="row">
-     
+    <div id="profile-info-bar-container" class="row">
+      <div id="profile-info-bar">
+        <div>
+          <p id="info-bar-title-1">Friends</p>
+          <div><p>100</p></div>
+        </div> 
+        <div>
+          <p id="info-bar-title-2">Achievements</p>
+          <div><p>500</p></div>
+        </div> 
+        <div>
+          <p id="info-bar-title-3">Games</p>
+          <div><p>20</p></div>
+        </div> 
+      </div>
     </div> 
   </div>
 </div>
