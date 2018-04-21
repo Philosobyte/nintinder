@@ -68,15 +68,6 @@ class Profile(models.Model):
         instance.profile.save()
 
 
-class EarnedAchievement(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
-    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
-
-    def __str__(self):
-        return "{} has completed {}".format(self.user, self.achievement)
-
-
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the name of the game")

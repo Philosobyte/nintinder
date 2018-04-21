@@ -11,8 +11,8 @@ from django.views.generic.edit import CreateView
 
 from .forms import ProfileForm, UserForm
 # Create your views here.
-from .models import (Achievement, EarnedAchievement, Event, Friend, Game,
-                     Interest, Participant, Profile, User)
+from .models import (Achievement, Event, Friend, Game, Interest, Participant,
+                     Profile, User)
 
 # Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
 # For the actual website, obviously we would be getting a static user and their static friends 
@@ -85,7 +85,6 @@ def profile(request):
 @login_required
 def achievements(request):
     usr = request.user
-    outputArray = EarnedAchievement.objects.filter(user=usr)
     outputArray = usr.profile.achievements.all()
 
     incompleteArray = list(Achievement.objects.all())

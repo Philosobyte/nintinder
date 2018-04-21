@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
+from .models import Profile, Game, Interest, Achievement, Event, Participant, Friend
 
 # Register your models here.
 
@@ -22,11 +22,6 @@ class InterestAdmin(admin.ModelAdmin):
 @admin.register(Achievement)
 class AchievementAdmin(admin.ModelAdmin):
     list_display = ('id', 'game', 'name')
-
-
-@admin.register(EarnedAchievement)
-class EarnedAchievementAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'achievement')
 
 
 @admin.register(Event)
