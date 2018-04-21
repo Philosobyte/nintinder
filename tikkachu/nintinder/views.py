@@ -86,12 +86,13 @@ def profile(request):
 def achievements(request):
     usr = request.user
     outputArray = EarnedAchievement.objects.filter(user=usr)
+    outputArray = usr.profile.achievements.all()
 
     incompleteArray = list(Achievement.objects.all())
     outArray = incompleteArray[:]
     for z in incompleteArray:
         for i in outputArray:
-            if i.achievement == z:
+            if i == z:
                 outArray.remove(z)
     fullName = usr.first_name + ' ' + usr.last_name
     currName = usr.first_name
@@ -105,6 +106,19 @@ def achievements(request):
             'incomplete': outArray
         },
     )
+
+
+@login_required
+def earn_achievement(request):
+    user = request.user
+    profile = user.profile
+
+    if request.method == 'POST':
+        achievement_id = request.POST.get('aid')
+        achievement = Achievement.objects.get(id=achievement_id)
+        profile.achievements.add(achievement)
+    
+    return HttpResponseRedirect(reverse('achievements'))
 
 
 @login_required
