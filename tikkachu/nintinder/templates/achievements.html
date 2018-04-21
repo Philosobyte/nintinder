@@ -25,9 +25,9 @@
                                     <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{e.achievement.name}}</a>
+                                    <a class="header">{{e.name}}</a>
                                     <div class="description">
-                                        You rock that {{e.achievement.game.platform}}!
+                                        You rock that {{e.game.platform}}!
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,11 @@
                                     <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{e.name}}</a>
+                                    <form action="{% url 'earn_achievement' %}" method="POST">
+                                        {% csrf_token %}
+                                        <input type="hidden" value="{{ e.pk }}" name='aid' />
+                                        <input type="submit" class="header" value="{{e.name}}" />
+                                    </form>
                                     <div class="description">
                                         What? Is a game from {{e.game.release_date.year}} by {{e.game.publisher}} too good for you?
                                     </div>
