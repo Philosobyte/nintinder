@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import FormView
@@ -21,6 +21,7 @@ from .models import (Achievement, Event, Friend, Game, Interest, Participant,
 class AchievementCreate(CreateView):
     model = Achievement
     fields = '__all__'
+
 
 @login_required
 def index(request):
@@ -80,6 +81,19 @@ def profile(request):
             'gameDrop': unique_games,
         },
     )
+
+
+@login_required
+def add_interest(request):
+    user = request.user;
+    profile = user.profile
+
+    if request.method == 'POST':
+        game_id = request.POST.get('gid')
+        game = Game.objects.get(id=game_id)
+        profile.interests.add(game)
+    
+    return HttpResponse()
 
 
 @login_required
