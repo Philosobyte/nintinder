@@ -17,44 +17,66 @@
                             </h1>
                         </div>
                     </center>
-        <div class="ui basic segment">
-            <div class="ui grid">
-                <div class="ui row margin-20" style="margin-top: 16px">
-                    <h1>{{full_name}}, {{ people }} people would like to play you!</h1>
                 </div>
-                <div class="ui row margin-20">
-                    <div id="Glide" class="glide">
-                        <div class="glide__arrows">
-                            <button class="glide__arrow prev" data-glide-dir="<">prev</button>
-                            <button class="glide__arrow next" data-glide-dir=">">next</button>
-                        </div>
+            <div class="ui basic segment">
+                <div class="ui grid">
+                    <div class="ui col" style="margin: 0; padding: 0;">
 
-                        <div class="glide__wrapper">
-                            <div class="glide__track">
-                            {% for e in friends %}
-                                <div class="ui card glide__slide">
-                                    <div class="image">
-                                        {% with "images/"|add:e.username|add:".jpg" as propic %}
-                                        <img src="{% static propic %}">
-                                        {% endwith %}
-                                    </div>
-                                    <div class="content">
-                                        <span class="header">{{e.first_name}} {{e.last_name}}</span>
-                                        <div class="meta">
-                                            {{e.user_name}}
+                        <div class="ui row margin-20" style="margin-top: 16px">
+                            <h1>{{full_name}}, {{ people }} people would like to play you!</h1>
+                        </div>
+                        <div class="ui row margin-20">
+                            <div id="Glide" class="glide">
+                                <div class="glide__arrows">
+                                    <button class="glide__arrow prev" data-glide-dir="<">prev</button>
+                                    <button class="glide__arrow next" data-glide-dir=">">next</button>
+                                </div>
+
+                                <div class="glide__wrapper">
+                                    <div class="glide__track">
+                                    {% for e in friends %}
+                                        <div class="ui card glide__slide">
+                                            <div class="image">
+                                                {% with "images/"|add:e.username|add:".jpg" as propic %}
+                                                <img src="{% static propic %}">
+                                                {% endwith %}
+                                            </div>
+                                            <div class="content">
+                                                <span class="header">{{e.first_name}} {{e.last_name}}</span>
+                                                <div class="meta">
+                                                    {{e.user_name}}
+                                                </div>
+                                                <div class="description">
+                                                    <strong>Games</strong>: |
+                                                    {% for game in interests|get_item:e %}
+                                                        {{game}} |
+                                                    {% endfor %}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="description">
-                                            <strong>Games</strong>: | 
-                                            {% for game in interests|get_item:e %}
-                                                {{game}} | 
-                                            {% endfor %}
-                                        </div>
+                                    {% endfor %}
                                     </div>
                                 </div>
-                            {% endfor %}
+                                <div class="glide__bullets"></div>
                             </div>
                         </div>
-                        <div class="glide__bullets"></div>
+
+                        <form class="ui form match-parent" action="" method="post">
+                            <div class="ui two column grid margin-20">
+                                <div class="right floated right aligned column">
+                                    <button class="ui primary button" type="submit" name="addFriend" value="Add Friend">
+                                        Add friend
+                                    </button>
+                                </div>
+                                <div class="left floated left aligned column">
+                                    <button class="ui negative button" type="submit" name="ignore" value="Ignore" >
+                                        Ignore
+                                    </button>
+                                </div>
+                            </div>
+
+
+                        </form>
                     </div>
                 </div>
             </div>
@@ -63,9 +85,11 @@
 </div>
 
 <script>
-    $("#Glide").glide({
+    var glide = $("#Glide");
+    glide.glide({
         type: "carousel",
-        paddings: "200px"
+        paddings: "200px",
+        autoplay: 0
     });
 </script>
 </body>

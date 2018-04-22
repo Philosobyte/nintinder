@@ -1,0 +1,11 @@
+.centered-form {
+    text-align: center;
+}
+
+.border-black {
+    border: 1px solid black;
+}
+
+.match-parent {
+    width: available;
+}
