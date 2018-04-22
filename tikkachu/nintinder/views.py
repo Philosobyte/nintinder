@@ -156,6 +156,11 @@ def matches(request):
     for x in interestsArray:
         interests[x.user].append(x.game)
 
+    # if request.method == 'POST':
+    #       form = FriendForm(request.POST)
+    #
+    #       if form.is_valid():
+
     return render(
         request,
         'matches.html',

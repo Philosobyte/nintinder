@@ -1,23 +1,21 @@
-{% include "base_generic.html" %}
-{% block content %}
-{% load static%}
-<div id="content" class="pusher">
+{% include "base_generic.html" %} {% block content %} {% load static%}
+    <div id="content" class="pusher">
         <div id="main-content" class="pusher">
-                <div class="ui basic segment">
-                    <center>
-                        <div class="ui message main">
-                            <h1 class="ui icon header">
-                                <i class="fire icon"></i>
-                                <div class="content">
-                                    Make Your Match
-                                    <div class="sub header">
-                                        Pick the gamers you want to make your friends! Don't be mean.
-                                    </div>
+            <div class="ui basic segment">
+                <center>
+                    <div class="ui message main">
+                        <h1 class="ui icon header">
+                            <i class="fire icon"></i>
+                            <div class="content">
+                                Make Your Match
+                                <div class="sub header">
+                                    Pick the gamers you want to make your friends! Don't be mean.
                                 </div>
-                            </h1>
-                        </div>
-                    </center>
-                </div>
+                            </div>
+                        </h1>
+                    </div>
+                </center>
+            </div>
             <div class="ui basic segment">
                 <div class="ui grid">
                     <div class="ui column" style="margin: 0; padding: 0;">
@@ -35,38 +33,43 @@
                                     <button class="glide__arrow prev" data-glide-dir="<">prev</button>
                                     <button class="glide__arrow next" data-glide-dir=">">next</button>
                                 </div>
-
                                 <div class="glide__wrapper">
                                     <div class="glide__track">
-                                    {% for e in friends %}
-                                        <div class="ui card glide__slide">
-                                            <div class="image">
-                                                {% with "images/"|add:e.username|add:".jpg" as propic %}
-                                                <img src="{% static propic %}">
-                                                {% endwith %}
-                                            </div>
-                                            <div class="content">
-                                                <span class="header">{{e.first_name}} {{e.last_name}}</span>
-                                                <div class="meta">
-                                                    {{e.user_name}}
+                                        {% for e in friends %}
+                                            <div class="ui card glide__slide">
+                                                <div class="image">
+                                                    {% with "images/"|add:e.username|add:".jpg" as propic %}
+                                                        <img src="{% static propic %}"> {% endwith %}
                                                 </div>
-                                                <div class="description">
-                                                    <strong>Games</strong>: |
-                                                    {% for game in interests|get_item:e %}
-                                                        {{game}} |
-                                                    {% endfor %}
+                                                <div class="content">
+                                                    <span class="header">{{e.first_name}} {{e.last_name}}</span>
+                                                    <div class="meta">
+                                                        {{e.user_name}}
+                                                    </div>
+                                                    <div class="description">
+                                                        <strong>Games</strong>: | {% for game in interests|get_item:e %} {{game}} | {% endfor
+                                                        %}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    {% endfor %}
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <div class="glide__bullets"></div>
                             </div>
-                        </div>
-                        {% if people != 0 %}
-                            <form class="ui form match-parent" action="" method="post">
-                                <div class="ui two column grid margin-20">
+
+                            {% if people != 0 %}
+                                <form action="" method="post" class="ui two column grid margin-20">
+                                    {% csrf_token %}
+                                    <div class="right floated right aligned column">
+                                        <button class="ui primary button" type="submit" name="A" value="Submit A">Add Friend</button>
+                                    </div>
+                                    <div class="left floated left aligned column">
+                                        <button class="ui negative button" type="submit" name="B" value="Submit B">Ignore</button>
+                                    </div>
+                                </form>
+                                <!-- <form action="" method="post" class="ui two column grid margin-20">
+                                    {% csrf_token %}
                                     <div class="right floated right aligned column">
                                         <button class="ui primary button" type="submit" name="addFriend" value="Add Friend">
                                             Add friend
@@ -77,17 +80,15 @@
                                             Ignore
                                         </button>
                                     </div>
-                                </div>
-
-
-                            </form>
-                    {% endif %}
+                        </form> -->
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+
 
 <script>
     var glide = $("#Glide");
@@ -96,6 +97,9 @@
         paddings: "200px",
         autoplay: 0
     });
+
+    var glide_index = glide.index;
+
 </script>
 </body>
 {% endblock %}
