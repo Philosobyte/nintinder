@@ -25,7 +25,7 @@ class AchievementCreate(CreateView):
 @login_required
 def index(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)]
+    usr = request.user
     currName = usr.first_name + ' ' + usr.last_name
     games = Game.objects.all()
     rand = random.randint(0, games.count() - 1)
@@ -143,7 +143,7 @@ def matches(request):
     usr = request.user
     currName = usr.first_name + ' ' + usr.last_name
 
-    friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
+    friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=1)
 
     outputArray = [(x.friendA if (x.friendB == usr) else x.friendB) for x in friendsArray]
 

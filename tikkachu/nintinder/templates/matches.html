@@ -20,10 +20,14 @@
                 </div>
             <div class="ui basic segment">
                 <div class="ui grid">
-                    <div class="ui col" style="margin: 0; padding: 0;">
+                    <div class="ui column" style="margin: 0; padding: 0;">
 
                         <div class="ui row margin-20" style="margin-top: 16px">
-                            <h1>{{full_name}}, {{ people }} people would like to play you!</h1>
+                            {% if people != 0 %}
+                                <h1>{{full_name}}, {{ people }} people would like to play you!</h1>
+                            {% else %}
+                                <h1>Sorry, {{ full_name }}, no matches today. Please check back later!</h1>
+                            {% endif %}
                         </div>
                         <div class="ui row margin-20">
                             <div id="Glide" class="glide">
@@ -60,23 +64,24 @@
                                 <div class="glide__bullets"></div>
                             </div>
                         </div>
-
-                        <form class="ui form match-parent" action="" method="post">
-                            <div class="ui two column grid margin-20">
-                                <div class="right floated right aligned column">
-                                    <button class="ui primary button" type="submit" name="addFriend" value="Add Friend">
-                                        Add friend
-                                    </button>
+                        {% if people != 0 %}
+                            <form class="ui form match-parent" action="" method="post">
+                                <div class="ui two column grid margin-20">
+                                    <div class="right floated right aligned column">
+                                        <button class="ui primary button" type="submit" name="addFriend" value="Add Friend">
+                                            Add friend
+                                        </button>
+                                    </div>
+                                    <div class="left floated left aligned column">
+                                        <button class="ui negative button" type="submit" name="ignore" value="Ignore" >
+                                            Ignore
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="left floated left aligned column">
-                                    <button class="ui negative button" type="submit" name="ignore" value="Ignore" >
-                                        Ignore
-                                    </button>
-                                </div>
-                            </div>
 
 
-                        </form>
+                            </form>
+                    {% endif %}
                     </div>
                 </div>
             </div>
