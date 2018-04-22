@@ -5,8 +5,8 @@ from .models import Profile, Game, Interest, Achievement, Event, Participant, Fr
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date_of_birth', 'location')
-    fields = ['user', 'date_of_birth', 'location', 'interests', 'achievements']
+    list_display = ('user', 'date_of_birth', 'location', 'bio', 'title')
+    fields = ['user', 'date_of_birth', 'location', 'interests', 'achievements', 'bio', 'title']
 
 
 @admin.register(Game)
