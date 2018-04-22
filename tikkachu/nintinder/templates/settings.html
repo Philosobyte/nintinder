@@ -3,7 +3,7 @@
 {% load static%}
 
 <div id="main-content" class="pusher" >
-        <div id="content-grid" class="ui two column grid">
+        <div id="content-grid" class="ui two column centered grid">
             <div class="eight wide column">
                 <h2 class="ui header">
                     <div class="content">
@@ -152,9 +152,7 @@
                             <button type="submit" class="ui primary button">
                                 Save
                             </button>
-                            <button class="ui button">
-                                Discard
-                            </button>
+                            <a href="{% url 'settings' %}" class="ui button">Discard</a>
                         </div>
                     </div>
                 </form>

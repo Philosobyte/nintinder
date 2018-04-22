@@ -44,3 +44,11 @@ class CustomAuthForm(AuthenticationForm):
 class CustomAuthForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'class':'validate','placeholder': 'Username'}))
     password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
+
+class FriendForm(forms.Form):
+    user_choices = (('A', 'Add'), ('B', "Ignore"))
+    friend_choice = forms.MultipleChoiceField(choices = user_choices)
+
+    def clean_friend_choice(self):
+        data = self.cleaned_data['friend_choice']
+        return data
