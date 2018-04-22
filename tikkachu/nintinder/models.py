@@ -54,6 +54,8 @@ class Profile(models.Model):
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
     interests = models.ManyToManyField(Game, blank=True)
     achievements = models.ManyToManyField(Achievement, blank=True)
+    bio = models.CharField(max_length=1024, blank=True, help_text="Enter the user's bio")
+    title = models.CharField(max_length=64, default="Player", help_text="Enter the user's title")
 
     def __str__(self):
         return self.user.username
