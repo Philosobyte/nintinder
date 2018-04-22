@@ -87,12 +87,21 @@ def achievements(request):
     usr = request.user
     outputArray = EarnedAchievement.objects.filter(user=usr)
 
-    incompleteArray = list(Achievement.objects.all())
+    usrgames = []
+    for earnedachievement in outputArray:
+        game = earnedachievement.achievement.game
+        usrgames.append(earnedachievement.achievement.game)
+    # incompleteArray = []
+    # for game in list(set(usrgames)):
+    #     incompleteArray.append(list(Achievement.objects.filter(game=game)))
+
+    incompleteArray = list(Achievement.objects.filter())
     outArray = incompleteArray[:]
     for z in incompleteArray:
         for i in outputArray:
-            if i.achievement == z:
+            if (i.achievement == z) or (z.game not in usrgames):
                 outArray.remove(z)
+                break
     fullName = usr.first_name + ' ' + usr.last_name
     currName = usr.first_name
     return render(
@@ -102,7 +111,7 @@ def achievements(request):
             'full_name': fullName,
             'name': currName.upper(),
             'complete': outputArray,
-            'incomplete': outArray
+            'incomplete': outArray,
         },
     )
 
