@@ -57,6 +57,33 @@ class Profile(models.Model):
     bio = models.CharField(max_length=1024, blank=True, help_text="Enter the user's bio")
     title = models.CharField(max_length=64, default="Player", help_text="Enter the user's title")
 
+    buddies = models.ManyToManyField('self', through='Friend', related_name='friends+', symmetrical=False, blank=True)
+
+    def get_friends(self, status):
+        return self.friends.filter(
+            friendA__status = status,
+            friendB__friendA = self
+        )
+
+    def add_friend(self, friend, status, symm=True):
+        friendship, created = Friend.objects.get_or_create(
+            friendA = self,
+            friendB = friend,
+            status = status
+        )
+        if symm:
+            friend.add_friend(self, status, False)
+        return friendship
+
+    def remove_friend(self, friend, status, symm=True):
+        Friend.objects.filter(
+            friendA = self,
+            friendB = friend,
+            status = status
+        ).delete()
+        if symm:
+            person.remove_friend(self, status, False)
+
     def __str__(self):
         return self.user.username
 
@@ -94,8 +121,8 @@ class Participant(models.Model):
 
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    friendA = models.ForeignKey(User, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
-    friendB = models.ForeignKey(User, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+    friendA = models.ForeignKey(Profile, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
+    friendB = models.ForeignKey(Profile, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
 
     STATUSES = (
         (u'0', u'friends'),
