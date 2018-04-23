@@ -9,3 +9,10 @@
 .match-parent {
     width: available;
 }
+
+.margin-0 {
+    margin: 0;
+}
+
+.glide {
+}

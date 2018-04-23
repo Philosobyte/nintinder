@@ -155,6 +155,7 @@ def matches(request):
             for interest in interests_with_game:
                 if interest.user != usr:
                     outputArray.add(interest.user)
+
         interests = defaultdict(list)
         for user in outputArray:
             interest_array = Interest.objects.filter(Q(user=user))
@@ -172,10 +173,9 @@ def matches(request):
             },
         )
 
-    # if request.method == 'POST':
-    #       form = FriendForm(request.POST)
-    #
-    #       if form.is_valid():
+    if request.method == 'POST':
+        print(request.POST)
+        return HttpResponseRedirect(reverse('matches'))
 
 
 def login(request):

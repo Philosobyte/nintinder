@@ -47,7 +47,7 @@ class CustomAuthForm(AuthenticationForm):
 
 class FriendForm(forms.Form):
     user_choices = (('A', 'Add'), ('B', "Ignore"))
-    friend_choice = forms.MultipleChoiceField(choices = user_choices)
+    friend_choice = forms.MultipleChoiceField(choices=user_choices)
 
     def clean_friend_choice(self):
         data = self.cleaned_data['friend_choice']
