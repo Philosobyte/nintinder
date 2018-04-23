@@ -57,15 +57,23 @@ def profile(request):
         age = 2018 - currBD.year
     currEmail = usr.email
 
-    size = Game.objects.all().count()
-    seed = random.randint(0, size - 1)
-    gameArray = Game.objects.all()
-    list_of_games = []
+    userinterests = Interest.objects.filter(user=usr)
+    gamelist=[]
+    for interest in userinterests:
+        gamelist.append(interest.game)
 
-    for x in gameArray:
-        list_of_games.append(x.name)
-    unique_games = set(list_of_games)
-    gameTuple = (gameArray[seed].name, gameArray[(seed + 1) % size].name, gameArray[(seed - 1) % size].name)
+    userfriends = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
+    friendlist=[]
+    for friend in userfriends:
+        if friend.friendA == usr:
+            friendlist.append(friend.friendB)
+        elif friend.friendB == usr:
+            friendlist.append(friend.friendA)
+
+    usercahievs = EarnedAchievement.objects.filter(user=usr)
+    achievlist=[]
+    for achiev in usercahievs:
+        achievlist.append(achiev.achievement)
 
     return render(
         request,
@@ -76,8 +84,9 @@ def profile(request):
             'location': currLoc,
             'age': age,
             'email' : currEmail,
-            'gTuple': gameTuple,
-            'gameDrop': unique_games,
+            'usergames': gamelist,
+            'userfriends': friendlist,
+            'userachievements': achievlist,
         },
     )
 

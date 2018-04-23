@@ -23,18 +23,62 @@
           <div id="profile-meta-data">
             <div>
               <p id="info-bar-title-1">Friends</p>
-              <div><p>100</p></div>
+              <div><p>{{ userfriends|length }}</p></div>
             </div> 
             <div>
               <p id="info-bar-title-2">Achievements</p>
-              <div><p>500</p></div>
+              <div><p>{{ userachievements|length }}</p></div>
             </div> 
             <div>
               <p id="info-bar-title-3">Games</p>
-              <div><p>20</p></div>
+              <div><p>{{ usergames|length }}</p></div>
             </div> 
           </div>
         </div>
+      </div>
+        <div class="ui list">
+        {% for game in usergames %}
+          <div class="item">
+          {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui avatar image" src="{% static propic %}">
+            {% endwith %}
+            <div class="content">
+              <div class="header">{{game.name}}</div>
+              <div class="description">{{game.platform}}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      <div class="ui list">
+        {% for friend in userfriends %}
+          <div class="item">
+          {% with "images/"|add:friend.username|add:".jpg" as propic %}
+            <img class="ui avatar image" src="{% static propic %}">
+            {% endwith %}
+            <div class="content">
+              <div class="header">{{friend.first_name}} {{friend.last_name}}</div>
+              <div class="description">{{friend.username}}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      <div class="ui list">
+        {% for achiev in userachievements %}
+          <div class="item">
+          {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui avatar image" src="{% static propic %}">
+            {% endwith %}
+            <div class="content">
+              <div class="header">{{achiev.name}}</div>
+              <div class="description">{{achiev.game}}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+
       </div>
     </div>
   </div>
