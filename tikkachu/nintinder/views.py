@@ -140,37 +140,42 @@ def settings(request):
 
 @login_required
 def matches(request):
+    MAX_MATCHES = 10
     usr = request.user
     currName = usr.first_name + ' ' + usr.last_name
 
-    friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=1)
+    if request.method == 'GET':
+        friendsArray = Friend.objects.filter(Q(friendB=usr), status=1)
 
-    outputArray = [(x.friendA if (x.friendB == usr) else x.friendB) for x in friendsArray]
+        outputArray = {friend.friendA for friend in friendsArray}
+        curr_user_games = {interest.game for interest in Interest.objects.filter(Q(user=usr))}
 
-    friends_qs = Q( user=None )
-    for friend in outputArray:
-        friends_qs = friends_qs | Q(user=friend)
-    interestsArray = Interest.objects.filter(friends_qs)
+        for curr_game in curr_user_games:
+            interests_with_game = Interest.objects.filter(Q(game=curr_game))
+            for interest in interests_with_game:
+                if interest.user != usr:
+                    outputArray.add(interest.user)
+        interests = defaultdict(list)
+        for user in outputArray:
+            interest_array = Interest.objects.filter(Q(user=user))
+            for interest in interest_array:
+                interests[user].append(interest.game)
 
-    interests = defaultdict(list)
-    for x in interestsArray:
-        interests[x.user].append(x.game)
+        return render(
+            request,
+            'matches.html',
+            context={
+                'full_name': currName,
+                'friends': outputArray,
+                'people': len(outputArray),
+                'interests': interests,
+            },
+        )
 
     # if request.method == 'POST':
     #       form = FriendForm(request.POST)
     #
     #       if form.is_valid():
-
-    return render(
-        request,
-        'matches.html',
-        context={
-            'full_name': currName,
-            'friends': outputArray,
-            'people': len(outputArray),
-            'interests': interests,
-        },
-    )
 
 
 def login(request):
