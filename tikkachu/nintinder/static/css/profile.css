@@ -1,11 +1,101 @@
+#profile-container{
+  position: relative;
+}
+
+#profile-container-background{
+  position: absolute;
+  height: 400px;
+  width: 100%;
+}
+
+#profile-cover-photo{
+  background-image: url('../images/kiminonawa.jpg');
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+}
+
+#profile-cover-photo-bar{
+  height: 50px;
+  background-color: #ff4554;
+}
+
+#profile-container-foreground{
+  position: absolute;
+  z-index: 1;
+  width: 65%;
+  height: 50%;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin-top: 275px;
+}
+
 #profile-info{
   display: flex;
   flex-direction: row;
-  position: absolute;
   align-items: center;
-  z-index: 1;
-  margin-top: 110px;
-  margin-left: 70px;
+}
+
+#profile-info > img{
+  width: 225px;
+  height: 225px;
+  border: 5px solid white;
+}
+
+#profile-info > div{
+  display: block;
+  margin-left: 40px;
+}
+
+#profile-info > div > div{
+  margin-bottom: 10px;
+}
+
+#profile-info > div > div > p{
+  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
+  margin: 0px;
+  color: white;
+}
+
+#profile-name{
+  font-weight: bold;
+  font-size: 1.75em;
+}
+
+#profile-meta-data{
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 400px;
+}
+
+#profile-meta-data > div > p{
+  margin-bottom: 5px;
+}
+
+#profile-meta-data > div > div > p{
+  text-align: center;
+}
+
+#info-bar-title-1,
+#info-bar-title-2,
+#info-bar-title-3{
+  margin-top: 20px;
+  font-size: 1.105em;
+  font-weight: bold;
+}
+
+/* #profile-info{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 100px;
+  margin-left: 400px;
 }
 
 #profile-info > img{
@@ -20,6 +110,7 @@
 }
 
 #profile-info > div > p{
+  text-shadow: -1px 0px black, 0px 1px black, 1px 0px black, 0px -1px black;
   margin: 0px;
   color: white;
 }
@@ -27,11 +118,6 @@
 #profile-name{
   font-weight: bold;
   font-size: 1.75em;
-}
-
-#profile-cover-photo{
-  height: 225px;
-  background: red;
 }
 
 #profile-info-bar-container{
@@ -65,3 +151,8 @@
 #profile-info-bar > div > p{
   margin-bottom: 5px;
 }
+
+#profile-user-info-feed{
+  width: 100%;
+  margin: 20px;
+} */

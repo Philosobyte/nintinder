@@ -3,8 +3,46 @@
 {% load static%}
 
 <div id="main-content" class="pusher">
+  <div id="profile-container">
+    <div id="profile-container-background">
+      <div id="profile-cover-photo" class="row">
+      </div> 
+      <div id="profile-cover-photo-bar" class="row">
+      </div> 
+    </div>
+    <div id="profile-container-foreground">
+      <div id="profile-info" class="row">
+        {% with "images/"|add:user.username|add:".jpg" as propic %}
+          <img class="ui avatar image" src="{% static propic %}" alt="profile-image">
+        {% endwith %}
+        <div>
+          <div>
+            <p id="profile-name">{{user.first_name}} {{user.last_name}}</p>
+            <p>@{{user.username}}</p>
+          </div>
+          <div id="profile-meta-data">
+            <div>
+              <p id="info-bar-title-1">Friends</p>
+              <div><p>100</p></div>
+            </div> 
+            <div>
+              <p id="info-bar-title-2">Achievements</p>
+              <div><p>500</p></div>
+            </div> 
+            <div>
+              <p id="info-bar-title-3">Games</p>
+              <div><p>20</p></div>
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- <div id="main-content" class="pusher">
   <div class="container">
-    <div id="profile-info" class="row">
+
+    <div id="profile-pic-name" class="row">
       {% with "images/"|add:user.username|add:".jpg" as propic %}
         <img class="ui avatar image" src="{% static propic %}" alt="profile-image">
       {% endwith %}
@@ -13,9 +51,10 @@
         <p>@{{user.username}}</p>
       </div>
     </div> 
+
     <div id="profile-cover-photo" class="row">
-      
     </div> 
+
     <div id="profile-info-bar-container" class="row">
       <div id="profile-info-bar">
         <div>
@@ -31,8 +70,20 @@
           <div><p>20</p></div>
         </div> 
       </div>
-    </div> 
-  </div>
-</div>
+    </div>
+    
+    <div id="profile-user-info-feed" class="row"> 
+      <div class="column">
+        <div class="row">
+          <p>Bio</p>
+          <o>Hi guys! My name is Dan and I am a otaku at heart.</o>
+        </div>
+      </div>
+      <div class="column">
+        
+      </div>
+    </div>
+  </div>=
+</div> -->
 
 {% endblock %}
