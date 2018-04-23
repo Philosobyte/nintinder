@@ -1,7 +1,6 @@
 {% include "base_generic.html" %}
 {% block content %}
 {% load static%}
-
 <div id="main-content" class="pusher">
   <div id="profile-container">
     <div id="profile-container-background">
@@ -36,7 +35,8 @@
           </div>
         </div>
       </div>
-        <div class="ui list">
+
+<!--         <div class="ui list">
         {% for game in usergames %}
           <div class="item">
           {% with "images/"|add:user.username|add:".jpg" as propic %}
@@ -48,7 +48,7 @@
             </div>
           </div>
           {% endfor %}
-        </div>
+        </div> -->
 
       <div class="ui list">
         {% for friend in userfriends %}
@@ -67,9 +67,7 @@
       <div class="ui list">
         {% for achiev in userachievements %}
           <div class="item">
-          {% with "images/"|add:user.username|add:".jpg" as propic %}
-            <img class="ui avatar image" src="{% static propic %}">
-            {% endwith %}
+          <i class="trophy icon"></i>
             <div class="content">
               <div class="header">{{achiev.name}}</div>
               <div class="description">{{achiev.game}}</div>
@@ -77,6 +75,58 @@
           </div>
           {% endfor %}
         </div>
+
+
+      <div class="ui three column grid">
+        <div class="floated column">
+          <div class="ui segment">
+              <div class="ui dimmer">
+                <div class="content">
+                  <div class="center">
+                    <div class="header">Counter Strike: Global Offensive</div>
+                  </div>
+                </div>
+              </div>
+            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+          </div>
+          <div class="ui segment">
+            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+          </div>
+        </div>
+      <script>
+      $('.ui.dimmer').dimmer({
+        on: 'hover'
+      });
+      </script>
+        <div class="floated column">
+          <div class="ui segment">
+            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+          </div>
+          <div class="ui segment">
+            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+          </div>
+        </div>
+        <div class="floated column">
+          <div class="ui segment">
+            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+          </div>
+          <div class="ui segment">
+            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+          </div>
+        </div>
+      </div>
 
 
       </div>

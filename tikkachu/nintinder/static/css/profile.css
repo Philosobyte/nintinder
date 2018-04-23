@@ -90,6 +90,13 @@
   font-weight: bold;
 }
 
+.hoverimage:hover {
+    position:absolute;
+    resize: 150%;
+    display:block;
+    z-index:999;
+}
+
 /* #profile-info{
   display: flex;
   flex-direction: row;
