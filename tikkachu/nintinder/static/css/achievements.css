@@ -1,0 +1,6 @@
+#achievements-content{
+  display: flex;
+  align-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+}

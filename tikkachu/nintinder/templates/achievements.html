@@ -55,15 +55,15 @@
                                 <div class="image">
                                     <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
                                 </div>
-                                <div class="content">
-                                    <form action="{% url 'earn_achievement' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" value="{{ e.pk }}" name='aid' />
-                                        <input type="submit" class="header" value="{{e.name}}" />
-                                    </form>
+                                <div id="achievements-content" class="content">
                                     <div class="description">
-                                        What? Is a game from {{e.game.release_date.year}} by {{e.game.publisher}} too good for you?
+                                      What? Is a game from {{e.game.release_date.year}} by {{e.game.publisher}} too good for you?
                                     </div>
+                                    <form action="{% url 'earn_achievement' %}" method="POST">
+                                      {% csrf_token %}
+                                      <input type="hidden" value="{{ e.pk }}" name='aid' />
+                                      <input type="submit" class="ui blue button" value="{{e.name}}" />
+                                    </form>
                                 </div>
                             </div>
                         </div>
