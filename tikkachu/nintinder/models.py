@@ -66,11 +66,19 @@ class Profile(models.Model):
         )
 
     def add_friend(self, friend, status, symm=True):
-        friendship, created = Friend.objects.get_or_create(
-            friendA = self,
-            friendB = friend,
-            status = status
-        )
+        if status == 0: # if adding friends
+            friendship, created = Friend.objects.get_or_create(
+                friendA = self,
+                friendB = friend,
+                status = status,
+            )
+        else: # if adding a pending friendship, add to other friend's pending
+            friendship, created = Friend.objects.get_or_create(
+                friendA = self if status == 2 else friend,
+                friendB = friend if status == 2 else self,
+                status = status,
+                symm = False
+            )
         if symm:
             friend.add_friend(self, status, False)
         return friendship
