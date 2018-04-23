@@ -79,55 +79,65 @@
 
       <div class="ui three column grid">
         <div class="floated column">
+        {% for game in usergames|slice:"::3" %}
           <div class="ui segment">
               <div class="ui dimmer">
                 <div class="content">
                   <div class="center">
-                    <div class="header">Counter Strike: Global Offensive</div>
+                    <div class="ui inverted button">{{game.name}} for {{game.platform}}</div>
                   </div>
                 </div>
               </div>
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with game.id|cut:"-" as parsedid %}
+            {% with "gameimages/"|add:parsedid|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
-          </div>
-          <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
-            <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
+          {% endfor %}
         </div>
+        <div class="floated column">
+        {% for game in usergames|slice:"1::3" %}
+          <div class="ui segment">
+              <div class="ui dimmer">
+                <div class="content">
+                  <div class="center">
+                    <div class="ui inverted button">{{game.name}} for {{game.platform}}</div>
+                  </div>
+                </div>
+              </div>
+            {% with game.id|cut:"-" as parsedid %}
+            {% with "gameimages/"|add:parsedid|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+            {% endwith %}
+          </div>
+          {% endfor %}
+        </div>
+        <div class="floated column">
+        {% for game in usergames|slice:"2::3" %}
+          <div class="ui segment">
+              <div class="ui dimmer">
+                <div class="content">
+                  <div class="center">
+                    <div class="ui inverted button">{{game.name}} for {{game.platform}}</div>
+                  </div>
+                </div>
+              </div>
+            {% with game.id|cut:"-" as parsedid %}
+            {% with "gameimages/"|add:parsedid|add:".jpg" as propic %}
+            <img class="ui medium image" src="{% static propic %}">
+            {% endwith %}
+            {% endwith %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
       <script>
       $('.ui.dimmer').dimmer({
         on: 'hover'
       });
       </script>
-        <div class="floated column">
-          <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
-            <img class="ui medium image" src="{% static propic %}">
-            {% endwith %}
-          </div>
-          <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
-            <img class="ui medium image" src="{% static propic %}">
-            {% endwith %}
-          </div>
-        </div>
-        <div class="floated column">
-          <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
-            <img class="ui medium image" src="{% static propic %}">
-            {% endwith %}
-          </div>
-          <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
-            <img class="ui medium image" src="{% static propic %}">
-            {% endwith %}
-          </div>
-        </div>
-      </div>
-
 
       </div>
     </div>
