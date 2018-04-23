@@ -127,9 +127,7 @@ class Friend(models.Model):
     STATUSES = (
         (u'0', u'friends'),
         (u'1', u'pending'),
-        (u'2', u'blacklistAB'),
-        (u'3', u'blacklistBA'),
-        (u'4', u'blacklist'),
+        (u'2', u'blacklist'),
     )
 
     status = models.CharField(max_length=1, choices=STATUSES)
