@@ -155,6 +155,7 @@ def settings(request):
             request,
             'settings.html',
             context={
+                'usr': usr,
                 'full_name': currName,
                 'uform': uform,
                 'pform': pform
