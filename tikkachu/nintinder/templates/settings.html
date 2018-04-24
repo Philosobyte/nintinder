@@ -193,7 +193,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="{% static 'images/matthew.png' %}">
+                                    {% with "images/"|add:user.username|add:".jpg" as propic %}
+                                    <img class="ui image" src="{% static propic %}" alt="profile-image">
+                                    {% endwith %}
                                 </div>
                                 <div class="content">
                                     <a class="header">{{full_name}}</a>
