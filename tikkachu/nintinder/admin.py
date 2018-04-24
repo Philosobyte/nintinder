@@ -11,7 +11,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Game)
 class GameAdmin(admin.ModelAdmin):
-    list_display = ('name', 'platform', 'release_date')
+    list_display = ('name', 'platform', 'release_date', 'id')
 
 
 @admin.register(Interest)

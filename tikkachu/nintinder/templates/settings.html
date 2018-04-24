@@ -3,13 +3,21 @@
 {% load static%}
 
 <div id="main-content" class="pusher" >
-        <div id="content-grid" class="ui two column centered grid">
+  <center>
+      <div class="ui message main" style="margin-bottom: 30px">
+          <h1 class="ui icon header">
+              <i class="user circle icon"></i>
+              <div class="content">
+                  Settings
+                  <div class="sub header">
+                      Customize to your hearts content!
+                  </div>
+              </div>
+          </h1>
+      </div>
+  </center>
+        <div id="content-grid" class="ui two column grid">
             <div class="eight wide column">
-                <h2 class="ui header">
-                    <div class="content">
-                        Your Profile
-                    </div>
-                </h2>
                 <form action="" method="post" class="ui stackable two column divided grid container">
                     {% csrf_token %}
                     {% for field in uform %}
@@ -184,7 +192,7 @@
                 <div class="ui stackable two column divided grid container">
                     <div class="row">
                         <div class="ui special cards">
-                            <div class="card">
+                            <div class="card" style="max-height: 350px">
                                 <div class="blurring dimmable image">
                                     <div class="ui dimmer">
                                         <div class="content">
@@ -193,8 +201,13 @@
                                             </div>
                                         </div>
                                     </div>
+<<<<<<< HEAD
                                     {% with "images/"|add:user.username|add:".jpg" as propic %}
                                     <img class="ui image" src="{% static propic %}" alt="profile-image">
+=======
+                                    {% with "images/"|add:usr.username|add:".jpg" as propic %}
+                                      <img class="ui medium image" src="{% static propic %}" alt="profile-image">
+>>>>>>> betterprofileredesign
                                     {% endwith %}
                                 </div>
                                 <div class="content">

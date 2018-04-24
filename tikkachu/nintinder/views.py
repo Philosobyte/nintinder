@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
+
+from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.views.generic.edit import CreateView
 
@@ -18,9 +20,14 @@ from .models import (Achievement, Event, Friend, Game, Interest, Participant,
 # For the actual website, obviously we would be getting a static user and their static friends 
 
 
-class AchievementCreate(CreateView):
-    model = Achievement
-    fields = '__all__'
+class InterestCreate(CreateView):
+    model = Interest
+    fields = {'game'}
+    success_url = reverse_lazy('profile')
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(InterestCreate, self).form_valid(form)
+    
 
 
 @login_required
@@ -44,10 +51,17 @@ def index(request):
 
 
 @login_required
-def profile(request):
-    size = User.objects.all().count()
-    currUser = request.user.first_name
-    usr = request.user
+def profile(request, user_profile=None):
+    requested_user = None
+    if user_profile is None:
+      requested_user = request.user
+    else:
+      user_profile_name = user_profile.split(' ')
+      user_query = User.objects.all().filter(first_name=user_profile_name[0])
+      requested_user = user_query[0]
+
+    currUser = requested_user.first_name
+    usr = requested_user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
     currLoc = profile.location
@@ -58,27 +72,38 @@ def profile(request):
         age = 2018 - currBD.year
     currEmail = usr.email
 
-    size = Game.objects.all().count()
-    seed = random.randint(0, size - 1)
-    gameArray = Game.objects.all()
-    list_of_games = []
+    userinterests = Interest.objects.filter(user=usr)
+    gamelist=[]
+    for interest in userinterests:
+        gamelist.append(interest.game)
 
-    for x in gameArray:
-        list_of_games.append(x.name)
-    unique_games = set(list_of_games)
-    gameTuple = (gameArray[seed].name, gameArray[(seed + 1) % size].name, gameArray[(seed - 1) % size].name)
+    userfriends = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
+    friendlist=[]
+    for friend in userfriends:
+        if friend.friendA == usr:
+            friendlist.append(friend.friendB)
+        elif friend.friendB == usr:
+            friendlist.append(friend.friendA)
+
+    # usercahievs = EarnedAchievement.objects.filter(user=usr)
+    usercahievs = usr.profile.achievements.all()
+    achievlist=[]
+    for achiev in usercahievs:
+        achievlist.append(achiev.achievement)
 
     return render(
         request,
         'profile.html',
         context={
+            'usr': usr,
             'curr': currUser,
             'full_name': currName,
             'location': currLoc,
             'age': age,
             'email' : currEmail,
-            'gTuple': gameTuple,
-            'gameDrop': unique_games,
+            'usergames': gamelist,
+            'userfriends': friendlist,
+            'userachievements': achievlist,
         },
     )
 
@@ -167,6 +192,7 @@ def settings(request):
             request,
             'settings.html',
             context={
+                'usr': usr,
                 'full_name': currName,
                 'uform': uform,
                 'pform': pform
