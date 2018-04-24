@@ -35,7 +35,7 @@
                                     <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{e.achievement.name}}</a>
+                                    <a class="header">{{e.name}}</a>
                                     <div class="description">
                                         {{e.achievement.game.name}} on {{e.achievement.game.platform}}
                                     </div>
@@ -65,11 +65,15 @@
                                 <div class="image">
                                     <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
-                                <div class="content">
-                                    <a class="header">{{e.name}}</a>
+                                <div id="achievements-content" class="content">
                                     <div class="description">
                                         {{e.game.name}} on {{e.game.platform}}
                                     </div>
+                                    <form action="{% url 'earn_achievement' %}" method="POST">
+                                      {% csrf_token %}
+                                      <input type="hidden" value="{{ e.pk }}" name='aid' />
+                                      <input type="submit" class="ui blue button" value="{{e.name}}" />
+                                    </form>
                                 </div>
                             </div>
                         </div>

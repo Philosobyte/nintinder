@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Profile, Game, Interest, Achievement, EarnedAchievement, Event, Participant, Friend
+from .models import Profile, Game, Interest, Achievement, Event, Participant, Friend
 
 # Register your models here.
 
 @admin.register(Profile)
-class UserAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date_of_birth', 'location')
-    fields = ['user', 'date_of_birth', 'location']
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date_of_birth', 'location', 'bio', 'title')
+    fields = ['user', 'date_of_birth', 'location', 'interests', 'achievements', 'bio', 'title']
 
 
 @admin.register(Game)
@@ -22,11 +22,6 @@ class InterestAdmin(admin.ModelAdmin):
 @admin.register(Achievement)
 class AchievementAdmin(admin.ModelAdmin):
     list_display = ('id', 'game', 'name')
-
-
-@admin.register(EarnedAchievement)
-class EarnedAchievementAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'achievement')
 
 
 @admin.register(Event)

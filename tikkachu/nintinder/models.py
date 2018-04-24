@@ -10,28 +10,6 @@ import uuid
 from django.urls import reverse
 # Create your models here.
 
-
-class Profile(models.Model):
-    """
-    Model representing a user of the service
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    location = models.CharField(max_length=256, help_text="Enter the user's location")
-    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-
-    def __str__(self):
-        return self.user.username
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
-
-
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=128, help_text="Enter the name of the game")
@@ -67,13 +45,29 @@ class Achievement(models.Model):
         return u'/nintinder/achievements/'
 
 
-class EarnedAchievement(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
-    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
+class Profile(models.Model):
+    """
+    Model representing a user of the service
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    location = models.CharField(max_length=256, help_text="Enter the user's location")
+    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
+    interests = models.ManyToManyField(Game, blank=True)
+    achievements = models.ManyToManyField(Achievement, blank=True)
+    bio = models.CharField(max_length=1024, blank=True, help_text="Enter the user's bio")
+    title = models.CharField(max_length=64, default="Player", help_text="Enter the user's title")
 
     def __str__(self):
-        return "{} has completed {}".format(self.user, self.achievement)
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 
 class Event(models.Model):

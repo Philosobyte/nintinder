@@ -3,7 +3,7 @@ from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import FormView
@@ -11,8 +11,8 @@ from django.views.generic.edit import CreateView
 
 from .forms import ProfileForm, UserForm
 # Create your views here.
-from .models import (Achievement, EarnedAchievement, Event, Friend, Game,
-                     Interest, Participant, Profile, User)
+from .models import (Achievement, Event, Friend, Game, Interest, Participant,
+                     Profile, User)
 
 # Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
 # For the actual website, obviously we would be getting a static user and their static friends 
@@ -21,6 +21,7 @@ from .models import (Achievement, EarnedAchievement, Event, Friend, Game,
 class AchievementCreate(CreateView):
     model = Achievement
     fields = '__all__'
+
 
 @login_required
 def index(request):
@@ -83,9 +84,22 @@ def profile(request):
 
 
 @login_required
+def add_interest(request):
+    user = request.user;
+    profile = user.profile
+
+    if request.method == 'POST':
+        game_id = request.POST.get('gid')
+        game = Game.objects.get(id=game_id)
+        profile.interests.add(game)
+    
+    return HttpResponse()
+
+
+@login_required
 def achievements(request):
     usr = request.user
-    outputArray = EarnedAchievement.objects.filter(user=usr)
+    outputArray = usr.profile.achievements.all()
 
     usrgames = []
     for earnedachievement in outputArray:
@@ -114,6 +128,19 @@ def achievements(request):
             'incomplete': outArray,
         },
     )
+
+
+@login_required
+def earn_achievement(request):
+    user = request.user
+    profile = user.profile
+
+    if request.method == 'POST':
+        achievement_id = request.POST.get('aid')
+        achievement = Achievement.objects.get(id=achievement_id)
+        profile.achievements.add(achievement)
+    
+    return HttpResponseRedirect(reverse('achievements'))
 
 
 @login_required
