@@ -31,11 +31,6 @@
                 </div>
                 <div class="ui row margin-0">
                     <div class="ui eight wide centered column glide">
-
-                        <div class="glide__arrows" data-glide-el="controls">
-                            <button class="glide__arrow glide__arrow--prev" data-glide-dir="<">prev</button>
-                            <button class="glide__arrow glide__arrow--next" data-glide-dir=">">next</button>
-                        </div>
                         <div class="glide__track" data-glide-el="track">
                             <ul class="glide__slides">
                                 {% for e in friends %}
@@ -58,7 +53,13 @@
                                 {% endfor %}
                             </ul>
                         </div>
+                        <div class="glide__arrows" data-glide-el="controls">
+                                <button class="glide__arrow glide__arrow--prev" data-glide-dir="<">prev</button>
+                                <button class="glide__arrow glide__arrow--next" data-glide-dir=">">next</button>
+                        </div>
                     </div>
+
+                    
                 </div>
                 {% if people != 0 %}
                     <form id="matchesForm" action="" method="post" class="ui form row margin-0">
@@ -84,13 +85,13 @@
 </div>
 
 <script>
-    function move_glide() {
-        alert('fuck');
-        var matchesForm = $( "#matchesForm" );
-        console.log(matchesForm.elements['Gender'].value);
-        matchesForm.elements['Gender'].value = 2;
-        console.log(matchesForm.elements['Gender'].value);
-    }
+    // function move_glide() {
+    //     alert('fuck');
+    //     var matchesForm = $( "#matchesForm" );
+    //     console.log(matchesForm.elements['Gender'].value);
+    //     matchesForm.elements['Gender'].value = 2;
+    //     console.log(matchesForm.elements['Gender'].value);
+    // }
     var glide = new Glide(".glide", {
         type: "carousel",
         perView: 3

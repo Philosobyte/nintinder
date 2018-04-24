@@ -26,6 +26,10 @@
     right: 2em; }
   .glide__arrow--disabled {
     opacity: 0.33; }
+  .glide__arrow--prev{
+    left: 2em; }
+  .glide__arrow--next{
+    right: 2em; }
 
 .glide__bullets {
   position: absolute;
