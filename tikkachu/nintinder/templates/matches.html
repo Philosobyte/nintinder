@@ -64,7 +64,7 @@
                 {% if people != 0 %}
                     <form id="matchesForm" action="" method="post" class="ui form row margin-0">
                         {% csrf_token %}
-                        <div class="ui field">
+                        <div class="ui field" hidden>
                             <select name="index">
                                 {% for i in range %}
                                     <option value={{ i }}></option>
