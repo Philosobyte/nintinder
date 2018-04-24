@@ -54,8 +54,8 @@
                             </ul>
                         </div>
                         <div class="glide__arrows" data-glide-el="controls">
-                                <button class="glide__arrow glide__arrow--prev" data-glide-dir="<">prev</button>
-                                <button class="glide__arrow glide__arrow--next" data-glide-dir=">">next</button>
+                            <button class="glide__arrow glide__arrow--prev" data-glide-dir="<">prev</button>
+                            <button class="glide__arrow glide__arrow--next" data-glide-dir=">">next</button>
                         </div>
                     </div>
 
@@ -85,19 +85,21 @@
 </div>
 
 <script>
-    // function move_glide() {
-    //     alert('fuck');
-    //     var matchesForm = $( "#matchesForm" );
-    //     console.log(matchesForm.elements['Gender'].value);
-    //     matchesForm.elements['Gender'].value = 2;
-    //     console.log(matchesForm.elements['Gender'].value);
-    // }
+    function move_glide() {
+        var gender = $('[name=Gender]');
+        var glide = $('.glide');
+        console.log(glide.index());
+        console.log(gender.val());
+    }
     var glide = new Glide(".glide", {
         type: "carousel",
-        perView: 3
+        perView: 2,
+        gap: 0,
+        focusAt: 'center',
+        startAt: 1
     });
+    glide.on('run.after', move_glide);
     glide.mount();
-    console.log(glide);
 </script>
 </body>
 {% endblock %}
