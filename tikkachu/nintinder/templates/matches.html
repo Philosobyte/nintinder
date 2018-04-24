@@ -30,15 +30,16 @@
                     </div>
                 </div>
                 <div class="ui row margin-0">
-                    <div id="Glide" class="ui eight wide centered column glide">
-                        <div class="glide__arrows">
-                            <button id="glideNext" class="glide__arrow prev" data-glide-dir="<">prev</button>
-                            <button id="glidePrev" class="glide__arrow next" data-glide-dir=">">next</button>
+                    <div class="ui eight wide centered column glide">
+
+                        <div class="glide__arrows" data-glide-el="controls">
+                            <button class="glide__arrow glide__arrow--prev" data-glide-dir="<">prev</button>
+                            <button class="glide__arrow glide__arrow--next" data-glide-dir=">">next</button>
                         </div>
-                        <div class="glide__wrapper">
-                            <div class="glide__track ">
+                        <div class="glide__track" data-glide-el="track">
+                            <ul class="glide__slides">
                                 {% for e in friends %}
-                                    <div class="ui card glide__slide">
+                                    <li class="ui card glide__slide">
                                         <div class="image">
                                             {% with "images/"|add:e.username|add:".jpg" as propic %}
                                                 <img src="{% static propic %}">
@@ -53,11 +54,10 @@
                                                 <strong>Games</strong>: | {% for game in interests|get_item:e %} {{game}} | {% endfor %}
                                             </div>
                                         </div>
-                                    </div>
+                                    </li>
                                 {% endfor %}
-                            </div>
+                            </ul>
                         </div>
-                        <div class="glide__bullets"></div>
                     </div>
                 </div>
                 {% if people != 0 %}
@@ -92,11 +92,11 @@
         console.log(matchesForm.elements['Gender'].value);
     }
     var glide = new Glide(".glide", {
-        type: "carousel"
+        type: "carousel",
+        perView: 3
     });
-    console.log(glide);
     glide.mount();
-
+    console.log(glide);
 </script>
 </body>
 {% endblock %}
