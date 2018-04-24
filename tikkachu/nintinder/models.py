@@ -3,11 +3,7 @@ from django.template.defaulttags import register
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import HttpResponseRedirect
-import datetime
 import uuid
-
-from django.urls import reverse
 # Create your models here.
 
 class Game(models.Model):

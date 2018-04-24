@@ -4,12 +4,6 @@
  * Released under the MIT License.
  */
 
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.Glide = factory());
-}(this, (function () { 'use strict';
-
 var defaults = {
   /**
    * Type of the movement.
@@ -3608,6 +3602,4 @@ var Glide = function (_Core) {
   return Glide;
 }(Glide$2);
 
-return Glide;
-
-})));
+export default Glide;
