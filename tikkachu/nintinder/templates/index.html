@@ -33,8 +33,10 @@
             </div>
             <div class="content">
               <div class="summary">
-                <a class="user">{{full_name}}</a> beat <a class="user">
-                Raymond Liu</a> in <a class="game">Chess</a>.
+                {% with full_name as full_user_name %}
+                  <a class="user" href="{% url 'profile' full_user_name %}">{{full_user_name}}</a> beat <a class="user" href="{% url 'profile' 'Raymond Liu' %}">
+                  Raymond Liu</a> in <a class="game">Chess</a>.
+                {% endwith %}
                 <div class="date"> 1 Hour Ago </div>
               </div>
               <div class="meta">
@@ -49,7 +51,7 @@
             </div>
             <div class="content">
               <div class="summary">
-                <a class="user"> Kush Patel </a> bought <a class="game">
+                <a class="user" href="{% url 'profile' 'Kush Patel'%}"> Kush Patel </a> bought <a class="game">
                 {{game1}}</a>.
                 <div class="date"> 3 Hours Ago </div>
               </div>
@@ -65,7 +67,7 @@
             </div>
             <div class="content">
               <div class="summary">
-                <a class="user"> Johan Pereira </a> + <a class="user">
+                <a class="user" href="{% url 'profile' 'Johan Pereira' %}"> Johan Pereira </a> + <a class="user">
                 3 more . . . </a> are playing <a class="game">{{game2}}</a> tomorrow.
                 <div class="date"> 6 Hours Ago </div>
               </div>

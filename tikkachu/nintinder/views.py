@@ -43,10 +43,17 @@ def index(request):
 
 
 @login_required
-def profile(request):
-    size = User.objects.all().count()
-    currUser = request.user.first_name
-    usr = request.user
+def profile(request, user_profile=None):
+    requested_user = None
+    if user_profile is None:
+      requested_user = request.user
+    else:
+      user_profile_name = user_profile.split(' ')
+      user_query = User.objects.all().filter(first_name=user_profile_name[0])
+      requested_user = user_query[0]
+
+    currUser = requested_user.first_name
+    usr = requested_user
     profile = usr.profile
     currName = usr.first_name + ' ' + usr.last_name
     currLoc = profile.location
@@ -79,6 +86,7 @@ def profile(request):
         request,
         'profile.html',
         context={
+            'usr': usr,
             'curr': currUser,
             'full_name': currName,
             'location': currLoc,

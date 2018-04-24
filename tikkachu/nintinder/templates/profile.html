@@ -11,13 +11,13 @@
     </div>
     <div id="profile-container-foreground">
       <div id="profile-info" class="row">
-        {% with "images/"|add:user.username|add:".jpg" as propic %}
+        {% with "images/"|add:usr.username|add:".jpg" as propic %}
           <img class="ui avatar image" src="{% static propic %}" alt="profile-image">
         {% endwith %}
         <div>
           <div>
-            <p id="profile-name">{{user.first_name}} {{user.last_name}}</p>
-            <p>@{{user.username}}</p>
+            <p id="profile-name">{{usr.first_name}} {{usr.last_name}}</p>
+            <p>@{{usr.username}}</p>
           </div>
           <div id="profile-meta-data">
             <div>
@@ -87,12 +87,12 @@
                   </div>
                 </div>
               </div>
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with "images/"|add:usr.username|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
           <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with "images/"|add:usr.username|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
@@ -104,24 +104,24 @@
       </script>
         <div class="floated column">
           <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with "images/"|add:usr.username|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
           <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with "images/"|add:usr.username|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
         </div>
         <div class="floated column">
           <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with "images/"|add:usr.username|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
           <div class="ui segment">
-            {% with "images/"|add:user.username|add:".jpg" as propic %}
+            {% with "images/"|add:usr.username|add:".jpg" as propic %}
             <img class="ui medium image" src="{% static propic %}">
             {% endwith %}
           </div>
