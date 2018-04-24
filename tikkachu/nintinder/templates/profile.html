@@ -75,8 +75,20 @@
           </div>
           {% endfor %}
         </div>
-
-
+        <div class = "floated column">
+            <div class = "ui segment">
+              <div class = "ui dimmer">
+                <div class = "content">
+                   <div class = "center">
+                     <div class = "ui inverted button"> <a href="{% url 'interests_create' %}">ADD A GAME</a></div>
+                   </div>
+                </div>
+              </div>
+              <center>
+              YOUR GAMES
+            </center>
+            </div>
+          </div>
       <div class="ui three column grid">
         <div class="floated column">
         {% for game in usergames|slice:"::3" %}
@@ -84,7 +96,7 @@
               <div class="ui dimmer">
                 <div class="content">
                   <div class="center">
-                    <div class="ui inverted button">{{game.name}} for {{game.platform}}</div>
+                    <div class="ui inverted button" >{{game.name}} for {{game.platform}}</div>
                   </div>
                 </div>
               </div>
@@ -130,6 +142,7 @@
             {% endwith %}
             {% endwith %}
           </div>
+          
           {% endfor %}
         </div>
       </div>

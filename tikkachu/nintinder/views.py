@@ -6,6 +6,8 @@ from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+
+from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.views.generic.edit import CreateView
 
@@ -18,9 +20,14 @@ from .models import (Achievement, EarnedAchievement, Event, Friend, Game,
 # For the actual website, obviously we would be getting a static user and their static friends 
 
 
-class AchievementCreate(CreateView):
-    model = Achievement
-    fields = '__all__'
+class InterestCreate(CreateView):
+    model = Interest
+    fields = {'game'}
+    success_url = reverse_lazy('profile')
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super(InterestCreate, self).form_valid(form)
+    
 
 @login_required
 def index(request):
