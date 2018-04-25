@@ -2,8 +2,9 @@ import random
 from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
+from django.core import serializers
 from django.db.models import Q
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.views.generic import FormView
@@ -132,6 +133,68 @@ def earn_achievement(request):
         profile.achievements.add(achievement)
     
     return HttpResponseRedirect(reverse('achievements'))
+
+
+@login_required
+def get_friends(request):
+    user = request.user
+    profile = user.profile
+
+    if request.method == 'GET':
+        output = {}
+
+        for status in [Friend.STATUS_FRIEND, Friend.STATUS_PENDING, Friend.STATUS_BLACKLIST]:
+            data = {}
+            friends = profile.get_friends(status)
+            
+            usernames = [ friend.friendB.user.username for friend in friends ]
+            data[user.username] = usernames
+
+            for friend in friends:
+                data[friend.friendA.user.username] = [ buddy.friendB.user.username for buddy in friend.friendA.get_friends(status) ]
+
+            output[status] = data
+
+    return JsonResponse(output, safe=False)
+
+
+@login_required
+def add_friend(request):
+    user = request.user
+    profile = user.profile
+
+    if request.method == 'GET':
+        other = request.GET.get('username')
+        friend = User.objects.get(username=other)
+        profile.add_friend(friend.profile)
+
+    return HttpResponseRedirect(reverse('get_friends'))
+
+
+@login_required
+def remove_friend(request):
+    user = request.user
+    profile = user.profile
+
+    if request.method == 'GET':
+        other = request.GET.get('username')
+        ex = User.objects.get(username=other)
+        profile.remove_friend(ex.profile)
+
+    return HttpResponseRedirect(reverse('get_friends'))
+
+
+@login_required
+def blacklist_friend(request):
+    user = request.user
+    profile = user.profile
+
+    if request.method == 'GET':
+        other = request.GET.get('username')
+        ex = User.objects.get(username=other)
+        profile.blacklist_friend(ex.profile)
+
+    return HttpResponseRedirect(reverse('get_friends'))
 
 
 @login_required

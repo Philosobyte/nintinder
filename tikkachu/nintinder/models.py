@@ -60,37 +60,72 @@ class Profile(models.Model):
     buddies = models.ManyToManyField('self', through='Friend', related_name='friends+', symmetrical=False, blank=True)
 
     def get_friends(self, status):
-        return self.friends.filter(
-            friendA__status = status,
-            friendB__friendA = self
+        friends = Friend.objects.filter(
+            friendA = self,
+            status = status
         )
 
-    def add_friend(self, friend, status, symm=True):
-        if status == 0: # if adding friends
-            friendship, created = Friend.objects.get_or_create(
-                friendA = self,
-                friendB = friend,
-                status = status,
-            )
-        else: # if adding a pending friendship, add to other friend's pending
-            friendship, created = Friend.objects.get_or_create(
-                friendA = self if status == 2 else friend,
-                friendB = friend if status == 2 else self,
-                status = status,
-                symm = False
-            )
-        if symm:
-            friend.add_friend(self, status, False)
-        return friendship
+        return friends
 
-    def remove_friend(self, friend, status, symm=True):
+    def add_friend(self, friend, symm=True):
+        """
+        Friendship is perfectly symmetrical with both parties being friends with
+        each other.
+
+        Pending friendhips A->B will first check A for B's pending friendship
+        request. If the record is there in A's friend's list then instantly A
+        and B will be friends. If the record is not found, then B's friends-list
+        will be updated to have A's pending friend request included. This of
+        course is dependent on either one being in the other's blacklist.
+
+        A blacklist A->B will add a blacklist entry into A for B. 
+        """
+        # Check if the other friend wanted to befriend you first by first
+        # checking if their friend request is in your pending
+        ab, ab_created = Friend.objects.get_or_create(
+            friendA = self,
+            friendB = friend
+        )
+
+        ba, ba_created = Friend.objects.get_or_create(
+            friendA = friend,
+            friendB = self
+        )
+
+        if not ab_created:
+            if ab.status == Friend.STATUS_PENDING:
+                ab.status = Friend.STATUS_FRIEND
+                ab.save()
+
+                ba.status = Friend.STATUS_FRIEND
+                ba.save()
+
+                return ab
+        else:
+            if ba.status == Friend.STATUS_BLACKLIST:
+                return ba
+            else:
+                ba.status = Friend.STATUS_PENDING
+                ba.save()
+                return ba
+
+    def blacklist_friend(self, friend):
+        friend.remove_friend(self, False)
+        friendship, created = Friend.objects.get_or_create(
+            # if blacklisting then requesting friendA is self 
+            friendA = self,
+            friendB = friend
+        )
+        friendship.status = 2
+        friendship.save()
+
+    def remove_friend(self, friend, symm=True):
         Friend.objects.filter(
             friendA = self,
-            friendB = friend,
-            status = status
+            friendB = friend
         ).delete()
         if symm:
-            person.remove_friend(self, status, False)
+            friend.remove_friend(self, False)
 
     def __str__(self):
         return self.user.username
@@ -132,13 +167,20 @@ class Friend(models.Model):
     friendA = models.ForeignKey(Profile, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
     friendB = models.ForeignKey(Profile, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
 
+    STATUS_FRIEND = 0
+    STATUS_PENDING = 1
+    STATUS_BLACKLIST = 2
+
     STATUSES = (
-        (u'0', u'friends'),
-        (u'1', u'pending'),
-        (u'2', u'blacklist'),
+        (STATUS_FRIEND, u'friends'),
+        (STATUS_PENDING, u'pending'),
+        (STATUS_BLACKLIST, u'blacklist'),
     )
 
-    status = models.CharField(max_length=1, choices=STATUSES)
+    status = models.SmallIntegerField(choices=STATUSES, blank=True, null=True)
+
+    class Meta:
+        unique_together = (('friendA', 'friendB'),)
 
     @register.filter
     def get_item(dictionary, key):

@@ -10,6 +10,10 @@ urlpatterns = [
     path('settings/', views.settings, name = 'settings'),
     path('achievements/', views.achievements, name = 'achievements'),
     url(r'achievements/earn/', views.earn_achievement, name="earn_achievement"),
+    url(r'friend/all/', views.get_friends, name='get_friends'),
+    url(r'friend/add/', views.add_friend, name='add_friend'),
+    url(r'friend/remove/', views.remove_friend, name='remove_friend'),
+    url(r'friend/blacklist/', views.blacklist_friend, name='blacklist_friend'),
     path('achievements/create/', views.AchievementCreate.as_view(), name='achievements_create'),
     path('matches/', views.matches, name = 'matches'),
 ]
