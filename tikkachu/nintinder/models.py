@@ -1,13 +1,14 @@
-from django.db import models
-from django.template.defaulttags import register
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.http import HttpResponseRedirect
 import datetime
 import uuid
 
+from django.contrib.auth.models import User
+from django.db import NotSupportedError, models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.http import HttpResponseRedirect
+from django.template.defaulttags import register
 from django.urls import reverse
+
 # Create your models here.
 
 class Game(models.Model):
@@ -64,7 +65,6 @@ class Profile(models.Model):
             friendA = self,
             status = status
         )
-
         return friends
 
     def add_friend(self, friend, symm=True):
@@ -80,6 +80,11 @@ class Profile(models.Model):
 
         A blacklist A->B will add a blacklist entry into A for B. 
         """
+
+        # prevent users from befriending themselves
+        if self == friend:
+            raise NotSupportedError("Cannot befriend one's self")
+
         # Check if the other friend wanted to befriend you first by first
         # checking if their friend request is in your pending
         ab, ab_created = Friend.objects.get_or_create(
