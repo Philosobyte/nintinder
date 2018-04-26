@@ -4,12 +4,6 @@
  * Released under the MIT License.
  */
 
-(function (global, factory) {
-	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-	typeof define === 'function' && define.amd ? define(factory) :
-	(global.Glide = factory());
-}(this, (function () { 'use strict';
-
 var defaults = {
   /**
    * Type of the movement.
@@ -2504,7 +2498,7 @@ var MOVE_EVENTS = ['touchmove', 'mousemove'];
 var END_EVENTS = ['touchend', 'touchcancel', 'mouseup', 'mouseleave'];
 var MOUSE_EVENTS = ['mousedown', 'mousemove', 'mouseup', 'mouseleave'];
 
-var Swipe = function (Glide, Components, Events) {
+var swipe = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -2795,7 +2789,7 @@ var Swipe = function (Glide, Components, Events) {
   return Swipe;
 };
 
-var Images = function (Glide, Components, Events) {
+var images = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -2856,7 +2850,7 @@ var Images = function (Glide, Components, Events) {
   return Images;
 };
 
-var Anchors = function (Glide, Components, Events) {
+var anchors = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -3029,7 +3023,7 @@ var Anchors = function (Glide, Components, Events) {
 var NAV_SELECTOR = '[data-glide-el="controls[nav]"]';
 var CONTROLS_SELECTOR = '[data-glide-el^="controls"]';
 
-var Controls = function (Glide, Components, Events) {
+var controls = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -3216,7 +3210,7 @@ var Controls = function (Glide, Components, Events) {
   return Controls;
 };
 
-var Keyboard = function (Glide, Components, Events) {
+var keyboard = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -3302,7 +3296,7 @@ var Keyboard = function (Glide, Components, Events) {
   return Keyboard;
 };
 
-var Autoplay = function (Glide, Components, Events) {
+var autoplay = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -3470,7 +3464,7 @@ function sortBreakpoints(points) {
   return {};
 }
 
-var Breakpoints = function (Glide, Components, Events) {
+var breakpoints = function (Glide, Components, Events) {
   /**
    * Instance of the binder for DOM Events.
    *
@@ -3562,10 +3556,7 @@ var Breakpoints = function (Glide, Components, Events) {
   return Breakpoints;
 };
 
-// Required components
-// Optional components
 var COMPONENTS = {
-  // Required
   Html: Html,
   Translate: Translate,
   Transition: Transition,
@@ -3577,16 +3568,7 @@ var COMPONENTS = {
   Clones: Clones,
   Resize: Resize,
   Build: Build,
-  Run: Run,
-
-  // Optional
-  Swipe: Swipe,
-  Images: Images,
-  Anchors: Anchors,
-  Controls: Controls,
-  Keyboard: Keyboard,
-  Autoplay: Autoplay,
-  Breakpoints: Breakpoints
+  Run: Run
 };
 
 var Glide = function (_Core) {
@@ -3608,6 +3590,5 @@ var Glide = function (_Core) {
   return Glide;
 }(Glide$2);
 
-return Glide;
-
-})));
+export { swipe as Swipe, images as Images, anchors as Anchors, controls as Controls, keyboard as Keyboard, autoplay as Autoplay, breakpoints as Breakpoints };
+export default Glide;

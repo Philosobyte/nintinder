@@ -27,7 +27,7 @@ class AchievementCreate(CreateView):
 @login_required
 def index(request):
     size = User.objects.all().count()
-    usr = User.objects.all()[random.randint(0, size - 1)]
+    usr = request.user
     currName = usr.first_name + ' ' + usr.last_name
     games = Game.objects.all()
     rand = random.randint(0, games.count() - 1)
@@ -227,35 +227,83 @@ def settings(request):
             },
         )
 
+friendsArray = None
+friendAArray = None
+outputArray = None
+
 
 @login_required
 def matches(request):
+    MAX_MATCHES = 10
     usr = request.user
     currName = usr.first_name + ' ' + usr.last_name
+    global friendsArray
+    global friendAArray
+    global outputArray
+    if request.method == 'GET':
+        friendsArray = Friend.objects.filter(Q(friendB=usr), status=1)
+        pendingFriendsArray = Friend.objects.filter(Q(friendA=usr), status=1)
+        print('pendingFriendsArray: {}'.format(pendingFriendsArray))
+        pendingArray = [friend.friendB for friend in pendingFriendsArray]
+        print('pendingArray: {}'.format(pendingArray))
+        outputArray = [friend.friendA for friend in friendsArray]
+        friendAArray = list(outputArray)
+        blacklisted = set()
+        for friend in Friend.objects.filter(Q(friendA=usr)|Q(friendB=usr), status=4):
+            blacklisted.add(friend.friendA)
+            blacklisted.add(friend.friendB)
+        curr_user_games = {interest.game for interest in Interest.objects.filter(Q(user=usr))}
 
-    friendsArray = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
+        for curr_game in curr_user_games:
+            interests_with_game = Interest.objects.filter(Q(game=curr_game))
+            for interest in interests_with_game:
+                print('length of outputArray: {}'.format(len(outputArray)))
+                if interest.user != usr and interest.user not in outputArray and interest.user not in pendingArray \
+                        and interest.user not in blacklisted:
+                    outputArray.append(interest.user)
 
-    outputArray = [(x.friendA if (x.friendB == usr) else x.friendB) for x in friendsArray]
+        interests = defaultdict(list)
+        for user in outputArray:
+            interest_array = Interest.objects.filter(Q(user=user))
+            for interest in interest_array:
+                interests[user].append(interest.game)
+        print([str(i) for i in range(len(outputArray))])
+        return render(
+            request,
+            'matches.html',
+            context={
+                'full_name': currName,
+                'friends': outputArray,
+                'people': len(outputArray),
+                'range': [] if len(outputArray) == 0 else [str(i) for i in range(len(outputArray))],
+                'interests': interests,
+            },
+        )
 
-    friends_qs = Q( user=None )
-    for friend in outputArray:
-        friends_qs = friends_qs | Q(user=friend)
-    interestsArray = Interest.objects.filter(friends_qs)
-
-    interests = defaultdict(list)
-    for x in interestsArray:
-        interests[x.user].append(x.game)
-
-    return render(
-        request,
-        'matches.html',
-        context={
-            'full_name': currName,
-            'friends': outputArray,
-            'people': len(outputArray),
-            'interests': interests,
-        },
-    )
+    if request.method == 'POST':
+        index = request.POST['index']
+        other = outputArray[int(index)]
+        print('request.POST: {}'.format(request.POST))
+        print('outputArray: {}'.format(outputArray))
+        print('index: {}'.format(index))
+        print('other: {}'.format(other))
+        print('friendAArray: {}'.format(friendAArray))
+        print('friendsArray: {}'.format(friendsArray))
+        if other in friendAArray:
+            for friend in friendsArray:
+                if friend.friendA == other:
+                    if 'Add Friend' in request.POST:
+                        friend.status = u'0'
+                    else:
+                        friend.status = u'4'
+                    friend.save()
+        else:
+            if 'Add Friend' in request.POST:
+                friend = Friend(friendA=usr, friendB=other, status=u'1')
+            else:
+                friend = Friend(friendA=usr, friendB=other, status=u'4')
+            friend.save()
+        return HttpResponseRedirect(reverse('matches'))
 
 
 def login(request):
