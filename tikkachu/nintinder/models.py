@@ -11,6 +11,7 @@ from django.urls import reverse
 
 # Create your models here.
 
+
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     name = models.CharField(max_length=128, help_text="Enter the name of the game")
@@ -21,18 +22,6 @@ class Game(models.Model):
 
     def __str__(self):
         return "{} for {}".format(self.name, self.platform)
-
-
-class Interest(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who is interested in a game")
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the game the user is interested in")
-
-    def __str__(self):
-        return "{} is interested in {}".format(self.user, self.game)
-
-    class Meta:
-        unique_together = (('user', 'game'),)
 
 
 class Achievement(models.Model):
