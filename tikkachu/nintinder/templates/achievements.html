@@ -28,16 +28,16 @@
             <div class="ui horizontal list" style="margin-bottom:50px">
                 <h2 style="margin-left:20px;">Completed</h2>
                 {% if complete %}
-                    {% for e in complete %}
+                    {% for achievement in complete %}
                         <div class="item">
                             <div class="ui card" style="max-height: 400px">
                                 <div class="image">
                                     <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{e.name}}</a>
+                                    <a class="header">{{achievement.name}}</a>
                                     <div class="description">
-                                        {{e.achievement.game.name}} on {{e.achievement.game.platform}}
+                                        {{achievement.game.name}} on {{achievement.game.platform}}
                                     </div>
                                 </div>
                             </div>
@@ -58,7 +58,7 @@
                 <h2 style="margin-left:20px;">Incomplete</h2>
 
                 {% if incomplete %}
-                    {% for e in incomplete %}
+                    {% for achievement in incomplete %}
                         <div class="item">
                             <div class="ui card" style="max-height: 400px">
                                 <div class="image">
@@ -67,11 +67,11 @@
                                 <div class="content">
                                     <form action="{% url 'earn_achievement' %}" method="POST">
                                         {% csrf_token %}
-                                        <input type="hidden" value="{{ e.pk }}" name='aid' />
-                                        <input type="submit" class="header" value="{{e.name}}" />
+                                        <input type="hidden" value="{{achievement.pk}}" name='aid' />
+                                        <input type="submit" class="header" value="{{achievement.name}}" />
                                     </form>
                                     <div class="description">
-                                        {{e.game.name}} on {{e.game.platform}}
+                                        {{achievement.game.name}} on {{achievement.game.platform}}
                                     </div>
                                 </div>
                             </div>
