@@ -51,6 +51,34 @@ def index(request):
 
 
 @login_required
+def games(request):
+    user = request.user
+    outputArray = user.profile.achievements.all()
+
+    user_games = user.profile.interests.all()
+    other_games = (game for game in Game.objects.all() if game not in user_games)
+
+    # incompleteArray = list(Achievement.objects.all())
+    # outArray = incompleteArray[:]
+    # for z in incompleteArray:
+    #     for i in outputArray:
+    #         if i == z:
+    #             outArray.remove(z)
+    fullName = user.first_name + ' ' + user.last_name
+    currName = user.first_name
+    return render(
+        request,
+        'games.html',
+        context={
+            'full_name': fullName,
+            'name': currName.upper(),
+            'user_games': user_games,
+            'other_games': other_games
+        },
+    )
+
+
+@login_required
 def profile(request, user_profile=None):
     requested_user = None
     if user_profile is None:
@@ -117,7 +145,7 @@ def add_interest(request):
         game = Game.objects.get(id=game_id)
         profile.interests.add(game)
     
-    return HttpResponse()
+    return HttpResponseRedirect(reverse('games'))
 
 
 @login_required
