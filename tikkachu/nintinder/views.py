@@ -21,13 +21,13 @@ from .models import (Achievement, Event, Friend, Game, Participant,
 # For the actual website, obviously we would be getting a static user and their static friends 
 
 
-class InterestCreate(CreateView):
-    model = Interest
-    fields = {'game'}
-    success_url = reverse_lazy('profile')
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(InterestCreate, self).form_valid(form)
+# class InterestCreate(CreateView):
+#     model = Interest
+#     fields = {'game'}
+#     success_url = reverse_lazy('profile')
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super(InterestCreate, self).form_valid(form)
 
 
 @login_required
@@ -72,23 +72,20 @@ def profile(request, user_profile=None):
         age = 2018 - currBD.year
     currEmail = usr.email
 
-    userinterests = Interest.objects.filter(user=usr)
+    userinterests = profile.interests.all()
     gamelist=[]
     for interest in userinterests:
-        gamelist.append(interest.game)
+        gamelist.append(interest)
 
-    userfriends = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
+    userfriends = profile.get_friends()
     friendlist=[]
     for friend in userfriends:
-        if friend.friendA == usr:
-            friendlist.append(friend.friendB)
-        elif friend.friendB == usr:
-            friendlist.append(friend.friendA)
+        friendlist.append(friend)
 
-    usercahievs = EarnedAchievement.objects.filter(user=usr)
+    userachievs = profile.achievements.all()
     achievlist=[]
-    for achiev in usercahievs:
-        achievlist.append(achiev.achievement)
+    for achiev in userachievs:
+        achievlist.append(achiev)
 
     return render(
         request,

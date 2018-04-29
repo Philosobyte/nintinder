@@ -3,7 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.forms.widgets import PasswordInput, TextInput
 
-from .models import Game, Profile, Interest
+from .models import Game, Profile
+# , Interest
 
 
 class UserForm(forms.ModelForm):

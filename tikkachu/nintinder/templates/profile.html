@@ -54,12 +54,12 @@
       <div class="ui list">
         {% for friend in userfriends %}
           <div class="item">
-          {% with "images/"|add:friend.username|add:".jpg" as propic %}
+          {% with "images/"|add:friend.friendB.user.username|add:".jpg" as propic %}
             <img class="ui avatar image" src="{% static propic %}">
             {% endwith %}
             <div class="content">
-              <div class="header">{{friend.first_name}} {{friend.last_name}}</div>
-              <div class="description">{{friend.username}}</div>
+              <div class="header">{{friend.friendB.user.first_name}} {{friend.friendB.user.last_name}}</div>
+              <div class="description">{{friend.friendB.user.username}}</div>
             </div>
           </div>
           {% endfor %}
