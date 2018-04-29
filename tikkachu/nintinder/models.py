@@ -49,7 +49,7 @@ class Profile(models.Model):
 
     buddies = models.ManyToManyField('self', through='Friend', related_name='friends+', symmetrical=False, blank=True)
 
-    def get_friends(self, status):
+    def get_friends(self, status=0):
         friends = Friend.objects.filter(
             friendA = self,
             status = status
@@ -61,7 +61,7 @@ class Profile(models.Model):
         Friendship is perfectly symmetrical with both parties being friends with
         each other.
 
-        Pending friendhips A->B will first check A for B's pending friendship
+        Pending friendships A->B will first check A for B's pending friendship
         request. If the record is there in A's friend's list then instantly A
         and B will be friends. If the record is not found, then B's friends-list
         will be updated to have A's pending friend request included. This of
