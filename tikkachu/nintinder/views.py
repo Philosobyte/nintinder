@@ -12,7 +12,7 @@ from django.views.generic.edit import CreateView
 
 from .forms import ProfileForm, UserForm
 # Create your views here.
-from .models import (Achievement, Event, Friend, Game, Interest, Participant,
+from .models import (Achievement, Event, Friend, Game, Participant,
                      Profile, User)
 
 # Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
