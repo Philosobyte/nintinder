@@ -16,6 +16,6 @@ urlpatterns = [
     url(r'friend/remove/', views.remove_friend, name='remove_friend'),
     url(r'friend/blacklist/', views.blacklist_friend, name='blacklist_friend'),
     # path('achievements/create/', views.AchievementCreate.as_view(), name='achievements_create'),
-    path('game/add', views.InterestCreate.as_view(), name='interests_create'),
+    # path('game/add', views.InterestCreate.as_view(), name='interests_create'),
     path('matches/', views.matches, name = 'matches'),
 ]

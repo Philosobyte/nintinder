@@ -21,13 +21,13 @@ from .models import (Achievement, Event, Friend, Game, Participant,
 # For the actual website, obviously we would be getting a static user and their static friends 
 
 
-class InterestCreate(CreateView):
-    model = Interest
-    fields = {'game'}
-    success_url = reverse_lazy('profile')
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super(InterestCreate, self).form_valid(form)
+# class InterestCreate(CreateView):
+#     model = Interest
+#     fields = {'game'}
+#     success_url = reverse_lazy('profile')
+#     def form_valid(self, form):
+#         form.instance.user = self.request.user
+#         return super(InterestCreate, self).form_valid(form)
 
 
 @login_required
