@@ -27,24 +27,25 @@
 
             <div class="ui horizontal list" style="margin-bottom:50px">
                 <h2 style="margin-left:20px;">Completed</h2>
-                {% if complete %}
-                    {% for achievement in complete %}
+                {% if user_games %}
+                    {% for game in user_games %}
                         <div class="item">
                             <div class="ui card" style="max-height: 400px">
                                 <div class="image">
                                     <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
-                                    <a class="header">{{achievement.name}}</a>
+                                    <a class="header">{{game.name}}</a>
                                     <div class="description">
-                                        {{achievement.game.name}} on {{achievement.game.platform}}
+                                        {{game.description}}
+                                        {% comment %} {{game.achievement.game.name}} on {{e.achievement.game.platform}} {% endcomment %}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 {% else %}
-                        <center><h3>Complete more achievements!</h3></center>
+                        <center><h3>Try some of the games below? :-)</h3></center>
                 {% endif %}
 
                 
@@ -57,28 +58,29 @@
             <div class="ui horizontal list" style="margin-bottom:50px">
                 <h2 style="margin-left:20px;">Incomplete</h2>
 
-                {% if incomplete %}
-                    {% for achievement in incomplete %}
+                {% if other_games %}
+                    {% for game in other_games %}
                         <div class="item">
                             <div class="ui card" style="max-height: 400px">
                                 <div class="image">
                                     <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
-                                    <form action="{% url 'earn_achievement' %}" method="POST">
+                                    <form action="{% url 'add_interest' %}" method="POST">
                                         {% csrf_token %}
-                                        <input type="hidden" value="{{achievement.pk}}" name='aid' />
-                                        <input type="submit" class="header" value="{{achievement.name}}" />
+                                        <input type="hidden" value="{{ game.pk }}" name='gid' />
+                                        <input type="submit" class="header" value="{{game.name}}" />
                                     </form>
                                     <div class="description">
-                                        {{achievement.game.name}} on {{achievement.game.platform}}
+                                        <h6>On {{game.platform}}</h6>
+                                        {{game.description}}
                                     </div>
                                 </div>
                             </div>
                         </div>
                     {% endfor %}
                 {% else %}
-                        <h3>You've done it all!</h3>
+                        <h3>You've got them all!</h3>
                 {% endif %}
             </div>
             

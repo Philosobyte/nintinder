@@ -54,7 +54,10 @@ class Profile(models.Model):
             friendA = self,
             status = status
         )
-        return friends
+
+        compadres = (friend.friendB for friend in friends)
+
+        return compadres
 
     def add_friend(self, friend, symm=True):
         """
