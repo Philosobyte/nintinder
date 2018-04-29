@@ -89,48 +89,34 @@ def profile(request, user_profile=None):
       requested_user = user_query[0]
 
     currUser = requested_user.first_name
-    usr = requested_user
-    profile = usr.profile
-    currName = usr.first_name + ' ' + usr.last_name
+    user = requested_user
+    profile = user.profile
+    currName = user.first_name + ' ' + user.last_name
     currLoc = profile.location
     currBD = profile.date_of_birth
     if not currBD:
         age = 0
     else:
         age = 2018 - currBD.year
-    currEmail = usr.email
+    currEmail = user.email
 
-    userinterests = Interest.objects.filter(user=usr)
-    gamelist=[]
-    for interest in userinterests:
-        gamelist.append(interest.game)
-
-    userfriends = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
-    friendlist=[]
-    for friend in userfriends:
-        if friend.friendA == usr:
-            friendlist.append(friend.friendB)
-        elif friend.friendB == usr:
-            friendlist.append(friend.friendA)
-
-    usercahievs = EarnedAchievement.objects.filter(user=usr)
-    achievlist=[]
-    for achiev in usercahievs:
-        achievlist.append(achiev.achievement)
+    user_interests = profile.interests.all()
+    friends = profile.get_friends()
+    user_achievements = profile.achievements.all()
 
     return render(
         request,
         'profile.html',
         context={
-            'usr': usr,
+            'user': user,
             'curr': currUser,
             'full_name': currName,
             'location': currLoc,
             'age': age,
-            'email' : currEmail,
-            'usergames': gamelist,
-            'userfriends': friendlist,
-            'userachievements': achievlist,
+            'email': currEmail,
+            'usergames': user_interests,
+            'userfriends': friends,
+            'userachievements': user_achievements,
         },
     )
 
@@ -198,11 +184,11 @@ def get_friends(request):
             data = {}
             friends = profile.get_friends(status)
             
-            usernames = [ friend.friendB.user.username for friend in friends ]
+            usernames = [ friend.user.username for friend in friends ]
             data[user.username] = usernames
 
             for friend in friends:
-                data[friend.friendA.user.username] = [ buddy.friendB.user.username for buddy in friend.friendA.get_friends(status) ]
+                data[friend.user.username] = [ buddy.friendB.user.username for buddy in friend.friendA.get_friends(status) ]
 
             output[status] = data
 
