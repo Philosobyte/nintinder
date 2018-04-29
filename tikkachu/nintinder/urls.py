@@ -18,6 +18,5 @@ urlpatterns = [
     path('games/', views.games, name='games'),
     path('interest/add', views.add_interest, name='add_interest'),
     # path('achievements/create/', views.AchievementCreate.as_view(), name='achievements_create'),
-    # path('game/add', views.InterestCreate.as_view(), name='interests_create'),
     path('matches/', views.matches, name = 'matches'),
 ]
