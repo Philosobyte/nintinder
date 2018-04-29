@@ -10,9 +10,9 @@
                         <h1 class="ui icon header">
                             <i class="fire icon"></i>
                             <div class="content">
-                                Create Your Achievement
+                                Add a Game
                                 <div class="sub header">
-                                    Make your own Achievements.
+                                    Add an existing game to your interests.
                                 </div>
                             </div>
                         </h1>
@@ -21,8 +21,9 @@
 <form action="" method="post" style="margin-top:64px;">
 {% csrf_token %}
 <table>
-{{ form.as_table }}
+PICK YA GAME DOOFUS: {{form.game}}
 </table>
+
 <input type="submit" a href="{% url 'achievements' %}" value="Submit" />
 </body>
 {% endblock %}

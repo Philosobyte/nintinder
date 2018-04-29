@@ -3,12 +3,22 @@
 
     <div id="content" class="pusher">
         <div class="ui basic segment">
-            <div id="achievement-header">
-                <h1 style="text-align:center">{{name}}'S ACHIEVEMENTS</h1>
-            </div>
+          <center>
+              <div class="ui message main" style="margin-bottom: 30px">
+                  <h1 class="ui icon header">
+                      <i class="trophy icon"></i>
+                      <div class="content">
+                          Achievements
+                          <div class="sub header">
+                              Gotta catch them all!
+                          </div>
+                      </div>
+                  </h1>
+              </div>
+          </center>
 
-            <form method="link" action="{% url 'achievements_create' %}">
-                <a href="{% url 'achievements_create' %}">Create Achievement</a>
+            <form method="link" action="{% url 'interests_create' %}">
+                <a href="{% url 'interests_create' %}">Create Achievement</a>
                 </form>
 
             <div class="ui horizontal divider">
