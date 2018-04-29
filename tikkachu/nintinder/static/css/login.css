@@ -46,10 +46,25 @@ body > form > .grid > .column > .form{
   margin-bottom: 20px;
 }
 
-#login-message > b {
+#login-message > b, #login-footer-message > .column > a {
   color: #ff4554;
 }
 
+#login-footer-message > .column > a {
+  font-weight: bold;
+}
+
+#login-footer-message > .column > a:hover{
+  color: #ff4555ad
+}
+
+#login-footer{
+  text-align: center;
+}
+
+#login-footer-message > .column{
+  margin-bottom: 10px;
+}
 
 @media (min-width: 1080px){
 

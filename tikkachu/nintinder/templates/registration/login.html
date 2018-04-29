@@ -41,9 +41,14 @@
           <button id="login-button" input type = "submit" value = "login" class="ui fluid large submit button">Login</button>
           <input type="hidden" name="next" value="{{ next }}" />
         </div>
+        <div id="login-footer-message" class="row">
+          <div class="column">Don't have an account. <a href="#">Sign up!</a></div>
+          <div class="column"><a href="#">Forgot your password?</a></div>
+        </div>
       </div>
     </div>
   </form>
+  <footer id="login-footer">&copy; 2018 Nintinder</footer>
   {% endif %}
 </body>
 {% endblock %}
