@@ -41,6 +41,9 @@ class CustomAuthForm(AuthenticationForm):
     username = forms.CharField(widget=TextInput(attrs={'class':'validate','placeholder': 'Username'}))
     password = forms.CharField(widget=PasswordInput(attrs={'placeholder':'Password'}))
 
+class SuperCustomAuthForm(forms.Form):
+    email = forms.CharField(widget=TextInput(attrs={'placeholder':'Email'}))
+
 
 class FriendForm(forms.Form):
     user_choices = (('A', 'Add'), ('B', "Ignore"))
