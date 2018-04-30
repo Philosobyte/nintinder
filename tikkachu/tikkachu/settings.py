@@ -128,3 +128,8 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),
 LOGIN_REDIRECT_URL = '/nintinder'
 LOGIN_URL = reverse_lazy('login')
 LOGOUT_URL = reverse_lazy('logout')
+
+#Authentication backends
+AUTHENTICATION_BACKENDS = (
+  'django.contrib.auth.backends.ModelBackend',
+)
