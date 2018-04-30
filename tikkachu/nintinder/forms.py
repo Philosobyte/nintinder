@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.forms.widgets import PasswordInput, TextInput
 
 from .models import Game, Profile
-
+from django.contrib.auth.models import User as django_user
 
 class UserForm(forms.ModelForm):
     class Meta:
@@ -52,3 +52,9 @@ class FriendForm(forms.Form):
     def clean_friend_choice(self):
         data = self.cleaned_data['friend_choice']
         return data
+
+class SignUpForm(forms.ModelForm):
+  class Meta:
+    model = django_user
+    fields = ['username', 'first_name', 'last_name', 'password', 'email']
+    

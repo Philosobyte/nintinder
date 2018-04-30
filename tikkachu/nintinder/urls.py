@@ -11,6 +11,7 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('settings/', views.settings, name = 'settings'),
     path('achievements/', views.achievements, name = 'achievements'),
+    path('signup/', views.sign_up, name='sign_up'),
     url(r'achievements/earn/', views.earn_achievement, name="earn_achievement"),
     url(r'friend/all/', views.get_friends, name='get_friends'),
     url(r'friend/add/', views.add_friend, name='add_friend'),
