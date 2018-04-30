@@ -82,11 +82,11 @@ def games(request):
 def profile(request, user_profile=None):
     requested_user = None
     if user_profile is None:
-      requested_user = request.user
+        requested_user = request.user
     else:
-      user_profile_name = user_profile.split(' ')
-      user_query = User.objects.all().filter(first_name=user_profile_name[0])
-      requested_user = user_query[0]
+        user_profile_name = user_profile.split(' ')
+        user_query = User.objects.all().filter(first_name=user_profile_name[0])
+        requested_user = user_query[0]
 
     currUser = requested_user.first_name
     user = requested_user
