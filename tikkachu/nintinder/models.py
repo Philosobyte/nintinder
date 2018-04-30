@@ -72,7 +72,7 @@ class Profile(models.Model):
 
         A blacklist A->B will add a blacklist entry into A for B. 
         """
-
+        print('friend: {}'.format(friend))
         # prevent users from befriending themselves
         if self == friend:
             raise NotSupportedError("Cannot befriend one's self")
@@ -80,13 +80,13 @@ class Profile(models.Model):
         # Check if the other friend wanted to befriend you first by first
         # checking if their friend request is in your pending
         ab, ab_created = Friend.objects.get_or_create(
-            friendA = self,
-            friendB = friend
+            friendA=self,
+            friendB=friend
         )
 
         ba, ba_created = Friend.objects.get_or_create(
-            friendA = friend,
-            friendB = self
+            friendA=friend,
+            friendB=self
         )
 
         if not ab_created:
