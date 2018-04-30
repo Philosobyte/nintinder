@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('', include('django.contrib.auth.urls')),
-    path('profile/(?P<user_profile>[-\w]+)', views.profile, name='profile'),
+    path('profile/<user_profile>', views.profile, name='profile'),
     path('profile/', views.profile, name='profile'),
     path('settings/', views.settings, name = 'settings'),
     path('achievements/', views.achievements, name = 'achievements'),
@@ -18,5 +18,6 @@ urlpatterns = [
     path('games/', views.games, name='games'),
     path('interest/add', views.add_interest, name='add_interest'),
     # path('achievements/create/', views.AchievementCreate.as_view(), name='achievements_create'),
-    path('matches/', views.matches, name = 'matches'),
+    #path('game/add', views.InterestCreate.as_view(), name='interests_create'),
+    path('matches/', views.matches, name='matches'),
 ]
