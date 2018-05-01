@@ -1,54 +1,72 @@
-{% include "base_generic.html" %} {% block content %} {% load static%}
+{% include "base_generic.html" %} {% block content %} {% load static %}
 <div id="main-content" class="ui bottom attached segment  ">
 
     <div id="content" class="pusher">
         <div class="ui basic segment">
             <center>
                 <div class="ui message main">
-                    <h1 class="ui icon header">
-                        <i class="trophy icon"></i>
-                        <div class="content">
-                            {{name}}'S ACHIEVEMENTS
-                            <div class="sub header">
-                                All your trophies and medals, all in one place
-                            </div>
+                    <div class="ui center aligned middle aligned grid">
+                        <div class="sixteen wide column">
+                            <h1 class="ui icon header">
+                                <i class="trophy icon"></i>
+                                <div class="content">
+                                    {{name}}'S GAMES
+                                    <div class="sub header">
+                                        All your games, all in one place
+                                    </div>
+                                </div>
+                            </h1>
                         </div>
-                    </h1>
+                    </div>
                 </div>
             </center>
 
-            {% comment %} <form method="link" action="{% url 'interests_create' %}">
+            {% comment %}
+            <form method="link" action="{% url 'interests_create' %}">
                 <a href="{% url 'interests_create' %}">Create Achievement</a>
-                </form> {% endcomment %}
+            </form> {% endcomment %}
 
             <div class="ui horizontal divider">
                 <i class="star outline icon"></i>
             </div>
 
             <div class="ui horizontal list" style="margin-bottom:50px">
-                <h2 style="margin-left:20px;">Completed</h2>
-                {% if user_games %}
-                    {% for game in user_games %}
-                        <div class="item">
-                            <div class="ui card" style="max-height: 400px">
-                                <div class="image">
-                                    <img src="{% static 'images/nintinder_flame.png' %}">
-                                </div>
-                                <div class="content">
-                                    <a class="header">{{game.name}}</a>
-                                    <div class="description">
-                                        {{game.description}}
-                                        {% comment %} {{game.achievement.game.name}} on {{e.achievement.game.platform}} {% endcomment %}
-                                    </div>
-                                </div>
+                <h2 style="margin-left:20px;">Your Games</h2>
+                {% if user_games %} {% for game in user_games %}
+                <div class="item">
+                    <div id="complete_card" class="ui card" style="max-height: 420px">
+                        <div class="image">
+                            {% with game.id|cut:"-" as parsedid %}
+                            {% with "gameimages/"|add:parsedid|add:".jpg" as gamepic %}
+                            <img id="your_game_image" src="{% static gamepic %}">
+                            {%endwith%}
+                            {%endwith%}
+                            </div>
+                        <div class="content">
+                            <a class="header">{{game.name}}</a>
+                            <div class="description">
+                                <b>{{game.platform}}</b>
+                                <br>Released: {{game.release_date}}
+                                <br>Publisher: {{game.publisher}}
                             </div>
                         </div>
-                    {% endfor %}
-                {% else %}
-                        <center><h3>Try some of the games below? :-)</h3></center>
+                    </div>
+                    <style>
+                        #complete_card {
+                            margin-bottom: 7px;
+                        }
+                        /* #your_game_image{
+                            background-size: cover;
+                        } */
+                    </style>
+                </div>
+                {% endfor %} {% else %}
+                <center>
+                    <h3>Try some of the games below? :-)</h3>
+                </center>
                 {% endif %}
 
-                
+
             </div>
 
             <div class="ui horizontal divider">
@@ -56,34 +74,51 @@
             </div>
 
             <div class="ui horizontal list" style="margin-bottom:50px">
-                <h2 style="margin-left:20px;">Incomplete</h2>
+                <h2 style="margin-left:20px;">Other Games</h2>
 
-                {% if other_games %}
-                    {% for game in other_games %}
-                        <div class="item">
-                            <div class="ui card" style="max-height: 400px">
-                                <div class="image">
-                                    <img src="{% static 'images/nintinder_flame.png' %}">
-                                </div>
-                                <div class="content">
-                                    <form action="{% url 'add_interest' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" value="{{ game.pk }}" name='gid' />
-                                        <input type="submit" class="header" value="{{game.name}}" />
-                                    </form>
-                                    <div class="description">
-                                        <h6>On {{game.platform}}</h6>
-                                        {{game.description}}
-                                    </div>
-                                </div>
+                {% if other_games %} {% for game in other_games %}
+                <div class="item">
+                    <div id="incomplete_card" class="ui card" style="max-height: 450px">
+                        <div id="img_figure" class="image">
+                                {% with game.id|cut:"-" as parsedid %}
+                                {% with "gameimages/"|add:parsedid|add:".jpg" as gamepic %}
+                                <img id="other_game_image" src="{% static gamepic %}">
+                                {%endwith%}
+                                {%endwith%}
+                        </div>
+                        <div class="content">
+                            <a class="header">{{game.name}}</a>
+                            <div class="description">
+                                <b>{{game.platform}}</b>
+                                <br>Released: {{game.release_date}}
+                                <br>Publisher: {{game.publisher}}
                             </div>
                         </div>
-                    {% endfor %}
-                {% else %}
-                        <h3>You've got them all!</h3>
+                        <div class="extra content">
+                            <form action="{% url 'add_interest' %}" method="POST">
+                                {% csrf_token %}
+                                <input type="hidden" value="{{ game.pk }}" name='gid' />
+                                <button id="add_button" input type="submit" class="ui fluid basic blue button" value="{{game.name}}">Add</button>
+                            </form>
+                        </div>
+                    </div>
+                    <style>
+                        #incomplete_card {
+                            margin-bottom: 7px;
+                        }
+                        /* #other_game_image{
+                            max-width:290px;
+                            height:250px;
+                            background-size: cover;
+                            object-fit: cover
+                        } */
+                    </style>
+                </div>
+                {% endfor %} {% else %}
+                <h3>You've got them all!</h3>
                 {% endif %}
             </div>
-            
+
         </div>
         <div class="ui horizontal divider">
             <i class="star outline icon"></i>

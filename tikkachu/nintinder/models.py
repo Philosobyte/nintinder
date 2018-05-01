@@ -42,6 +42,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=256, help_text="Enter the user's location")
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
     interests = models.ManyToManyField(Game, blank=True)
+    # Earned Achievements
     achievements = models.ManyToManyField(Achievement, blank=True)
     bio = models.CharField(max_length=1024, blank=True, help_text="Enter the user's bio")
     title = models.CharField(max_length=64, default="Player", help_text="Enter the user's title")

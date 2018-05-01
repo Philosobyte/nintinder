@@ -213,22 +213,16 @@
 
                     </div>
                     <div class="row">
-                        <button class="ui primary basic button">
-                            <i class="icon user"></i>
-                            Change Photo
-                        </button>
-                    </div>
-                    <div class="row">
-                        <button class="ui facebook button">
+                        <a class="ui facebook button" href="http://facebook.com" target="_blank">
                             <i class="facebook icon"></i>
                             Connect to Facebook
-                        </button>
+                        </a>
                     </div>
                     <div class="row">
-                        <button class="ui twitter button">
+                        <a class="ui twitter button"  href="http://twitter.com" target="_blank">
                             <i class="twitter icon"></i>
                             Connect to Twitter
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -236,5 +230,17 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();
+    });
+
+    $('.special.cards .image').dimmer({
+        on: 'hover'
+    });
+</script>
+
 </body>
 {% endblock %}
