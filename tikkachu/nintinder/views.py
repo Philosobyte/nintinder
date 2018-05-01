@@ -11,8 +11,11 @@ from django.urls import reverse
 from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.views.generic.edit import CreateView
+from django.contrib.auth import authenticate
+from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm
 
-from .forms import ProfileForm, UserForm
+from .forms import *
 # Create your views here.
 from .models import (Achievement, Event, Friend, Game, Participant,
                      Profile, User)
@@ -319,7 +322,28 @@ def matches(request):
 
 
 def login(request):
-    return render(
-        request,
-        'login.html',
-    )
+  return render(
+      request,
+      'login.html',
+  )
+
+def sign_up(request):
+  if request.method == 'POST':
+    print(request.POST['first_name'])
+    print(request.POST['last_name'])
+    print(request.POST['username'])
+    print(request.POST['email'])
+    print(request.POST['password1'])
+    print(request.POST['password2'])
+    form = SignUpForm(request.POST)
+    if form.is_valid():
+      print("form is valid")
+      form.save()
+      messages.success(request, 'Account created successfully')
+      return HttpResponseRedirect('/')
+    else:
+      form = SignUpForm()
+  return render(
+      request,
+      'sign_up.html',
+  )
