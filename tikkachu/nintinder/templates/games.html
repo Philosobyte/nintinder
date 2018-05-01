@@ -36,10 +36,11 @@
                 <div class="item">
                     <div id="complete_card" class="ui card" style="max-height: 420px">
                         <div class="image">
-                            <!-- {% with "gameimages/"|add:game.pk|add:".jpg" as gamepic %}
-                            <img src="{% static gamepic %}">
-                            {% endwith %} -->
-                            <img src="{% static 'images/nintinder_flame.png' %}">
+                            {% with game.id|cut:"-" as parsedid %}
+                            {% with "gameimages/"|add:parsedid|add:".jpg" as gamepic %}
+                            <img id="your_game_image" src="{% static gamepic %}">
+                            {%endwith%}
+                            {%endwith%}
                             </div>
                         <div class="content">
                             <a class="header">{{game.name}}</a>
@@ -54,6 +55,9 @@
                         #complete_card {
                             margin-bottom: 7px;
                         }
+                        /* #your_game_image{
+                            background-size: cover;
+                        } */
                     </style>
                 </div>
                 {% endfor %} {% else %}
@@ -75,8 +79,12 @@
                 {% if other_games %} {% for game in other_games %}
                 <div class="item">
                     <div id="incomplete_card" class="ui card" style="max-height: 450px">
-                        <div class="image">
-                            <img src="{% static 'images/nintinder_flame.png' %}">
+                        <div id="img_figure" class="image">
+                                {% with game.id|cut:"-" as parsedid %}
+                                {% with "gameimages/"|add:parsedid|add:".jpg" as gamepic %}
+                                <img id="other_game_image" src="{% static gamepic %}">
+                                {%endwith%}
+                                {%endwith%}
                         </div>
                         <div class="content">
                             <a class="header">{{game.name}}</a>
@@ -98,6 +106,12 @@
                         #incomplete_card {
                             margin-bottom: 7px;
                         }
+                        /* #other_game_image{
+                            max-width:290px;
+                            height:250px;
+                            background-size: cover;
+                            object-fit: cover
+                        } */
                     </style>
                 </div>
                 {% endfor %} {% else %}
