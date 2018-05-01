@@ -49,19 +49,22 @@ class Profile(models.Model):
 
     buddies = models.ManyToManyField('self', through='Friend', related_name='friends+', symmetrical=False, blank=True)
 
-    def get_friends(self, status):
+    def get_friends(self, status=0):
         friends = Friend.objects.filter(
             friendA = self,
             status = status
         )
-        return friends
+
+        compadres = (friend.friendB for friend in friends)
+
+        return compadres
 
     def add_friend(self, friend, symm=True):
         """
         Friendship is perfectly symmetrical with both parties being friends with
         each other.
 
-        Pending friendhips A->B will first check A for B's pending friendship
+        Pending friendships A->B will first check A for B's pending friendship
         request. If the record is there in A's friend's list then instantly A
         and B will be friends. If the record is not found, then B's friends-list
         will be updated to have A's pending friend request included. This of
@@ -69,7 +72,7 @@ class Profile(models.Model):
 
         A blacklist A->B will add a blacklist entry into A for B. 
         """
-
+        print('friend: {}'.format(friend))
         # prevent users from befriending themselves
         if self == friend:
             raise NotSupportedError("Cannot befriend one's self")
@@ -77,13 +80,13 @@ class Profile(models.Model):
         # Check if the other friend wanted to befriend you first by first
         # checking if their friend request is in your pending
         ab, ab_created = Friend.objects.get_or_create(
-            friendA = self,
-            friendB = friend
+            friendA=self,
+            friendB=friend
         )
 
         ba, ba_created = Friend.objects.get_or_create(
-            friendA = friend,
-            friendB = self
+            friendA=friend,
+            friendB=self
         )
 
         if not ab_created:

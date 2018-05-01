@@ -54,58 +54,72 @@ def index(request):
 
 
 @login_required
+def games(request):
+    user = request.user
+    outputArray = user.profile.achievements.all()
+
+    user_games = user.profile.interests.all()
+    other_games = (game for game in Game.objects.all() if game not in user_games)
+
+    # incompleteArray = list(Achievement.objects.all())
+    # outArray = incompleteArray[:]
+    # for z in incompleteArray:
+    #     for i in outputArray:
+    #         if i == z:
+    #             outArray.remove(z)
+    fullName = user.first_name + ' ' + user.last_name
+    currName = user.first_name
+    return render(
+        request,
+        'games.html',
+        context={
+            'full_name': fullName,
+            'name': currName.upper(),
+            'user_games': user_games,
+            'other_games': other_games
+        },
+    )
+
+
+@login_required
 def profile(request, user_profile=None):
     requested_user = None
     if user_profile is None:
-      requested_user = request.user
+        requested_user = request.user
     else:
-      user_profile_name = user_profile.split(' ')
-      user_query = User.objects.all().filter(first_name=user_profile_name[0])
-      requested_user = user_query[0]
+        user_profile_name = user_profile.split(' ')
+        user_query = User.objects.all().filter(first_name=user_profile_name[0])
+        requested_user = user_query[0]
 
     currUser = requested_user.first_name
-    usr = requested_user
-    profile = usr.profile
-    currName = usr.first_name + ' ' + usr.last_name
+    user = requested_user
+    profile = user.profile
+    currName = user.first_name + ' ' + user.last_name
     currLoc = profile.location
     currBD = profile.date_of_birth
     if not currBD:
         age = 0
     else:
         age = 2018 - currBD.year
-    currEmail = usr.email
+    currEmail = user.email
 
-    # userinterests = Interest.objects.filter(user=usr)
-    # gamelist=[]
-    # for interest in userinterests:
-    #     gamelist.append(interest.game)
-
-    userfriends = Friend.objects.filter((Q(friendA=usr) | Q(friendB=usr)), status=0)
-    friendlist=[]
-    for friend in userfriends:
-        if friend.friendA == usr:
-            friendlist.append(friend.friendB)
-        elif friend.friendB == usr:
-            friendlist.append(friend.friendA)
-
-    usercahievs = EarnedAchievement.objects.filter(user=usr)
-    achievlist=[]
-    for achiev in usercahievs:
-        achievlist.append(achiev.achievement)
+    user_interests = profile.interests.all()
+    friends = profile.get_friends()
+    user_achievements = profile.achievements.all()
 
     return render(
         request,
         'profile.html',
         context={
-            'usr': usr,
+            'user': user,
             'curr': currUser,
             'full_name': currName,
             'location': currLoc,
             'age': age,
-            'email' : currEmail,
-            'usergames': gamelist,
-            'userfriends': friendlist,
-            'userachievements': achievlist,
+            'email': currEmail,
+            'usergames': user_interests,
+            'userfriends': friends,
+            'userachievements': user_achievements,
         },
     )
 
@@ -120,7 +134,7 @@ def add_interest(request):
         game = Game.objects.get(id=game_id)
         profile.interests.add(game)
     
-    return HttpResponse()
+    return HttpResponseRedirect(reverse('games'))
 
 
 @login_required
@@ -173,11 +187,11 @@ def get_friends(request):
             data = {}
             friends = profile.get_friends(status)
             
-            usernames = [ friend.friendB.user.username for friend in friends ]
+            usernames = [ friend.user.username for friend in friends ]
             data[user.username] = usernames
 
             for friend in friends:
-                data[friend.friendA.user.username] = [ buddy.friendB.user.username for buddy in friend.friendA.get_friends(status) ]
+                data[friend.user.username] = [ buddy.friendB.user.username for buddy in friend.friendA.get_friends(status) ]
 
             output[status] = data
 
@@ -254,83 +268,57 @@ def settings(request):
             },
         )
 
-friendsArray = None
-friendAArray = None
-outputArray = None
 
+matches = []
+pending_other_initiated = []
 
-# @login_required
-# def matches(request):
-#     MAX_MATCHES = 10
-#     usr = request.user
-#     currName = usr.first_name + ' ' + usr.last_name
-#     global friendsArray
-#     global friendAArray
-#     global outputArray
-#     if request.method == 'GET':
-#         friendsArray = Friend.objects.filter(Q(friendB=usr), status=1)
-#         pendingFriendsArray = Friend.objects.filter(Q(friendA=usr), status=1)
-#         print('pendingFriendsArray: {}'.format(pendingFriendsArray))
-#         pendingArray = [friend.friendB for friend in pendingFriendsArray]
-#         print('pendingArray: {}'.format(pendingArray))
-#         outputArray = [friend.friendA for friend in friendsArray]
-#         friendAArray = list(outputArray)
-#         blacklisted = set()
-#         for friend in Friend.objects.filter(Q(friendA=usr)|Q(friendB=usr), status=4):
-#             blacklisted.add(friend.friendA)
-#             blacklisted.add(friend.friendB)
-#         curr_user_games = {interest.game for interest in Interest.objects.filter(Q(user=usr))}
+@login_required
+def matches(request):
+    curr_user = request.user
+    curr_name = curr_user.first_name + ' ' + curr_user.last_name
+    curr_profile = curr_user.profile
 
-#         for curr_game in curr_user_games:
-#             interests_with_game = Interest.objects.filter(Q(game=curr_game))
-#             for interest in interests_with_game:
-#                 print('length of outputArray: {}'.format(len(outputArray)))
-#                 if interest.user != usr and interest.user not in outputArray and interest.user not in pendingArray \
-#                         and interest.user not in blacklisted:
-#                     outputArray.append(interest.user)
+    global matches
+    global pending_other_initiated
 
-#         interests = defaultdict(list)
-#         for user in outputArray:
-#             interest_array = Interest.objects.filter(Q(user=user))
-#             for interest in interest_array:
-#                 interests[user].append(interest.game)
-#         print([str(i) for i in range(len(outputArray))])
-#         return render(
-#             request,
-#             'matches.html',
-#             context={
-#                 'full_name': currName,
-#                 'friends': outputArray,
-#                 'people': len(outputArray),
-#                 'range': [] if len(outputArray) == 0 else [str(i) for i in range(len(outputArray))],
-#                 'interests': interests,
-#             },
-#         )
+    if request.method == 'GET':
+        pending_other_initiated = {friend.friendA for friend in Friend.objects.filter(friendB=curr_profile, status=1)}
+        pending_curr_initiated = {friend.friendB for friend in Friend.objects.filter(friendA=curr_profile, status=1)}
+        temp_blacklist = Friend.objects.filter(Q(friendA=curr_profile) | Q(friendB=curr_profile), status=2)
+        blacklist = set()
+        for friend in temp_blacklist:
+            blacklist.add(friend.friendA)
+            blacklist.add(friend.friendB)
+        profiles_same_interests = set()
+        for game in curr_profile.interests.all():
+            profiles_same_interests.update(game.profile_set.all())
 
-#     if request.method == 'POST':
-#         index = request.POST['index']
-#         other = outputArray[int(index)]
-#         print('request.POST: {}'.format(request.POST))
-#         print('outputArray: {}'.format(outputArray))
-#         print('index: {}'.format(index))
-#         print('other: {}'.format(other))
-#         print('friendAArray: {}'.format(friendAArray))
-#         print('friendsArray: {}'.format(friendsArray))
-#         if other in friendAArray:
-#             for friend in friendsArray:
-#                 if friend.friendA == other:
-#                     if 'Add Friend' in request.POST:
-#                         friend.status = u'0'
-#                     else:
-#                         friend.status = u'4'
-#                     friend.save()
-#         else:
-#             if 'Add Friend' in request.POST:
-#                 friend = Friend(friendA=usr, friendB=other, status=u'1')
-#             else:
-#                 friend = Friend(friendA=usr, friendB=other, status=u'4')
-#             friend.save()
-#         return HttpResponseRedirect(reverse('matches'))
+        matches = list(pending_other_initiated | profiles_same_interests
+                       - blacklist - pending_curr_initiated - {curr_profile})
+        interests = {}
+        for profile in matches:
+            interests[profile] = list(profile.interests.all())
+        return render(
+            request,
+            'matches.html',
+            context={
+                'full_name': curr_name,
+                'friends': matches,
+                'people': len(matches),
+                'range': [] if len(matches) == 0 else [str(i) for i in range(len(matches))],
+                'interests': interests,
+            },
+        )
+    if request.method == 'POST':
+        index = request.POST['index']
+        other = matches[int(index)]
+        if 'Add Friend' in request.POST:
+            print('entered Add Friend')
+            curr_profile.add_friend(other)
+        elif 'Ignore' in request.POST:
+            print('entered Ignore')
+            curr_profile.blacklist_friend(other)
+        return HttpResponseRedirect(reverse('matches'))
 
 
 def login(request):

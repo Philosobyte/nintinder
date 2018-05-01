@@ -11,13 +11,13 @@
     </div>
     <div id="profile-container-foreground">
       <div id="profile-info" class="row">
-        {% with "images/"|add:usr.username|add:".jpg" as propic %}
+        {% with "images/"|add:user.username|add:".jpg" as propic %}
           <img class="ui avatar image" src="{% static propic %}" alt="profile-image">
         {% endwith %}
         <div>
           <div>
-            <p id="profile-name">{{usr.first_name}} {{usr.last_name}}</p>
-            <p>@{{usr.username}}</p>
+            <p id="profile-name">{{user.first_name}} {{user.last_name}}</p>
+            <p>@{{user.username}}</p>
           </div>
           <div id="profile-meta-data">
             <div>
@@ -54,12 +54,12 @@
       <div class="ui list">
         {% for friend in userfriends %}
           <div class="item">
-          {% with "images/"|add:friend.username|add:".jpg" as propic %}
+          {% with "images/"|add:friend.user.username|add:".jpg" as propic %}
             <img class="ui avatar image" src="{% static propic %}">
             {% endwith %}
             <div class="content">
-              <div class="header">{{friend.first_name}} {{friend.last_name}}</div>
-              <div class="description">{{friend.username}}</div>
+              <div class="header">{{friend.user.first_name}} {{friend.user.last_name}}</div>
+              <div class="description">{{friend.user.username}}</div>
             </div>
           </div>
           {% endfor %}
