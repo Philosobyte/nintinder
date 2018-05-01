@@ -21,6 +21,10 @@
         <div id="login-message">
           {% if form.errors %}
             <div class="ui negative message">Wrong password or login.</div>
+          {% elif messages %}
+            {% for message in messages %}
+            <div class="ui success message">{{message}}</div>
+            {% endfor %}
           {% else %}
             For when you wanna <b>Smash</b>. &trade; &#x1F60F;  
           {% endif %}
