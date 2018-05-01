@@ -1,13 +1,12 @@
-import datetime
 import uuid
 
 from django.contrib.auth.models import User
 from django.db import NotSupportedError, models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
-from django.urls import reverse
+from django.db.models import Q
+
 
 # Create your models here.
 
@@ -59,7 +58,7 @@ class Profile(models.Model):
 
         return compadres
 
-    def add_friend(self, friend, symm=True):
+    def add_friend(self, friend):
         """
         Friendship is perfectly symmetrical with both parties being friends with
         each other.
@@ -77,52 +76,34 @@ class Profile(models.Model):
         if self == friend:
             raise NotSupportedError("Cannot befriend one's self")
 
-        # Check if the other friend wanted to befriend you first by first
-        # checking if their friend request is in your pending
         ab, ab_created = Friend.objects.get_or_create(
             friendA=self,
             friendB=friend
         )
-
         ba, ba_created = Friend.objects.get_or_create(
             friendA=friend,
             friendB=self
         )
-
-        if not ab_created:
-            if ab.status == Friend.STATUS_PENDING:
-                ab.status = Friend.STATUS_FRIEND
-                ab.save()
-
+        if ab_created and ba_created:
+            ab.status = Friend.STATUS_PENDING
+            ab.save()
+        elif not ba_created:
+            if ba.status == Friend.STATUS_PENDING:
                 ba.status = Friend.STATUS_FRIEND
                 ba.save()
 
-                return ab
-        else:
-            if ba.status == Friend.STATUS_BLACKLIST:
-                return ba
-            else:
-                ba.status = Friend.STATUS_PENDING
-                ba.save()
-                return ba
-
     def blacklist_friend(self, friend):
-        friend.remove_friend(self, False)
+        self.remove_friend(friend)
         friendship, created = Friend.objects.get_or_create(
             # if blacklisting then requesting friendA is self 
-            friendA = self,
-            friendB = friend
+            friendA=self,
+            friendB=friend
         )
-        friendship.status = 2
+        friendship.status = Friend.STATUS_BLACKLIST
         friendship.save()
 
-    def remove_friend(self, friend, symm=True):
-        Friend.objects.filter(
-            friendA = self,
-            friendB = friend
-        ).delete()
-        if symm:
-            friend.remove_friend(self, False)
+    def remove_friend(self, friend):
+        Friend.objects.filter(Q(friendA=self, friendB=friend)|Q(friendA=friend, friendB=self)).delete()
 
     def __str__(self):
         return self.user.username
@@ -179,10 +160,6 @@ class Friend(models.Model):
     class Meta:
         unique_together = (('friendA', 'friendB'),)
 
-    @register.filter
-    def get_item(dictionary, key):
-        return dictionary.get(key)
-
     def __str__(self):
         if self.status == '0':
             status = 'friends'
@@ -192,3 +169,8 @@ class Friend(models.Model):
             status = 'not right for each other'
 
         return "{} and {} are {}".format(self.friendA, self.friendB, status)
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

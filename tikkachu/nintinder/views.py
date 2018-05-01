@@ -1,21 +1,14 @@
 import random
-from collections import defaultdict
 
 from django.contrib.auth.decorators import login_required
-from django.core import serializers
 from django.db.models import Q
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
 
-from django.urls import reverse_lazy
-from django.views.generic import FormView
-from django.views.generic.edit import CreateView
-
 from .forms import ProfileForm, UserForm
 # Create your views here.
-from .models import (Achievement, Event, Friend, Game, Participant,
-                     Profile, User)
+from .models import Achievement, Friend, Game, User
 
 # Right now, we have the home page assuming ANY of the multiple users in the database are logged on, and randomly picks one, 
 # For the actual website, obviously we would be getting a static user and their static friends 
@@ -279,22 +272,54 @@ def matches(request):
     global pending_other_initiated
 
     if request.method == 'GET':
-        pending_other_initiated = {friend.friendA for friend in Friend.objects.filter(friendB=curr_profile, status=1)}
-        pending_curr_initiated = {friend.friendB for friend in Friend.objects.filter(friendA=curr_profile, status=1)}
-        temp_blacklist = Friend.objects.filter(Q(friendA=curr_profile) | Q(friendB=curr_profile), status=2)
+        # Set of Profiles which added the current user as a friend but the current user has not responded
+        pending_other_initiated = \
+            {friend.friendA for friend in Friend.objects.filter(friendB=curr_profile, status=Friend.STATUS_PENDING)}
+
+        # Set of Profiles which the current user added as friends but have not responded
+        pending_curr_initiated = \
+            {friend.friendB for friend in Friend.objects.filter(friendA=curr_profile, status=Friend.STATUS_PENDING)}
+
+        # QuerySet of  Friend objects containing the current user and are labeled as blacklisted
+        temp_blacklist = \
+            Friend.objects.filter(Q(friendA=curr_profile) | Q(friendB=curr_profile), status=Friend.STATUS_BLACKLIST)
+
+        # QuerySet of Friend objects containing the current user and are labeled as friends
+        temp_already_friends = \
+            Friend.objects.filter(Q(friendA=curr_profile) | Q(friendB=curr_profile), status=Friend.STATUS_FRIEND)
+
+        # Set of Profiles which blacklisted the current user or which the current user blacklisted
         blacklist = set()
+
+        # Set of Profiles which are already friends with the current user
+        already_friends = set()
+
+        # Set of Profiles with at least one game/interest in common with the current user
+        profiles_same_interests = set()
+
+        # The final list of profiles to present to the current user for adding or ignoring
+        matches = []
+
+        # A dictionary {Profile: {Game}} which specifies which games a certain Profile is interested in.
+        interests = {}
+
         for friend in temp_blacklist:
             blacklist.add(friend.friendA)
             blacklist.add(friend.friendB)
-        profiles_same_interests = set()
+
+        for friend in temp_already_friends:
+            already_friends.add(friend.friendA)
+            already_friends.add(friend.friendB)
+
         for game in curr_profile.interests.all():
             profiles_same_interests.update(game.profile_set.all())
 
-        matches = list(pending_other_initiated | profiles_same_interests
-                       - blacklist - pending_curr_initiated - {curr_profile})
-        interests = {}
+        matches = list((pending_other_initiated | profiles_same_interests)
+                       - blacklist - pending_curr_initiated - already_friends - {curr_profile})
+
         for profile in matches:
             interests[profile] = list(profile.interests.all())
+
         return render(
             request,
             'matches.html',
