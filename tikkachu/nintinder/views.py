@@ -45,12 +45,6 @@ def games(request):
     user_games = user.profile.interests.all()
     other_games = (game for game in Game.objects.all() if game not in user_games)
 
-    # incompleteArray = list(Achievement.objects.all())
-    # outArray = incompleteArray[:]
-    # for z in incompleteArray:
-    #     for i in outputArray:
-    #         if i == z:
-    #             outArray.remove(z)
     fullName = user.first_name + ' ' + user.last_name
     currName = user.first_name
     return render(

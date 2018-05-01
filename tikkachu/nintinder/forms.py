@@ -35,7 +35,7 @@ class ProfileForm(forms.ModelForm):
     def clean_date_of_birth(self):
         data = self.cleaned_data['date_of_birth']
         return data
-                
+
 
 
 class CustomAuthForm(AuthenticationForm):
@@ -55,50 +55,50 @@ class FriendForm(forms.Form):
         return data
 
 class SignUpForm(forms.Form):
-  first_name = forms.CharField(min_length=2, max_length=50)
-  last_name = forms.CharField(min_length=2, max_length=50)
-  username = forms.CharField(min_length=4, max_length=150)
-  email = forms.CharField()
-  password1 = forms.CharField(widget=forms.PasswordInput)
-  password2 = forms.CharField(widget=forms.PasswordInput)
-  
-  def clean_first_name(self):
-    pass
-  def clean_last_name(self):
-    pass
-  
-  def clean_username(self):
-    username = self.cleaned_data['username'].lower()
-    check_existence = User.objects.filter(username=username)
-    if check_existence.count():
-      raise ValidationError("Username already exists")
-    return username
+    first_name = forms.CharField(min_length=2, max_length=50)
+    last_name = forms.CharField(min_length=2, max_length=50)
+    username = forms.CharField(min_length=4, max_length=150)
+    email = forms.CharField()
+    password1 = forms.CharField(widget=forms.PasswordInput)
+    password2 = forms.CharField(widget=forms.PasswordInput)
 
-  def clean_email(self):
-    email = self.cleaned_data['email'].lower()
-    check_existence = User.objects.filter(email=email)
-    if check_existence.count():
-      raise ValidationError("Email already exists")
-    return email
+    def clean_first_name(self):
+        pass
+    def clean_last_name(self):
+        pass
 
-  def clean_password2(self):
-    password1 = self.cleaned_data.get('password1')
-    password2 = self.cleaned_data.get('password2')
+    def clean_username(self):
+        username = self.cleaned_data['username'].lower()
+        check_existence = User.objects.filter(username=username)
+        if check_existence.count():
+            raise ValidationError("Username already exists")
+        return username
 
-    if password1 and password2 and password1 != password2:
-        raise ValidationError("Password don't match.")
+    def clean_email(self):
+        email = self.cleaned_data['email'].lower()
+        check_existence = User.objects.filter(email=email)
+        if check_existence.count():
+            raise ValidationError("Email already exists")
+        return email
 
-    return password2
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
 
-  def save(self, commit=True):
-    username = self.cleaned_data['username']
-    email = self.cleaned_data['email']
-    password = self.cleaned_data['password1']
-    first_name = self.cleaned_data['first_name']
-    last_name = self.cleaned_data['last_name']
-    user = User.objects.create_user(
-      username,
-      email,
-      password
-    )
-    return user
+        if password1 and password2 and password1 != password2:
+            raise ValidationError("Password don't match.")
+
+        return password2
+
+    def save(self, commit=True):
+        username = self.cleaned_data['username']
+        email = self.cleaned_data['email']
+        password = self.cleaned_data['password1']
+        first_name = self.cleaned_data['first_name']
+        last_name = self.cleaned_data['last_name']
+        user = User.objects.create_user(
+            username,
+            email,
+            password
+        )
+        return user

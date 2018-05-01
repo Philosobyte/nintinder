@@ -88,7 +88,7 @@ class Profile(models.Model):
     def blacklist_friend(self, friend):
         self.remove_friend(friend)
         friendship, created = Friend.objects.get_or_create(
-            # if blacklisting then requesting friendA is self 
+            # if blacklisting then requesting friendA is self
             friendA=self,
             friendB=friend
         )
