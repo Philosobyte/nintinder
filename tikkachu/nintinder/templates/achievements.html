@@ -1,10 +1,11 @@
 {% include "base_generic.html" %} {% block content %} {% load static%}
-<div id="main-content" class="ui bottom attached segment  ">
-
+<div id="main-content" class="ui bottom attached segment">
     <div id="content" class="pusher">
         <div class="ui basic segment">
-            <center>
+            <center>          
                 <div class="ui message main">
+                        <div class="ui center aligned middle aligned grid">
+                                <div class="sixteen wide column">
                     <h1 class="ui icon header">
                         <i class="trophy icon"></i>
                         <div class="content">
@@ -15,6 +16,8 @@
                         </div>
                     </h1>
                 </div>
+            </div>
+            </div>
             </center>
 
             {% comment %} <form method="link" action="{% url 'interests_create' %}">
@@ -24,35 +27,39 @@
             <div class="ui horizontal divider">
                 <i class="star outline icon"></i>
             </div>
-
-            <div class="ui horizontal list" style="margin-bottom:50px">
-                <h2 style="margin-left:20px;">Completed</h2>
-                {% if complete %}
-                    {% for achievement in complete %}
-                        <div class="item">
-                            <div class="ui card" style="max-height: 400px">
-                                <div class="image">
-                                    <img src="{% static 'images/nintinder_flame.png' %}">
+                            <div class="ui horizontal list" style="margin-bottom:50px">
+                                    <h2 style="margin-left:20px;">Completed</h2>
+                                    {% if complete %}
+                                        {% for achievement in complete %}
+                                            <div class="item">
+                                                <div id="complete_card" class="ui card" style="max-height: 400px">
+                                                    <div class="image">
+                                                        <img src="{% static 'images/nintinder_flame.png' %}">
+                                                    </div>
+                                                    <div class="content">
+                                                        <a class="header">{{achievement.name}}</a>
+                                                        <div class="description">
+                                                            {{achievement.game.name}} on {{achievement.game.platform}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <style>
+                                                    #complete_card{
+                                                        margin-bottom: 7px;
+                                                    }
+                                                </style>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                            <center><h3>Complete more achievements!</h3></center>
+                                    {% endif %}
+                    
                                 </div>
-                                <div class="content">
-                                    <a class="header">{{achievement.name}}</a>
-                                    <div class="description">
-                                        {{achievement.game.name}} on {{achievement.game.platform}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                        <center><h3>Complete more achievements!</h3></center>
-                {% endif %}
-
-                
-            </div>
 
             <div class="ui horizontal divider">
                 <i class="star outline icon"></i>
             </div>
+            
 
             <div class="ui horizontal list" style="margin-bottom:50px">
                 <h2 style="margin-left:20px;">Incomplete</h2>
@@ -60,21 +67,30 @@
                 {% if incomplete %}
                     {% for achievement in incomplete %}
                         <div class="item">
-                            <div class="ui card" style="max-height: 400px">
+                            <div id="incomplete_card" class="ui card" style="max-height: 420px">
                                 <div class="image">
                                     <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
-                                    <form action="{% url 'earn_achievement' %}" method="POST">
-                                        {% csrf_token %}
-                                        <input type="hidden" value="{{achievement.pk}}" name='aid' />
-                                        <input type="submit" class="header" value="{{achievement.name}}" />
-                                    </form>
-                                    <div class="description">
-                                        {{achievement.game.name}} on {{achievement.game.platform}}
-                                    </div>
+                                        <a class="header">{{achievement.name}}</a>
+                                        <div class="description">
+                                                {{achievement.game.name}} on {{achievement.game.platform}}
+                                            </div>
+                                            
+                                </div>
+                                <div class="extra content">
+                                        <form action="{% url 'earn_achievement' %}" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" value="{{achievement.pk}}" name='aid' />
+                                                <button id="add_button" input type="submit" class="ui fluid basic blue button" value="{{achievement.name}}">Add</button>
+                                            </form>
                                 </div>
                             </div>
+                            <style>
+                                    #incomplete_card{
+                                        margin-bottom: 7px;
+                                    }
+                                </style>
                         </div>
                     {% endfor %}
                 {% else %}
