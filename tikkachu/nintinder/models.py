@@ -1,35 +1,14 @@
-from django.db import models
-from django.template.defaulttags import register
-from django.contrib.auth.models import User
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.http import HttpResponseRedirect
-import datetime
 import uuid
 
-from django.urls import reverse
+from django.contrib.auth.models import User
+from django.db import NotSupportedError, models
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.template.defaulttags import register
+from django.db.models import Q
+
+
 # Create your models here.
-
-
-class Profile(models.Model):
-    """
-    Model representing a user of the service
-    """
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    location = models.CharField(max_length=256, help_text="Enter the user's location")
-    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
-
-    def __str__(self):
-        return self.user.username
-
-    @receiver(post_save, sender=User)
-    def create_user_profile(sender, instance, created, **kwargs):
-        if created:
-            Profile.objects.create(user=instance)
-
-    @receiver(post_save, sender=User)
-    def save_user_profile(sender, instance, **kwargs):
-        instance.profile.save()
 
 
 class Game(models.Model):
@@ -44,18 +23,6 @@ class Game(models.Model):
         return "{} for {}".format(self.name, self.platform)
 
 
-class Interest(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who is interested in a game")
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the game the user is interested in")
-
-    def __str__(self):
-        return "{} is interested in {}".format(self.user, self.game)
-
-    class Meta:
-        unique_together = (('user', 'game'),)
-
-
 class Achievement(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
     game = models.ForeignKey(Game, on_delete=models.CASCADE, help_text="Enter the game's id")
@@ -67,13 +34,81 @@ class Achievement(models.Model):
         return u'/nintinder/achievements/'
 
 
-class EarnedAchievement(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    user = models.ForeignKey(User, on_delete=models.CASCADE, help_text="Enter the username of the user who has earned the achievement")
-    achievement = models.ForeignKey(Achievement, on_delete=models.CASCADE, help_text="Enter id of the achievement they earned")
+class Profile(models.Model):
+    """
+    Model representing a user of the service
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    location = models.CharField(max_length=256, help_text="Enter the user's location")
+    date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
+    interests = models.ManyToManyField(Game, blank=True)
+    # Earned Achievements
+    achievements = models.ManyToManyField(Achievement, blank=True)
+    bio = models.CharField(max_length=1024, blank=True, help_text="Enter the user's bio")
+    title = models.CharField(max_length=64, default="Player", help_text="Enter the user's title")
+
+    buddies = models.ManyToManyField('self', through='Friend', related_name='friends+', symmetrical=False, blank=True)
+
+    def get_friends(self, status=0):
+        temp_friends = Friend.objects.filter(Q(friendA=self) | Q(friendB=self), status=status)
+        compadres = set()
+        for friend in temp_friends:
+            compadres.add(friend.friendA)
+            compadres.add(friend.friendB)
+
+        return compadres - {self}
+
+    def add_friend(self, friend):
+        """
+        Friendship is not symmetrical. If
+        """
+        print('friend: {}'.format(friend))
+        # prevent users from befriending themselves
+        if self == friend:
+            raise NotSupportedError("Cannot befriend one's self")
+
+        ab, ab_created = Friend.objects.get_or_create(
+            friendA=self,
+            friendB=friend
+        )
+        ba, ba_created = Friend.objects.get_or_create(
+            friendA=friend,
+            friendB=self
+        )
+        if ab_created and ba_created:
+            ab.status = Friend.STATUS_PENDING
+            ab.save()
+            ba.delete()
+        elif not ba_created:
+            if ba.status == Friend.STATUS_PENDING:
+                ba.status = Friend.STATUS_FRIEND
+                ba.save()
+                ab.delete()
+
+    def blacklist_friend(self, friend):
+        self.remove_friend(friend)
+        friendship, created = Friend.objects.get_or_create(
+            # if blacklisting then requesting friendA is self 
+            friendA=self,
+            friendB=friend
+        )
+        friendship.status = Friend.STATUS_BLACKLIST
+        friendship.save()
+
+    def remove_friend(self, friend):
+        Friend.objects.filter(Q(friendA=self, friendB=friend)|Q(friendA=friend, friendB=self)).delete()
 
     def __str__(self):
-        return "{} has completed {}".format(self.user, self.achievement)
+        return self.user.username
+
+    @receiver(post_save, sender=User)
+    def create_user_profile(sender, instance, created, **kwargs):
+        if created:
+            Profile.objects.create(user=instance)
+
+    @receiver(post_save, sender=User)
+    def save_user_profile(sender, instance, **kwargs):
+        instance.profile.save()
 
 
 class Event(models.Model):
@@ -100,22 +135,23 @@ class Participant(models.Model):
 
 class Friend(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4)
-    friendA = models.ForeignKey(User, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
-    friendB = models.ForeignKey(User, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+    friendA = models.ForeignKey(Profile, related_name='friendA', on_delete=models.CASCADE, help_text="Enter the id of the user to whom this friends list belongs")
+    friendB = models.ForeignKey(Profile, related_name='friendB', on_delete=models.CASCADE, help_text="Enter the id of the user who is on the friends list")
+
+    STATUS_FRIEND = 0
+    STATUS_PENDING = 1
+    STATUS_BLACKLIST = 2
 
     STATUSES = (
-        (u'0', u'friends'),
-        (u'1', u'pending'),
-        (u'2', u'blacklistAB'),
-        (u'3', u'blacklistBA'),
-        (u'4', u'blacklist'),
+        (STATUS_FRIEND, u'friends'),
+        (STATUS_PENDING, u'pending'),
+        (STATUS_BLACKLIST, u'blacklist'),
     )
 
-    status = models.CharField(max_length=1, choices=STATUSES)
+    status = models.SmallIntegerField(choices=STATUSES, blank=True, null=True)
 
-    @register.filter
-    def get_item(dictionary, key):
-        return dictionary.get(key)
+    class Meta:
+        unique_together = (('friendA', 'friendB'),)
 
     def __str__(self):
         if self.status == '0':
@@ -126,3 +162,8 @@ class Friend(models.Model):
             status = 'not right for each other'
 
         return "{} and {} are {}".format(self.friendA, self.friendB, status)
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)

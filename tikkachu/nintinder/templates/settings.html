@@ -3,13 +3,21 @@
 {% load static%}
 
 <div id="main-content" class="pusher" >
+  <center>
+      <div class="ui message main" style="margin-bottom: 30px">
+          <h1 class="ui icon header">
+              <i class="user circle icon"></i>
+              <div class="content">
+                  Settings
+                  <div class="sub header">
+                      Customize to your hearts content!
+                  </div>
+              </div>
+          </h1>
+      </div>
+  </center>
         <div id="content-grid" class="ui two column grid">
             <div class="eight wide column">
-                <h2 class="ui header">
-                    <div class="content">
-                        Your Profile
-                    </div>
-                </h2>
                 <form action="" method="post" class="ui stackable two column divided grid container">
                     {% csrf_token %}
                     {% for field in uform %}
@@ -152,9 +160,7 @@
                             <button type="submit" class="ui primary button">
                                 Save
                             </button>
-                            <button class="ui button">
-                                Discard
-                            </button>
+                            <a href="{% url 'settings' %}" class="ui button">Discard</a>
                         </div>
                     </div>
                 </form>
@@ -186,7 +192,7 @@
                 <div class="ui stackable two column divided grid container">
                     <div class="row">
                         <div class="ui special cards">
-                            <div class="card">
+                            <div class="card" style="max-height: 350px">
                                 <div class="blurring dimmable image">
                                     <div class="ui dimmer">
                                         <div class="content">
@@ -195,7 +201,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <img src="{% static 'images/matthew.png' %}">
+                                    {% with "images/"|add:usr.username|add:".jpg" as propic %}
+                                      <img class="ui medium image" src="{% static propic %}" alt="profile-image">
+                                    {% endwith %}
                                 </div>
                                 <div class="content">
                                     <a class="header">{{full_name}}</a>
@@ -205,22 +213,16 @@
 
                     </div>
                     <div class="row">
-                        <button class="ui primary basic button">
-                            <i class="icon user"></i>
-                            Change Photo
-                        </button>
-                    </div>
-                    <div class="row">
-                        <button class="ui facebook button">
+                        <a class="ui facebook button" href="http://facebook.com" target="_blank">
                             <i class="facebook icon"></i>
                             Connect to Facebook
-                        </button>
+                        </a>
                     </div>
                     <div class="row">
-                        <button class="ui twitter button">
+                        <a class="ui twitter button"  href="http://twitter.com" target="_blank">
                             <i class="twitter icon"></i>
                             Connect to Twitter
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -228,5 +230,17 @@
 
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.dropdown').dropdown();
+        $('.ui.checkbox').checkbox();
+    });
+
+    $('.special.cards .image').dimmer({
+        on: 'hover'
+    });
+</script>
+
 </body>
 {% endblock %}
