@@ -44,7 +44,7 @@
                                             <div class="content">
                                                 <span class="header">{{e.user.first_name}} {{e.user.last_name}}</span>
                                                 <div class="meta">
-                                                    {{e.user_name}}
+                                                    {{e.user.username}}
                                                 </div>
                                                 <div class="description">
                                                     <strong>Games</strong>: | {% for game in interests|get_item:e %} {{game}} | {% endfor %}

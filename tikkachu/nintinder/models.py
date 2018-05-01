@@ -1,13 +1,12 @@
-import datetime
 import uuid
 
 from django.contrib.auth.models import User
 from django.db import NotSupportedError, models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
-from django.http import HttpResponseRedirect
 from django.template.defaulttags import register
-from django.urls import reverse
+from django.db.models import Q
+
 
 # Create your models here.
 
@@ -43,6 +42,7 @@ class Profile(models.Model):
     location = models.CharField(max_length=256, help_text="Enter the user's location")
     date_of_birth = models.DateField(null=True, blank=True, help_text="Enter the user's date of birth")
     interests = models.ManyToManyField(Game, blank=True)
+    # Earned Achievements
     achievements = models.ManyToManyField(Achievement, blank=True)
     bio = models.CharField(max_length=1024, blank=True, help_text="Enter the user's bio")
     title = models.CharField(max_length=64, default="Player", help_text="Enter the user's title")
@@ -50,79 +50,53 @@ class Profile(models.Model):
     buddies = models.ManyToManyField('self', through='Friend', related_name='friends+', symmetrical=False, blank=True)
 
     def get_friends(self, status=0):
-        friends = Friend.objects.filter(
-            friendA = self,
-            status = status
-        )
+        temp_friends = Friend.objects.filter(Q(friendA=self) | Q(friendB=self), status=status)
+        compadres = set()
+        for friend in temp_friends:
+            compadres.add(friend.friendA)
+            compadres.add(friend.friendB)
 
-        compadres = (friend.friendB for friend in friends)
+        return compadres - {self}
 
-        return compadres
-
-    def add_friend(self, friend, symm=True):
+    def add_friend(self, friend):
         """
-        Friendship is perfectly symmetrical with both parties being friends with
-        each other.
-
-        Pending friendships A->B will first check A for B's pending friendship
-        request. If the record is there in A's friend's list then instantly A
-        and B will be friends. If the record is not found, then B's friends-list
-        will be updated to have A's pending friend request included. This of
-        course is dependent on either one being in the other's blacklist.
-
-        A blacklist A->B will add a blacklist entry into A for B. 
+        Friendship is not symmetrical. If
         """
         print('friend: {}'.format(friend))
         # prevent users from befriending themselves
         if self == friend:
             raise NotSupportedError("Cannot befriend one's self")
 
-        # Check if the other friend wanted to befriend you first by first
-        # checking if their friend request is in your pending
         ab, ab_created = Friend.objects.get_or_create(
             friendA=self,
             friendB=friend
         )
-
         ba, ba_created = Friend.objects.get_or_create(
             friendA=friend,
             friendB=self
         )
-
-        if not ab_created:
-            if ab.status == Friend.STATUS_PENDING:
-                ab.status = Friend.STATUS_FRIEND
-                ab.save()
-
+        if ab_created and ba_created:
+            ab.status = Friend.STATUS_PENDING
+            ab.save()
+            ba.delete()
+        elif not ba_created:
+            if ba.status == Friend.STATUS_PENDING:
                 ba.status = Friend.STATUS_FRIEND
                 ba.save()
-
-                return ab
-        else:
-            if ba.status == Friend.STATUS_BLACKLIST:
-                return ba
-            else:
-                ba.status = Friend.STATUS_PENDING
-                ba.save()
-                return ba
+                ab.delete()
 
     def blacklist_friend(self, friend):
-        friend.remove_friend(self, False)
+        self.remove_friend(friend)
         friendship, created = Friend.objects.get_or_create(
             # if blacklisting then requesting friendA is self 
-            friendA = self,
-            friendB = friend
+            friendA=self,
+            friendB=friend
         )
-        friendship.status = 2
+        friendship.status = Friend.STATUS_BLACKLIST
         friendship.save()
 
-    def remove_friend(self, friend, symm=True):
-        Friend.objects.filter(
-            friendA = self,
-            friendB = friend
-        ).delete()
-        if symm:
-            friend.remove_friend(self, False)
+    def remove_friend(self, friend):
+        Friend.objects.filter(Q(friendA=self, friendB=friend)|Q(friendA=friend, friendB=self)).delete()
 
     def __str__(self):
         return self.user.username
@@ -179,10 +153,6 @@ class Friend(models.Model):
     class Meta:
         unique_together = (('friendA', 'friendB'),)
 
-    @register.filter
-    def get_item(dictionary, key):
-        return dictionary.get(key)
-
     def __str__(self):
         if self.status == '0':
             status = 'friends'
@@ -192,3 +162,8 @@ class Friend(models.Model):
             status = 'not right for each other'
 
         return "{} and {} are {}".format(self.friendA, self.friendB, status)
+
+
+@register.filter
+def get_item(dictionary, key):
+    return dictionary.get(key)
