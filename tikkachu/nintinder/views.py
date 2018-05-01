@@ -166,93 +166,31 @@ def earn_achievement(request):
 
 
 @login_required
-def get_friends(request):
-    user = request.user
-    profile = user.profile
-
-    if request.method == 'GET':
-        output = {}
-
-        for status in [Friend.STATUS_FRIEND, Friend.STATUS_PENDING, Friend.STATUS_BLACKLIST]:
-            data = {}
-            friends = profile.get_friends(status)
-            
-            usernames = [ friend.user.username for friend in friends ]
-            data[user.username] = usernames
-
-            for friend in friends:
-                data[friend.user.username] = [ buddy.friendB.user.username for buddy in friend.friendA.get_friends(status) ]
-
-            output[status] = data
-
-    return JsonResponse(output, safe=False)
-
-
-@login_required
-def add_friend(request):
-    user = request.user
-    profile = user.profile
-
-    if request.method == 'GET':
-        other = request.GET.get('username')
-        friend = User.objects.get(username=other)
-        profile.add_friend(friend.profile)
-
-    return HttpResponseRedirect(reverse('get_friends'))
-
-
-@login_required
-def remove_friend(request):
-    user = request.user
-    profile = user.profile
-
-    if request.method == 'GET':
-        other = request.GET.get('username')
-        ex = User.objects.get(username=other)
-        profile.remove_friend(ex.profile)
-
-    return HttpResponseRedirect(reverse('get_friends'))
-
-
-@login_required
-def blacklist_friend(request):
-    user = request.user
-    profile = user.profile
-
-    if request.method == 'GET':
-        other = request.GET.get('username')
-        ex = User.objects.get(username=other)
-        profile.blacklist_friend(ex.profile)
-
-    return HttpResponseRedirect(reverse('get_friends'))
-
-
-@login_required
 def settings(request):
-    usr = request.user
-    profile = usr.profile
-    currName = usr.first_name + ' ' + usr.last_name
+    curr_user = request.user
+    curr_profile = curr_user.profile
+    curr_name = curr_user.first_name + ' ' + curr_user.last_name
 
     if request.method == 'POST':
         uform = UserForm(request.POST)
         pform = ProfileForm(request.POST)
         if uform.is_valid() and pform.is_valid():
-            usr.email = uform.clean_email()
-            usr.first_name = uform.clean_first_name()
-            usr.last_name = uform.clean_last_name()
-            profile.date_of_birth = pform.clean_date_of_birth()
-            usr.save()
-            profile.save()
+            curr_user.email = uform.clean_email()
+            curr_user.first_name = uform.clean_first_name()
+            curr_user.last_name = uform.clean_last_name()
+            curr_profile.date_of_birth = pform.clean_date_of_birth()
+            curr_user.save()
+            curr_profile.save()
         return HttpResponseRedirect(reverse('settings'))
     else:
-        uform = UserForm(instance=usr)
-        pform = ProfileForm(instance=profile)
+        uform = UserForm(instance=curr_user)
+        pform = ProfileForm(instance=curr_profile)
         return render(
             request,
             'settings.html',
             context={
-                'usr': usr,
-                'full_name': currName,
+                'usr': curr_user,
+                'full_name': curr_name,
                 'uform': uform,
                 'pform': pform
             },
@@ -319,7 +257,7 @@ def matches(request):
 
         for profile in matches:
             interests[profile] = list(profile.interests.all())
-
+        print('buddies of curr_user: {}'.format(curr_profile.buddies.all()))
         return render(
             request,
             'matches.html',
