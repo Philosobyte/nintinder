@@ -3,19 +3,19 @@
 
     <div id="content" class="pusher">
         <div class="ui basic segment">
-          <center>
-              <div class="ui message main" style="margin-bottom: 30px">
-                  <h1 class="ui icon header">
-                      <i class="trophy icon"></i>
-                      <div class="content">
-                          Achievements
-                          <div class="sub header">
-                              Gotta catch them all!
-                          </div>
-                      </div>
-                  </h1>
-              </div>
-          </center>
+            <center>
+                <div class="ui message main">
+                    <h1 class="ui icon header">
+                        <i class="trophy icon"></i>
+                        <div class="content">
+                            {{name}}'S ACHIEVEMENTS
+                            <div class="sub header">
+                                All your trophies and medals, all in one place
+                            </div>
+                        </div>
+                    </h1>
+                </div>
+            </center>
 
             <form method="link" action="{% url 'interests_create' %}">
                 <a href="{% url 'interests_create' %}">Create Achievement</a>
@@ -30,14 +30,14 @@
                 {% if complete %}
                     {% for e in complete %}
                         <div class="item">
-                            <div class="ui card">
+                            <div class="ui card" style="max-height: 400px">
                                 <div class="image">
-                                    <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
+                                    <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
                                     <a class="header">{{e.name}}</a>
                                     <div class="description">
-                                        You rock that {{e.game.platform}}!
+                                        {{e.achievement.game.name}} on {{e.achievement.game.platform}}
                                     </div>
                                 </div>
                             </div>
@@ -56,14 +56,14 @@
             </div>
 
             <div class="ui horizontal list" style="margin-bottom:50px">
-                <h2 style="margin-left:20px;">To Finish</h2>
+                <h2 style="margin-left:20px;">Incomplete</h2>
 
                 {% if incomplete %}
                     {% for e in incomplete %}
                         <div class="item">
-                            <div class="ui card">
+                            <div class="ui card" style="max-height: 400px">
                                 <div class="image">
-                                    <img src="https://vignette.wikia.nocookie.net/warframe/images/e/ea/VorTwo.png/revision/latest?cb=20140619213420">
+                                    <img src="{% static 'images/nintinder_flame.png' %}">
                                 </div>
                                 <div class="content">
                                     <form action="{% url 'earn_achievement' %}" method="POST">
@@ -72,7 +72,7 @@
                                         <input type="submit" class="header" value="{{e.name}}" />
                                     </form>
                                     <div class="description">
-                                        What? Is a game from {{e.game.release_date.year}} by {{e.game.publisher}} too good for you?
+                                        {{e.game.name}} on {{e.game.platform}}
                                     </div>
                                 </div>
                             </div>
@@ -83,6 +83,9 @@
                 {% endif %}
             </div>
             
+        </div>
+        <div class="ui horizontal divider">
+            <i class="star outline icon"></i>
         </div>
     </div>
 </div>
